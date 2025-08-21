@@ -1,0 +1,29 @@
+# Node / build
+node_modules/
+dist/
+build/
+.cache/
+*.log
+
+# Env / secrets
+.env
+.env.*
+!.env.sample
+
+# OS/IDE
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# Certificats
+*.pem
+*.key
+node_modules/
+dist/
+.env
+.env.*
+*.log
+.vscode/
+.DS_Store
+

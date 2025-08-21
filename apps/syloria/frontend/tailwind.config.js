@@ -1,19 +1,26 @@
-export default {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+// tailwind.config.js — Syloria Landing Page
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
-        violetSyl: "#2D0A4E",
-        bleuSyl:   "#1E90FF",
-        corailSyl: "#FF4D94",
-        noirSyl:   "#0A0A0A",
-        grisSyl:   "#F5F5F5",
+        syloria: {
+          primary: "#6B4CFF",   // violet
+          night: "#16203A",     // bleu nuit
+          accent: "#02C6FF",    // bleu clair
+          coral: "#FF6F61",     // corail
+          cloud: "#F4F7FB",     // gris très clair
+        },
       },
       fontFamily: {
-        inter:   ['Inter', 'ui-sans-serif', 'system-ui'],
-        poppins: ['Poppins', 'ui-sans-serif', 'system-ui'],
+        sans: ["Inter", "ui-sans-serif", "system-ui"],
       },
     },
   },
   plugins: [],
-}
+};

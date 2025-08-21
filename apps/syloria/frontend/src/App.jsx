@@ -9,6 +9,11 @@
 */
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 // ——————————————————————————————————————————
 // 🎨 Palette (charte renforcée AA)
@@ -19,7 +24,7 @@ const brand = {
   coral: '#A83A65',  // Accent 2 – Corail assombri (AA avec texte blanc)
   night: '#0D0A1A',  // Très sombre (background profond)
   cloud: '#E9ECF2',  // Gris clair net, bien distinct du blanc
-  mist: '#EEF1F6',   // Variante gris bleuté très doux pour alterner
+  mist: '#e1e1e1f1',   // Variante gris bleuté très doux pour alterner
   violet: '#5A3E8C', // Violet intermédiaire (fond ou hover subtils)
 }
 
@@ -77,7 +82,7 @@ const Reveal = ({ children, className = '' }) => {
     if (prefersReduced) { setShow(true); return }
     const io = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) { setShow(true); io.disconnect() }
-    }, { threshold: 0.2 })
+    }, { threshold: 0.1 })
     if (ref.current) io.observe(ref.current)
     return () => io.disconnect()
   }, [])
@@ -88,14 +93,6 @@ const Reveal = ({ children, className = '' }) => {
   )
 }
 
-// Séparateur homogène entre sections
-const SectionDivider = ({ className = '' }) => (
-  <div aria-hidden className={`relative my-6 sm:my-10 ${className}`}>
-    <div className="absolute inset-0 flex justify-center">
-      <span className="mt-[-6px] h-2 w-28 rounded-full shadow" style={{ backgroundColor: `${brand.main}14` }} />
-    </div>
-  </div>
-)
 
 // ——————————————————————————————————————————
 // Navbar sticky + lien actif + skip link
@@ -140,24 +137,58 @@ const Navbar = ({ onContact }) => {
           {link('cases','Livrables')}
           {link('portfolio','Portfolio')}
           {link('about','À propos')}
-          <Button onClick={onContact} aria-label="Ouvrir la section contact">Être contacté</Button>
+          <a
+            href="#contact"
+            aria-label="Ouvrir la section contact"
+            className="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-sm transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70"
+            style={{ backgroundColor: brand.coral }}
+          >
+            Être contacté
+          </a>
+
         </nav>
       </Container>
     </header>
   )
 }
 
-export default function App(){
+export default function App() {
   const contactRef = useRef(null)
   const [submitted, setSubmitted] = useState(false)
   const scrollToContact = () => contactRef.current?.scrollIntoView({ behavior: 'smooth' })
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(()=>setSubmitted(false), 6000);
-    e.currentTarget.reset();
-  }
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      company: e.target.company.value,
+      message: e.target.message.value,
+    };
+
+    try {
+      const res =await fetch(`${window.location.origin}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("API error:", res.status, text);
+        alert("❌ Erreur serveur. Réessayez plus tard.");
+        return;
+      }
+
+      setSubmitted(true);
+      e.target.reset();
+      setTimeout(() => setSubmitted(false), 6000);
+    } catch (err) {
+      console.error("Network/CORS error:", err);
+      alert("❌ Impossible de contacter le serveur.");
+    }
+  };
+
 
   // —————————————————— Portfolio data ——————————————————
   const categories = ['Embarqué','Web/API','Agile']
@@ -202,21 +233,26 @@ export default function App(){
                   <h1 className="mt-5 text-4xl sm:text-5xl font-extrabold leading-tight">Micro‑agence tech pour vos projets <span className="text-white/90">Embarqué</span>, <span className="text-white/90">Web</span> & <span className="text-white/90">API</span>.</h1>
                   <p className="mt-4 text-lg text-white/85 max-w-xl">Proximité, réactivité et documentation claire — interventions sur devis, adaptées à vos enjeux.</p>
                   <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                    <Button variant="white" onClick={scrollToContact}>Être contacté</Button>
-                    <a href="#services" className="px-6 py-3 rounded-xl font-semibold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70" style={{backgroundColor: brand.violet}}>Voir nos domaines</a>
+                    <a
+                      href="#contact"
+                      className="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold text-gray-900 bg-white hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70"
+                    >
+                      Être contacté
+                    </a>
+                    <a href="#services" className="px-6 py-3 rounded-xl font-semibold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70" style={{backgroundColor: brand.coral}}>Voir nos domaines</a>
                   </div>
                 </div>
               </Reveal>
               <Reveal className="relative flex justify-center">
-                <div className="rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/20">
-                  <img 
-                    src="/mockup.png" 
-                    alt="Illustration métier" 
-                    className="w-[320px] h-[320px] object-contain" 
-                    loading="lazy"
-                  />
-                </div>
-              </Reveal>
+              <div className="rounded-full bg-white/5 p-1 shadow-lg ring-1 ring-white/20">
+                <img 
+                  src="/logo-syloria.png" 
+                  alt="Logo Syloria" 
+                  className="w-[250px] h-[250px] object-contain" 
+                  loading="lazy"
+                />
+              </div>
+            </Reveal>
             </div>
           </Container>
           {/* Vague décorative bas : couleur = section suivante */}
@@ -227,27 +263,65 @@ export default function App(){
           </div>
         </section>
 
-        {/* ————————————————————— Pourquoi Syloria ————————————————————— */}
-        <section id="pourquoi" className="py-16 sm:py-20" style={{backgroundColor: brand.cloud}}>
+        {/* ————————————————————— Présentation (vidéo + texte) ————————————————————— */}
+        <section id="pourquoi" className="py-16 sm:py-20" style={{ backgroundColor: brand.cloud }}>
           <Container>
-            <SectionTitle title="Pourquoi Syloria ?" subtitle="Proximité & réactivité, expertise rare, pédagogie concrète." />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[{icon:'⚡', t:'Micro‑agence humaine', s:'disponible, agile, orientée résultats'},
-                {icon:'🔒', t:'Expertise rare', s:'embarqué + backend + sécurité'},
-                {icon:'📚', t:'Transparence & pédagogie', s:'documentation claire, transfert de compétences'}].map((f,i)=> (
-                <Reveal key={i}>
-                  <div className="bg-white rounded-2xl p-6 shadow-sm ring-1 ring-gray-200 text-center">
-                    <div className="text-2xl" aria-hidden>{f.icon}</div>
-                    <h3 className="mt-2 font-semibold text-lg text-gray-900">{f.t}</h3>
-                    <p className="text-gray-700 text-sm mt-1">{f.s}</p> {/* ↑ contraste */}
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              {/* Colonne gauche : vidéo centrée */}
+              <div className="flex items-center justify-center">
+                <div className="rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-lg w-full">
+                  <div className="aspect-video">
+                    <img
+                      src="/video_syloria.gif"
+                      alt="Présentation Syloria"
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                </Reveal>
-              ))}
+                </div>
+              </div>
+
+              {/* Colonne droite : titre + sous-titre + texte + CTA */}
+              <div className="flex flex-col justify-center h-full">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
+                  Syloria, micro-agence tech humaine et engagée
+                </h2>
+
+                <p className="mt-4 text-lg font-semibold text-gray-800 text-justify">
+                  Nous aidons les entreprises à concevoir, sécuriser et faire évoluer
+                  leurs systèmes connectés et logiciels.
+                </p>
+
+                <div className="mt-5 space-y-4 text-gray-700 leading-relaxed text-justify">
+                  <p>
+                    Un format micro-agence, agile et proche de ses clients.
+                    Nous intervenons sur des projets courts et ciblés, toujours avec des livrables 
+                    clairs et documentés.
+                  </p>
+                  <p>
+                    Présents en <span className="font-medium">Nouvelle-Aquitaine</span> et en remote,
+                    nous travaillons avec des entreprises industrielles, startups et entrepreneurs.
+                  </p>
+                  <p>
+                    Chaque mission est <span className="font-medium">adaptée sur devis</span> à votre contexte 
+                    et vos objectifs.
+                  </p>
+                </div>
+
+                <div className="mt-6">
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-sm transition hover:opacity-90"
+                    style={{ backgroundColor: brand.coral }}
+                  >
+                    Être contacté
+                  </a>
+                </div>
+              </div>
             </div>
           </Container>
         </section>
 
-        <SectionDivider />
 
         {/* ————————————————————— Domaines ————————————————————— */}
         <section id="services" className="py-20" style={{ backgroundColor: brand.violet }}>
@@ -288,29 +362,87 @@ export default function App(){
           </Container>
         </section>
 
-        <SectionDivider />
-
-        {/* ————————————————————— Livrables / Cas d’usage ————————————————————— */}
-        <section id="cases" className="py-16 sm:py-20" style={{ backgroundColor: brand.cloud }}>
+        {/* ————————————————————— Livrables / Carrousel ————————————————————— */}
+        <section id="cases" className="py-16 sm:py-20" style={{ backgroundColor: brand.mist }}>
           <Container>
-            <SectionTitle eyebrow="Exemples concrets" title="Livrables proposés" subtitle="Chaque mission est adaptée à votre contexte et livrée sur devis." />
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[{ t: 'Prototype logiciel en 4 semaines', s: 'POC fonctionnel (UI, logique métier, tests) pour valider une idée rapidement.', img: '/images/case-software.png' },
-                { t: 'Carte électronique dédiée', s: 'Schéma, PCB et firmware de base (STM32, capteurs, CAN/UART).', img: '/images/case-electronics.png' },
-                { t: 'Web API sécurisée', s: 'API REST/GraphQL (Django ou FastAPI) avec auth & observabilité.', img: '/images/case-api.png' },
-                { t: 'Coaching Agile & Scrum', s: 'Ateliers, mise en place d’outils, accompagnement d’équipes.', img: '/images/case-agile.png' }].map((c, i) => (
-                <Reveal key={i}>
-                  <article className="bg-white rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-sm">
-                    <div className="aspect-video bg-gray-100"><img src={c.img} alt={c.t} className="w-full h-full object-cover" loading="lazy" /></div>
-                    <div className="p-6"><h3 className="font-semibold text-gray-900">{c.t}</h3><p className="mt-1 text-sm text-gray-700">{c.s}</p></div> {/* ↑ contraste */}
-                  </article>
-                </Reveal>
+            <SectionTitle
+              eyebrow="Exemples concrets"
+              title="Livrables proposés"
+              subtitle="Chaque mission est adaptée à votre contexte et livrée sur devis."
+            />
+
+            <Swiper
+              modules={[Navigation, Pagination]}
+              spaceBetween={30}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              breakpoints={{
+                640: { slidesPerView: 1 },
+                1024: { slidesPerView: 2 },
+              }}
+              className="mt-10 relative"
+            >
+              {/* Custom arrows color */}
+              <style jsx global>{`
+                .swiper-button-next,
+                .swiper-button-prev {
+                  color: ${brand.coral} !important; /* flèches */
+                }
+                .swiper-pagination-bullet-active {
+                  background: ${brand.coral} !important; /* pagination active */
+                }
+              `}</style>
+
+              {[
+                {
+                  t: "Prototype logiciel en 4 semaines",
+                  s: "POC fonctionnel (UI, logique métier, tests) pour valider une idée rapidement.",
+                  img: "/images/case-software.png",
+                },
+                {
+                  t: "Carte électronique dédiée",
+                  s: "Schéma, PCB et firmware de base (STM32, capteurs, CAN/UART).",
+                  img: "/images/case-electronics.png",
+                },
+                {
+                  t: "Web API sécurisée",
+                  s: "API REST/GraphQL (Django ou FastAPI) avec auth & observabilité.",
+                  img: "/images/case-api.png",
+                },
+                {
+                  t: "Coaching Agile & Scrum",
+                  s: "Ateliers, mise en place d’outils, accompagnement d’équipes.",
+                  img: "/images/case-agile.png",
+                },
+              ].map((c, i) => (
+                <SwiperSlide key={i}>
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200 flex flex-col h-full">
+                    <div className="aspect-video bg-gray-100">
+                      <img src={c.img} alt={c.t} className="w-full h-full object-cover" loading="lazy" />
+                    </div>
+                    <div className="p-6 flex flex-col justify-between flex-1">
+                      <div>
+                        <h3 className="font-semibold text-lg">{c.t}</h3>
+                        <p className="mt-2 text-sm text-gray-600">{c.s}</p>
+                      </div>
+                      <div className="mt-4">
+                        <a
+                          href="#contact"
+                          className="inline-block px-5 py-2 rounded-xl font-semibold text-white transition hover:opacity-90"
+                          style={{ backgroundColor: brand.coral }}
+                        >
+                          Sur devis
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
           </Container>
         </section>
 
-        <SectionDivider />
 
         {/* ————————————————————— Portfolio filtrable ————————————————————— */}
         <section id="portfolio" className="py-16 sm:py-20" style={{backgroundColor: brand.cloud}}>
@@ -348,7 +480,6 @@ export default function App(){
           </Container>
         </section>
 
-        <SectionDivider />
 
         {/* ————————————————————— À propos ————————————————————— */}
         <section id="about" className="py-20 relative overflow-hidden" style={{ backgroundColor: brand.main }}>
@@ -374,48 +505,51 @@ export default function App(){
           </Container>
         </section>
 
-        <SectionDivider />
 
         {/* ————————————————————— Contact ————————————————————— */}
-        <section id="contact" ref={contactRef} className="py-16 sm:py-20 bg-white">
+        <section id="contact" className="py-20 relative overflow-hidden" style={{ backgroundColor: brand.cloud }}>
+          <div className="absolute inset-0 -z-10 opacity-30" style={{ background: `radial-gradient(70% 60% at 50% 40%, ${brand.blue}22 0%, transparent 70%)` }} />
           <Container>
-            <SectionTitle
-              eyebrow="Contact"
-              title="Décrivez votre besoin en quelques lignes"
-              subtitle="Vos données ne seront jamais revendues — utilisées uniquement pour vous répondre."
-            />
+            <Reveal>
+              <SectionTitle
+                eyebrow="Contact"
+                title="Décrivez votre besoin en quelques lignes"
+                subtitle="Vos données ne seront jamais revendues — utilisées uniquement pour vous répondre."
+              />
+            </Reveal>
+            <Reveal className="mt-8">
+                <form onSubmit={onSubmit} className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200" aria-labelledby="contact-title">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-900">Nom</label>
+                      <input id="name" name="name" required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Votre nom" aria-required="true" />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-900">Email</label>
+                      <input id="email" name="email" type="email" required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="nom@entreprise.com" aria-required="true" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label htmlFor="company" className="block text-sm font-medium text-gray-900">Entreprise</label>
+                      <input id="company" name="company" className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Nom de votre société (optionnel)" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-900">Message</label>
+                      <textarea id="message" name="message" rows={5} required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Décrivez votre projet (objectifs, délais, contraintes)…" aria-required="true" />
+                    </div>
+                  </div>
 
-            <form onSubmit={onSubmit} className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200" aria-labelledby="contact-title">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-900">Nom</label>
-                  <input id="name" name="name" required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Votre nom" aria-required="true" />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-900">Email</label>
-                  <input id="email" name="email" type="email" required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="nom@entreprise.com" aria-required="true" />
-                </div>
-                <div className="sm:col-span-2">
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-900">Entreprise</label>
-                  <input id="company" name="company" className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Nom de votre société (optionnel)" />
-                </div>
-                <div className="sm:col-span-2">
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-900">Message</label>
-                  <textarea id="message" name="message" rows={5} required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Décrivez votre projet (objectifs, délais, contraintes)…" aria-required="true" />
-                </div>
-              </div>
+                  <div className="mt-6 flex items-center gap-3">
+                    <button type="submit" className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black/60" style={{ backgroundColor: brand.coral }}>
+                      Envoyer ma demande
+                    </button>
+                    <p className="text-xs text-gray-700">En envoyant, vous acceptez notre mention RGPD.</p>
+                  </div>
 
-              <div className="mt-6 flex items-center gap-3">
-                <button type="submit" className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black/60" style={{ backgroundColor: brand.coral }}>
-                  Envoyer ma demande
-                </button>
-                <p className="text-xs text-gray-700">En envoyant, vous acceptez notre mention RGPD.</p>
-              </div>
-
-              {submitted && (
-                <p className="mt-4 text-sm font-medium text-green-700">Merci, nous revenons rapidement vers vous.</p>
-              )}
-            </form>
+                  {submitted && (
+                    <p className="mt-4 text-sm font-medium text-green-700">Merci, nous revenons rapidement vers vous.</p>
+                  )}
+                </form>
+            </Reveal>
           </Container>
         </section>
       </main>
