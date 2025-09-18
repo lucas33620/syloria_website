@@ -1,88 +1,56 @@
 /*
-  Syloria – Landing Page App.jsx (v5 accessibilité + harmonie)
-  Changements clés (AA):
-  - 💡 Contraste renforcé : brand.coral → #A83A65 (ratio 6.07:1 sur texte blanc)
-  - 💡 Texte sur fonds clairs → gris 700 par défaut (≥ 7:1 sur #E9ECF2)
-  - 💡 Landmarks & ancrage : <main id="main" tabIndex={-1}> + skip‑link visible au focus
-  - 💡 Séparateurs homogènes : <SectionDivider/> entre sections
-  - 💡 États focus visibles: focus-visible:ring-2 + ring-offset
+  Syloria – Landing Page (Maquette v2.1)
+  -------------------------------------------------------
+  ▶️ Mise à jour suite à tes demandes du dernier message.
+
+  ✅ Changements par rapport à v2 :
+    - Header: sections = <Hero/>, <Audience/>, <About/>, <Process/>, <Portfolio/>, <Tagline/>, <Contact/>
+    - Audience: phrases « solution » en <strong>gras</strong>
+    - About: suppression du libellé « À propos », cartes services avec image + flip « Plus de détails » (+ service Agilité & formation)
+    - Process: présentation en LIGNE (style comme la capture) avec numéros XL en dégradé
+    - Portfolio: bouton « Voir le projet » → OUVRE un lien si disponible (cat. Web), sinon MODALE superposée (esc/overlay/croix)
+    - Animations d’apparition au scroll (component <Reveal/>)
+
+  📁 Assets à prévoir (remplacez les commentaires)
+    - /public/hero-bg.jpg
+    - /public/portrait-lucas.jpg
+    - /public/service-embedded.png
+    - /public/service-webapi.png
+    - /public/service-cyber.png
+    - /public/service-agile.png
+    - /public/portfolio/*
 */
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import { useEffect, useMemo, useState, useRef } from 'react'
 
 // ——————————————————————————————————————————
-// 🎨 Palette (charte renforcée AA)
+// 🎨 Palette / Thème
 // ——————————————————————————————————————————
 const brand = {
-  main: '#2D0A4E',   // Violet foncé (logo)
-  blue: '#1E90FF',   // Accent 1 – Bleu électrique
-  coral: '#A83A65',  // Accent 2 – Corail assombri (AA avec texte blanc)
-  night: '#0D0A1A',  // Très sombre (background profond)
-  cloud: '#E9ECF2',  // Gris clair net, bien distinct du blanc
-  mist: '#e1e1e1f1',   // Variante gris bleuté très doux pour alterner
-  violet: '#5A3E8C', // Violet intermédiaire (fond ou hover subtils)
+  main: '#2D0A4E',
+  blue: '#1E90FF',
+  coral: '#A83A65',
+  night: '#0B0F1A',
+  cloud: '#E9ECF2',
+  violet: '#5A3E8C',
 }
 
-// ——————————————————————————————————————————
-// Utilitaires visuels & accessibilité
-// ——————————————————————————————————————————
 const Container = ({ children, className = '' }) => (
   <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>
 )
 
-const Button = ({ children, variant = 'primary', className = '', ...props }) => {
-  const base = 'inline-flex items-center justify-center rounded-xl font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black/60 transition-colors'
-  const sizes = 'px-6 py-3'
-  const variants = {
-    primary: `text-white`,
-    white: `text-gray-900 bg-white hover:bg-gray-100`,
-    ghost: `bg-white/10 text-white hover:bg-white/20`,
-  }
-  const style = variant === 'primary' ? { backgroundColor: brand.coral } : {}
-  return (
-    <button {...props} style={style} className={`${base} ${sizes} ${variants[variant]} ${className}`}>{children}</button>
-  )
-}
-
-const SectionTitle = ({ eyebrow, title, subtitle, align = 'center', theme = 'light' }) => {
-  const isDark = theme === 'dark'
-  const eyebrowClass = isDark ? 'text-white/80' : 'text-gray-700' // ↑ contraste
-  const titleClass = isDark ? 'text-white' : 'text-gray-900'
-  const subtitleClass = isDark ? 'text-white/85' : 'text-gray-700' // ↑ contraste
-  return (
-    <div className={`mb-10 ${align === 'center' ? 'text-center' : ''}`}>
-      {eyebrow && (
-        <p className={`text-sm tracking-widest uppercase font-semibold ${eyebrowClass}`}>
-          {eyebrow}
-        </p>
-      )}
-      <h2 className={`mt-2 text-3xl sm:text-4xl font-bold ${titleClass}`}>
-        {title}
-      </h2>
-      {subtitle && (
-        <p className={`mt-4 text-base sm:text-lg max-w-3xl mx-auto ${subtitleClass}`}>
-          {subtitle}
-        </p>
-      )}
-    </div>
-  )
-}
-
-// Révélation au scroll (respecte prefers-reduced-motion)
-const Reveal = ({ children, className = '' }) => {
+// ——————————————————————————————————————————
+// 👀 Animation d’apparition au scroll
+// ——————————————————————————————————————————
+function Reveal({ children, className = '' }) {
   const ref = useRef(null)
   const [show, setShow] = useState(false)
   useEffect(() => {
-    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) { setShow(true); return }
     const io = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) { setShow(true); io.disconnect() }
-    }, { threshold: 0.1 })
+    }, { threshold: 0.12 })
     if (ref.current) io.observe(ref.current)
     return () => io.disconnect()
   }, [])
@@ -93,491 +61,722 @@ const Reveal = ({ children, className = '' }) => {
   )
 }
 
-
 // ——————————————————————————————————————————
-// Navbar sticky + lien actif + skip link
+// 🔝 HEADER + NAV (sections demandées)
 // ——————————————————————————————————————————
-const useActiveId = (ids) => {
-  const [active, setActive] = useState(ids[0])
+function Header() {
+  const [open, setOpen] = useState(false)
   useEffect(() => {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id) })
-    }, { rootMargin: '-45% 0px -50% 0px' })
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el) })
-    return () => obs.disconnect()
-  }, [ids])
-  return active
-}
+    const onEsc = (e) => e.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onEsc)
+    return () => window.removeEventListener('keydown', onEsc)
+  }, [])
 
-const Navbar = ({ onContact }) => {
-  const ids = ['hero','pourquoi','services','cases','portfolio','about','contact']
-  const active = useActiveId(ids)
-  const link = (id, label) => (
-    <a
-      key={id}
-      href={`#${id}`}
-      className={`text-sm relative pb-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black/50 ${active===id? 'text-gray-900' : 'text-gray-700 hover:text-gray-900'}`}
-    >
-      {label}
-      <span aria-hidden className={`absolute left-0 -bottom-0.5 h-0.5 w-full transition-transform origin-left ${active===id? 'bg-gray-900 scale-x-100' : 'bg-transparent scale-x-0'}`} />
-    </a>
+  const links = [
+    { id: 'audience',  label: 'Pour qui ?' },
+    { id: 'about',     label: 'À propos de nous' },
+    { id: 'process',   label: 'Méthode' },
+    { id: 'portfolio', label: 'Réalisations' },
+    { id: 'contact',   label: 'Contact' },
+  ];
+
+  const NavLinks = ({ onClick }) => (
+    <>
+      {links.map((l) => (
+        <a key={l.id} href={`#${l.id}`} onClick={onClick} className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100">{l.label}</a>
+      ))}
+    </>
   )
-  return (
-    <header className="sticky top-0 z-40 backdrop-blur bg-white/80 border-b border-gray-100">
-      {/* Skip link */}
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-white focus:text-gray-900 focus:px-3 focus:py-2 focus:rounded shadow">Aller au contenu</a>
-      <Container className="flex items-center justify-between h-16">
-        <div className="flex items-center gap-3">
-          <img src="/logo-syloria.png" alt="Syloria" className="h-8 w-auto" />
-          <span className="font-semibold">Syloria</span>
-        </div>
-        <nav className="hidden md:flex items-center gap-6" aria-label="Navigation principale">
-          {link('pourquoi','Pourquoi nous')}
-          {link('services','Domaines')}
-          {link('cases','Livrables')}
-          {link('portfolio','Portfolio')}
-          {link('about','À propos')}
-          <a
-            href="#contact"
-            aria-label="Ouvrir la section contact"
-            className="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-sm transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70"
-            style={{ backgroundColor: brand.coral }}
-          >
-            Être contacté
-          </a>
 
+  return (
+    <header className="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur border-b border-gray-100">
+      <Container className="h-16 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <img src="/logo-syloria.png" alt="Syloria" className="h-8 w-auto"/>
+          <span className="text-lg font-semibold">Syloria</span>
+        </div>
+        <nav className="hidden md:flex items-center gap-2" aria-label="Navigation principale">
+          <NavLinks />
         </nav>
+        <button className="md:hidden inline-flex items-center justify-center rounded-md p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/50" aria-label="Ouvrir le menu" onClick={() => setOpen((v) => !v)}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
       </Container>
+      {open && (
+        <div className="md:hidden border-t border-gray-100 bg-white">
+          <Container className="py-3 flex flex-col gap-2">
+            <NavLinks onClick={() => setOpen(false)} />
+          </Container>
+        </div>
+      )}
     </header>
   )
 }
 
-export default function App() {
-  const contactRef = useRef(null)
-  const [submitted, setSubmitted] = useState(false)
-  const scrollToContact = () => contactRef.current?.scrollIntoView({ behavior: 'smooth' })
+// ——————————————————————————————————————————
+// 🦸 1) HERO / ACCROCHE (fix mobile + desktop)
+// ——————————————————————————————————————————
+function Hero() {
+  return (
+    <section id="hero" className="relative min-h-screen flex items-center" aria-label="Accueil">
+      {/* Fond (image ou gradient) */}
+      <img src="/bg-syloria.png" alt="Fond Syloria" className="absolute inset-0 w-full h-full object-cover -z-10" />
+      <div className="absolute inset-0 -z-10 bg-black/25" />
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const formData = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      company: e.target.company.value,
-      message: e.target.message.value,
-    };
+      <Container>
+        {/* -> espace haut/bas responsive pour header & vague */}
+        <Reveal className="text-center text-white pt-24 sm:pt-16 md:pt-8 lg:pt-6 pb-28 sm:pb-24 md:pb-20">
+          {/* Bloc marque */}
+          <div className="inline-flex flex-col items-center mb-12 sm:mb-14">
+            <h1 className="text-4xl sm:text-5xl font-extrabold leading-snug tracking-wide">− SYLORIA −</h1>
+            <p className="mt-2 text-xs tracking-widest uppercase font-semibold text-white/80">
+              Systèmes embarqués • Web/API • Cybersécurité/IT
+            </p>
+          </div>
 
-    try {
-      const res =await fetch(`${window.location.origin}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+          {/* Titre + pitch + CTA */}
+          <h2 className="text-4xl sm:text-6xl font-extrabold leading-tight">
+            Micro-agence tech qui transforme vos idées en solutions fiables
+          </h2>
+          <p className="mt-5 max-w-3xl mx-auto text-white/90 text-lg">
+            De l’idée à la mise en production, nous accompagnons PME, startups et industriels avec une approche claire,
+            humaine et documentée. Objectif : livrer vite, proprement, et durablement.
+          </p>
+          <div className="mt-8">
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90"
+              style={{ backgroundColor: brand.coral }}
+            >
+              Lancez votre projet dès aujourd’hui !
+            </a>
+          </div>
+        </Reveal>
+      </Container>
 
-      if (!res.ok) {
-        const text = await res.text();
-        console.error("API error:", res.status, text);
-        alert("❌ Erreur serveur. Réessayez plus tard.");
-        return;
-      }
-
-      setSubmitted(true);
-      e.target.reset();
-      setTimeout(() => setSubmitted(false), 6000);
-    } catch (err) {
-      console.error("Network/CORS error:", err);
-      alert("❌ Impossible de contacter le serveur.");
-    }
-  };
+      {/* Vague bas de section — reste collée en bas */}
+      <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 w-full h-[80px] -mb-[1px]">
+        <svg viewBox="0 0 1240 80" className="w-full h-full" preserveAspectRatio="none">
+          <path fill={brand.cloud} d="M0,64L60,53.3C120,43,240,21,360,21.3C480,21,600,43,720,53.3C840,64,960,64,1080,58.7C1200,53,1320,43,1380,37.3L1440,32V80H0Z" />
+        </svg>
+      </div>
+    </section>
+  );
+}
 
 
-  // —————————————————— Portfolio data ——————————————————
-  const categories = ['Embarqué','Web/API','Agile']
-  const items = useMemo(()=>[
-    { id:1, title:'Firmware STM32', cat:'Embarqué', img:'/images/portfolio-stm32.jpg' },
-    { id:2, title:'ROS2 Mobile Base', cat:'Embarqué', img:'/images/portfolio-ros2.jpg' },
-    { id:3, title:'API Django sécurisée', cat:'Web/API', img:'/images/portfolio-django.jpg' },
-    { id:4, title:'FastAPI Realtime', cat:'Web/API', img:'/images/portfolio-fastapi.jpg' },
-    { id:6, title:'Scrum workshop', cat:'Agile', img:'/images/portfolio-scrum.jpg' },
-  ],[])
-  const [filter, setFilter] = useState('Embarqué')
-  const filtered = items.filter(i => i.cat === filter)
+
+// ——————————————————————————————————————————
+// 👥 2) Pour qui ? (segmentation cibles)
+// ——————————————————————————————————————————
+function Audience() {
+  const items = [
+    {
+      t: 'Entrepreneur',
+      d: (
+        <>Passez de l’idée au prototype fonctionnel avec des outils clairs et adaptés à vos moyens : mini-site, formulaire, MVP API.</>
+      ),
+      bullets: [
+        <strong key="1">Création de MVP (API, formulaire, mini-site)</strong>,
+        <strong key="2">Bonnes pratiques cyber (backup, auth)</strong>,
+        <strong key="3">Conseils & support technique</strong>,
+      ],
+    },
+    {
+      t: 'Startup',
+      d: (
+        <>Vous avez une idée, une équipe réduite et besoin d’un socle technique solide pour avancer sans dette ?</>
+      ),
+      bullets: [
+        <strong key="1">MVP techniques clés en main (API, backend)</strong>,
+        <strong key="2">Embarqués & edge-ready (STM32, ROS2)</strong>,
+        <strong key="3">IoT : device → data → dashboard</strong>,
+      ],
+    },
+    {
+      t: 'TPE-PME industrielle',
+      d: (
+        <>Nous modernisons vos produits et valorisons vos données terrain en respectant vos contraintes.</>
+      ),
+      bullets: [
+        <strong key="1">Firmware embarqué (STM32, ROS2, drivers)</strong>,
+        <strong key="2">Dashboards & bancs de tests (Python, Qt)</strong>,
+        <strong key="3">Projets IoT industriels (capteurs, supervision)</strong>,
+        <strong key="4">Accompagnement agile & reporting</strong>,
+      ],
+    },
+    {
+      t: 'Responsable produit',
+      d: (
+        <>Nous transformons votre vision en livrables techniques clairs, documentés et déployables.</>
+      ),
+      bullets: [
+        <strong key="1">Alignement besoin ↔ technique</strong>,
+        <strong key="2">APIs robustes (FastAPI/Django + Swagger)</strong>,
+        <strong key="3">Suivi de sprint, priorisation</strong>,
+        <strong key="4">Intégration CI/CD (GitLab/GitHub)</strong>,
+      ],
+    },
+  ]
 
   return (
-    <div className="font-sans antialiased text-gray-900">
-      <Navbar onContact={scrollToContact} />
+    <section id="audience" className="py-16" style={{backgroundColor: brand.cloud}}>
+      <Container>
+        <Reveal className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Pour qui ?</h2>
+          <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : nous adaptons notre accompagnement à votre contexte, pour livrer vite et bien.</p>
+        </Reveal>
 
-      {/* ————————————————————— Main landmark (ancrage #main) ————————————————————— */}
-      <main id="main" tabIndex={-1}>
-        {/* ————————————————————— Hero ————————————————————— */}
-        <section id="hero" aria-label="Accueil" className="relative overflow-hidden">
-          {/* BG image (charte) */}
-          <div className="absolute inset-0 -z-10">
-            <img
-              src="/bg-syloria.png"
-              alt="Fond abstrait Syloria"
-              className="w-full h-full object-cover"
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(45,10,78,0.55) 0%, rgba(13,10,26,0.75) 100%)',
-              }}
-            />
-          </div>
-          <Container className="py-20 sm:py-28">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <Reveal>
-                <div className="text-white">
-                  <span className="inline-block rounded-full px-3 py-1 text-xs tracking-widest uppercase font-semibold text-white/80 bg-white/10">Expertise embarquée, Web/API & sécurité</span>
-                  <h1 className="mt-5 text-4xl sm:text-5xl font-extrabold leading-tight">Micro‑agence tech pour vos projets <span className="text-white/90">Embarqué</span>, <span className="text-white/90">Web</span> & <span className="text-white/90">API</span>.</h1>
-                  <p className="mt-4 text-lg text-white/85 max-w-xl">Proximité, réactivité et documentation claire — interventions sur devis, adaptées à vos enjeux.</p>
-                  <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                    <a
-                      href="#contact"
-                      className="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold text-gray-900 bg-white hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70"
-                    >
-                      Être contacté
-                    </a>
-                    <a href="#services" className="px-6 py-3 rounded-xl font-semibold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/70" style={{backgroundColor: brand.coral}}>Voir nos domaines</a>
-                  </div>
-                </div>
-              </Reveal>
-              <Reveal className="relative flex justify-center">
-              <div className="rounded-full bg-white/5 p-1 shadow-lg ring-1 ring-white/20">
-                <img 
-                  src="/logo-syloria.png" 
-                  alt="Logo Syloria" 
-                  className="w-[250px] h-[250px] object-contain" 
-                  loading="lazy"
-                />
-              </div>
-            </Reveal>
-            </div>
-          </Container>
-          {/* Vague décorative bas : couleur = section suivante */}
-          <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 w-full h-[80px] -mb-[1px]">
-            <svg viewBox="0 0 1240 80" className="w-full h-full" preserveAspectRatio="none">
-              <path fill={brand.cloud} d="M0,64L60,53.3C120,43,240,21,360,21.3C480,21,600,43,720,53.3C840,64,960,64,1080,58.7C1200,53,1320,43,1380,37.3L1440,32V80H0Z" />
-            </svg>
-          </div>
-        </section>
-
-        {/* ————————————————————— Présentation (vidéo + texte) ————————————————————— */}
-        <section id="pourquoi" className="py-16 sm:py-20" style={{ backgroundColor: brand.cloud }}>
-          <Container>
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              {/* Colonne gauche : vidéo centrée */}
-              <div className="flex items-center justify-center">
-                <div className="rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-lg w-full">
-                  <div className="aspect-video">
-                    <img
-                      src="/video_syloria.gif"
-                      alt="Présentation Syloria"
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Colonne droite : titre + sous-titre + texte + CTA */}
-              <div className="flex flex-col justify-center h-full">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
-                  Syloria, micro-agence tech humaine et engagée
-                </h2>
-
-                <p className="mt-4 text-lg font-semibold text-gray-800 text-justify">
-                  Nous aidons les entreprises à concevoir, sécuriser et faire évoluer
-                  leurs systèmes connectés et logiciels.
-                </p>
-
-                <div className="mt-5 space-y-4 text-gray-700 leading-relaxed text-justify">
-                  <p>
-                    Un format micro-agence, agile et proche de ses clients.
-                    Nous intervenons sur des projets courts et ciblés, toujours avec des livrables 
-                    clairs et documentés.
-                  </p>
-                  <p>
-                    Présents en <span className="font-medium">Nouvelle-Aquitaine</span> et en remote,
-                    nous travaillons avec des entreprises industrielles, startups et entrepreneurs.
-                  </p>
-                  <p>
-                    Chaque mission est <span className="font-medium">adaptée sur devis</span> à votre contexte 
-                    et vos objectifs.
-                  </p>
-                </div>
-
-                <div className="mt-6">
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-sm transition hover:opacity-90"
-                    style={{ backgroundColor: brand.coral }}
-                  >
-                    Être contacté
+        <div className="mt-10 grid md:grid-cols-2 gap-6">
+          {items.map((it, i) => (
+            <Reveal key={i}>
+              <article className="bg-white rounded-2xl p-6 shadow ring-1 ring-gray-200 flex flex-col">
+                <header className="flex items-center justify-between gap-3">
+                  <h3 className="text-lg font-semibold text-gray-900">{it.t}</h3>
+                  <a href="#contact" className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full text-white" style={{background: brand.coral}} aria-label={`Contacter pour profil ${it.t}`}>
+                    <span className="text-xl">»»</span>
                   </a>
-                </div>
-              </div>
+                </header>
+                <p className="mt-3 text-gray-700">{it.d}</p>
+                <ul className="mt-3 text-sm text-gray-700 list-disc list-inside space-y-1">
+                  {it.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                </ul>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}
+
+// ——————————————————————————————————————————
+// 🧭 3) ABOUT (flip + images)
+// ——————————————————————————————————————————
+function About() {
+  const [flipped, setFlipped] = useState({});
+  const toggle = (i) => setFlipped((f) => ({ ...f, [i]: !f[i] }));
+
+  const services = [
+    { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/actuateurs.' },
+    { t: 'Web & APIs backend', img: '/Web_logo.png',        details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' },
+    { t: 'Cybersécurité / IT', img: '/Cyber_logo.png',      details: 'Audits de code, durcissement, bonnes pratiques OWASP/ANSSI, tests automatisés, qualité logicielle, revue d’architecture.' },
+    { t: 'Agilité & formation',img: '/Agile_logo.png',      details: 'Kick-off, cadrage backlog, facilitation de sprints, KPI, ateliers de formation (clean code, Git, CI/CD, sécurité applicative).' },
+  ];
+
+  const [showProfile, setShowProfile] = useState(false);
+
+  return (
+    <section id="about" className="py-20" style={{ backgroundColor: brand.main }}>
+      <Container>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <Reveal>
+            <div className="text-left">
+              {/* <img src="/portrait-lucas.jpg" alt="Fondateur" className="hidden" /> */}
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                Une micro-agence réactive, documentée et pédagogique
+              </h2>
+              <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
+                Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), Syloria est une micro-agence Freelance basée en Nouvelle-Aquitaine.
+                Nous sommes 2 indépendants complémentaires (embarqué & cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
+              </p>
+              <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
+                Notre promesse : des livrables propres, documentés et transmis avec pédagogie (pas de boîte noire).
+                Itérations courtes et transparence sur les risques, coûts et délais.
+              </p>
+              <button
+                onClick={() => setShowProfile(true)}
+                className="mt-6 inline-flex rounded-xl px-6 py-3 font-semibold text-white hover:opacity-90"
+                style={{ backgroundColor: brand.coral }}>
+                Découvrir mon profil
+              </button>
             </div>
-          </Container>
-        </section>
+          </Reveal>
 
 
-        {/* ————————————————————— Domaines ————————————————————— */}
-        <section id="services" className="py-20" style={{ backgroundColor: brand.violet }}>
-          <Container>
-            <SectionTitle
-              eyebrow="Expertises"
-              title="Nos domaines d’intervention"
-              subtitle="Toutes nos missions sont sur devis, adaptées à vos besoins."
-              theme="dark"
-            />
-
-            <div className="flex flex-wrap justify-center gap-8 mt-12">
-              {[
-                { t: 'Systèmes embarqués', s: 'STM32, ROS2, FreeRTOS', logo: '/Electronic_logo.png' },
-                { t: 'Développement backend/API', s: 'Django, FastAPI', logo: '/Web_logo.png' },
-                { t: 'Méthodologies agiles', s: 'Scrum, coaching, formation', logo: '/Agile_logo.png' }
-              ].map((b, i) => (
-                <Reveal key={i}>
-                  <div className="w-80 h-[380px] flex flex-col justify-between rounded-2xl p-10 bg-white text-center shadow-lg ring-1 ring-gray-200 transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    {/* Zone logo homogène */}
-                    <div className="flex justify-center items-center flex-grow">
+          <div className="grid sm:grid-cols-2 gap-6">
+            {services.map((s, i) => (
+              <Reveal key={i}>
+                {/* Conteneur flip */}
+                <div className={`flip-card ${flipped[i] ? 'is-flipped' : ''}`} style={{ height: 260 }}>
+                  <div className="flip-card-inner">
+                    {/* Face avant */}
+                    <div className="flip-card-front">
+                      <div className="mb-3 flex items-center justify-center">
                       <img
-                        src={b.logo}
-                        alt={b.t}
-                        className="w-[220px] h-[220px] object-contain"
-                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        src={s.img}
+                        alt=""
+                        className="w-[120px] h-[120px] object-contain"
+                        style={{ minWidth: '120px', minHeight: '120px' }}
                       />
                     </div>
-                    {/* Texte */}
-                    <div>
-                      <h3 className="font-semibold text-gray-900 text-lg">{b.t}</h3>
-                      <p className="text-sm text-gray-700 mt-2">{b.s}</p> {/* ↑ contraste */}
+                      <h3 className="font-semibold text-gray-900 text-center">{s.t}</h3>
+                      <button
+                        onClick={() => toggle(i)}
+                        className="mt-3 text-sm font-medium text-white px-3 py-2 rounded-lg"
+                        style={{ backgroundColor: brand.violet }}
+                      >
+                        Plus de détails
+                      </button>
+                    </div>
+
+                    {/* Face arrière */}
+                    <div className="flip-card-back">
+                      <p className="text-sm text-gray-800 text-center">{s.details}</p>
+                      <button
+                        onClick={() => toggle(i)}
+                        className="mt-4 text-sm font-medium text-white px-3 py-2 rounded-lg"
+                        style={{ backgroundColor: brand.violet }}
+                      >
+                        Retour
+                      </button>
                     </div>
                   </div>
-                </Reveal>
-              ))}
-            </div>
-          </Container>
-        </section>
-
-        {/* ————————————————————— Livrables / Carrousel ————————————————————— */}
-        <section id="cases" className="py-16 sm:py-20" style={{ backgroundColor: brand.mist }}>
-          <Container>
-            <SectionTitle
-              eyebrow="Exemples concrets"
-              title="Livrables proposés"
-              subtitle="Chaque mission est adaptée à votre contexte et livrée sur devis."
-            />
-
-            <Swiper
-              modules={[Navigation, Pagination]}
-              spaceBetween={30}
-              slidesPerView={1}
-              navigation
-              pagination={{ clickable: true }}
-              breakpoints={{
-                640: { slidesPerView: 1 },
-                1024: { slidesPerView: 2 },
-              }}
-              className="mt-10 relative"
-            >
-              {/* Custom arrows color */}
-              <style jsx global>{`
-                .swiper-button-next,
-                .swiper-button-prev {
-                  color: ${brand.coral} !important; /* flèches */
-                }
-                .swiper-pagination-bullet-active {
-                  background: ${brand.coral} !important; /* pagination active */
-                }
-              `}</style>
-
-              {[
-                {
-                  t: "Prototype logiciel en 4 semaines",
-                  s: "POC fonctionnel (UI, logique métier, tests) pour valider une idée rapidement.",
-                  img: "/images/case-software.png",
-                },
-                {
-                  t: "Carte électronique dédiée",
-                  s: "Schéma, PCB et firmware de base (STM32, capteurs, CAN/UART).",
-                  img: "/images/case-electronics.png",
-                },
-                {
-                  t: "Web API sécurisée",
-                  s: "API REST/GraphQL (Django ou FastAPI) avec auth & observabilité.",
-                  img: "/images/case-api.png",
-                },
-                {
-                  t: "Coaching Agile & Scrum",
-                  s: "Ateliers, mise en place d’outils, accompagnement d’équipes.",
-                  img: "/images/case-agile.png",
-                },
-              ].map((c, i) => (
-                <SwiperSlide key={i}>
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200 flex flex-col h-full">
-                    <div className="aspect-video bg-gray-100">
-                      <img src={c.img} alt={c.t} className="w-full h-full object-cover" loading="lazy" />
-                    </div>
-                    <div className="p-6 flex flex-col justify-between flex-1">
-                      <div>
-                        <h3 className="font-semibold text-lg">{c.t}</h3>
-                        <p className="mt-2 text-sm text-gray-600">{c.s}</p>
-                      </div>
-                      <div className="mt-4">
-                        <a
-                          href="#contact"
-                          className="inline-block px-5 py-2 rounded-xl font-semibold text-white transition hover:opacity-90"
-                          style={{ backgroundColor: brand.coral }}
-                        >
-                          Sur devis
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </Container>
-        </section>
-
-
-        {/* ————————————————————— Portfolio filtrable ————————————————————— */}
-        <section id="portfolio" className="py-16 sm:py-20" style={{backgroundColor: brand.cloud}}>
-          <Container>
-            <SectionTitle eyebrow="Réalisations" title="Notre portfolio" subtitle="Filtrez par type d’intervention." />
-
-            {/* Contrôle accessible */}
-            <div role="tablist" aria-label="Filtrer par catégorie" className="flex flex-wrap gap-2 justify-center mb-8">
-              {categories.map((c)=> (
-                <button
-                  key={c}
-                  role="tab"
-                  aria-selected={filter===c}
-                  onClick={()=>setFilter(c)}
-                  className={`px-4 py-2 rounded-full text-sm border focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black/50 ${filter===c ? 'text-white border-transparent' : 'text-gray-900 border-gray-300'}`}
-                  style={{backgroundColor: filter===c ? brand.main : 'transparent'}}
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {filtered.map((p)=> (
-                <Reveal key={p.id}>
-                  <figure className="bg-white rounded-xl overflow-hidden ring-1 ring-gray-200 shadow-sm">
-                    <div className="aspect-square bg-gray-100">
-                      <img src={p.img} alt={p.title} className="w-full h-full object-cover" loading="lazy" />
-                    </div>
-                    <figcaption className="p-3 text-sm font-medium text-gray-900">{p.title}</figcaption>
-                  </figure>
-                </Reveal>
-              ))}
-            </div>
-          </Container>
-        </section>
-
-
-        {/* ————————————————————— À propos ————————————————————— */}
-        <section id="about" className="py-20 relative overflow-hidden" style={{ backgroundColor: brand.main }}>
-          <div className="absolute inset-0 -z-10 opacity-30" style={{ background: `radial-gradient(70% 60% at 50% 40%, ${brand.blue}22 0%, transparent 70%)` }} />
-          <Container>
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <Reveal>
-                <div>
-                  <span className="inline-block rounded-full px-3 py-1 text-xs tracking-widest uppercase font-semibold text-white/80 bg-white/10">Qui sommes-nous ?</span>
-                  <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-white">Lucas — Fondateur de Syloria</h2>
-                  <p className="mt-3 text-white/85">Ingénieur Mines Saint-Étienne, 3 ans chez Shark Robotics. Basé en Nouvelle-Aquitaine, disponible partout en Europe en remote.</p>
-                  <p className="mt-6 text-white/85">Approche pédagogique, documentation soignée et transfert de compétences. Simplicité d’une micro-agence, rigueur d’un cabinet d’ingénierie.</p>
                 </div>
               </Reveal>
-              <Reveal className="relative flex justify-center">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/40 transform-gpu transition hover:scale-[1.03]" style={{ maxWidth: '280px' }}>
-                  <img src="/Lucas-portrait.jpg" alt="Portrait de Lucas" className="w-full h-full object-cover" loading="lazy" />
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/20 to-transparent" />
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Container>
+
+      {/* Styles flip (robustes, basés sur ton mécanisme) */}
+      <style>{`
+        .flip-card { perspective: 1000px; position: relative; border-radius: 1rem; }
+        .flip-card-inner {
+          position: relative; width: 100%; height: 100%;
+          transform-style: preserve-3d; transition: transform .6s;
+          border-radius: 1rem;
+        }
+        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+          position: absolute; inset: 0; display:flex; flex-direction:column;
+          align-items:center; justify-content:center; padding:1.25rem;
+          background:#fff; border-radius:1rem; box-shadow: 0 1px 2px rgba(0,0,0,.06);
+          backface-visibility:hidden; -webkit-backface-visibility:hidden;
+        }
+        .flip-card-back { transform: rotateY(180deg); }
+      `}</style>
+
+      {showProfile && (
+      <div role="dialog" aria-modal="true" className="fixed inset-0 z-[200]">
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setShowProfile(false)} />
+        <div className="relative z-[210] mx-auto my-8 w-[min(900px,92vw)]">
+          <div className="bg-white rounded-2xl shadow-2xl ring-1 ring-black/10 flex flex-col max-h-[85vh] overflow-hidden">
+            <div className="px-6 py-4 border-b flex items-center justify-between">
+              <h3 className="text-xl font-semibold text-gray-900">Mon profil</h3>
+              <button
+                onClick={() => setShowProfile(false)}
+                className="rounded-lg p-2 hover:bg-gray-100"
+                aria-label="Fermer">✕</button>
             </div>
-          </Container>
-        </section>
 
+            <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-b from-white to-gray-50 rounded-xl shadow-lg space-y-8">
 
-        {/* ————————————————————— Contact ————————————————————— */}
-        <section id="contact" className="py-20 relative overflow-hidden" style={{ backgroundColor: brand.cloud }}>
-          <div className="absolute inset-0 -z-10 opacity-30" style={{ background: `radial-gradient(70% 60% at 50% 40%, ${brand.blue}22 0%, transparent 70%)` }} />
-          <Container>
-            <Reveal>
-              <SectionTitle
-                eyebrow="Contact"
-                title="Décrivez votre besoin en quelques lignes"
-                subtitle="Vos données ne seront jamais revendues — utilisées uniquement pour vous répondre."
-              />
-            </Reveal>
-            <Reveal className="mt-8">
-                <form onSubmit={onSubmit} className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200" aria-labelledby="contact-title">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-900">Nom</label>
-                      <input id="name" name="name" required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Votre nom" aria-required="true" />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-900">Email</label>
-                      <input id="email" name="email" type="email" required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="nom@entreprise.com" aria-required="true" />
-                    </div>
-                    <div className="sm:col-span-2">
-                      <label htmlFor="company" className="block text-sm font-medium text-gray-900">Entreprise</label>
-                      <input id="company" name="company" className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Nom de votre société (optionnel)" />
-                    </div>
-                    <div className="sm:col-span-2">
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-900">Message</label>
-                      <textarea id="message" name="message" rows={5} required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Décrivez votre projet (objectifs, délais, contraintes)…" aria-required="true" />
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex items-center gap-3">
-                    <button type="submit" className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black/60" style={{ backgroundColor: brand.coral }}>
-                      Envoyer ma demande
-                    </button>
-                    <p className="text-xs text-gray-700">En envoyant, vous acceptez notre mention RGPD.</p>
-                  </div>
-
-                  {submitted && (
-                    <p className="mt-4 text-sm font-medium text-green-700">Merci, nous revenons rapidement vers vous.</p>
-                  )}
-                </form>
-            </Reveal>
-          </Container>
-        </section>
-      </main>
-
-      {/* ————————————————————— Footer ————————————————————— */}
-      <footer className="py-10" style={{backgroundColor: brand.main}}>
-        <Container>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-white/90">
-            <div className="flex items-center gap-3">
-              <img src="/logo-syloria.png" alt="Syloria" className="h-8 w-auto" />
-              <div>
-                <p className="font-semibold text-white">Syloria</p>
-                <p className="text-sm text-white/80">SAS • Gironde, Nouvelle-Aquitaine, France</p>
+              {/* Haut : photo + résumé */}
+              <div className="flex flex-col sm:flex-row gap-8 items-center sm:items-start">
+                <img src="/portrait-lucas.jpg" alt="Photo de Lucas Baquey"
+                    className="w-40 h-40 rounded-full object-cover ring-4 ring-violet-200 shadow-md"/>
+                <div className="text-gray-800 space-y-4">
+                  <p className="text-xl font-bold">
+                    Lucas Baquey – Ingénieur développeur freelance (Backend & Systèmes embarqués)
+                  </p>
+                  <p>
+                    Passionné par la convergence entre électronique embarquée et développement back-end,
+                    j’accompagne startups, PME industrielles et équipes produit dans la conception de
+                    solutions techniques fiables et documentées.
+                  </p>
+                </div>
               </div>
+
+              {/* Parcours */}
+              <div className="space-y-4 text-gray-800">
+                <p className="font-semibold text-lg">Parcours & expériences clés</p>
+                <ul className="list-disc list-inside space-y-1">
+                  <li><strong>Fondateur de Syloria (2025)</strong> : micro-agence de consulting tech spécialisée
+                      en systèmes embarqués (STM32, ROS2, FreeRTOS), back-end Python (Django, FastAPI) et,
+                      dès 2026, pôle cybersécurité.</li>
+                  <li><strong>3 ans chez Shark Robotics</strong> : développement embarqué sous ROS2 et STM32,
+                      création de bancs de tests automatisés, mise en place de pratiques agiles (Scrum Master).</li>
+                </ul>
+              </div>
+
+              {/* Compétences */}
+              <div className="space-y-4 text-gray-800">
+                <p className="font-semibold text-lg">Compétences techniques principales</p>
+                <ul className="list-disc list-inside space-y-1">
+                  <li><strong>Backend Python :</strong> Django, FastAPI, PostgreSQL, déploiement sécurisé Linux/VPS.</li>
+                  <li><strong>Systèmes embarqués :</strong> Kicad, STM32/ESP32, bus CAN/UART/SPI, drivers capteurs, ROS2, FreeRTOS.</li>
+                  <li><strong>Méthodologies :</strong> Agile/Scrum, TDD, documentation et suivi de projet clair.</li>
+                </ul>
+                <p>
+                  Je privilégie les itérations courtes, une communication transparente et une
+                  documentation complète, afin de livrer rapidement des solutions robustes et
+                  maintenables.
+                </p>
+                <p>📍 Basé à <strong>Bordeaux</strong>, j’interviens en <strong>remote</strong> ou en mode hybride
+                  sur des projets nationaux.</p>
+              </div>
+
+              {/* Liens de contact */}
+              <div className="flex flex-wrap justify-center sm:justify-start gap-4 pt-4 border-t">
+                <a href="https://www.linkedin.com/in/lucas-baquey/"
+                  target="_blank" rel="noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700">
+                  <img src="/linkedin_logo.png" alt="" className="w-5 h-5"/> LinkedIn
+                </a>
+
+                <a href="https://github.com/lucas33620/"  
+                  target="_blank" rel="noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800 text-white font-medium hover:bg-gray-900">
+                  <img src="/github_logo.png" alt="" className="w-5 h-5"/> GitHub
+                </a>
+
+                <a href="tel:+33625558878"   
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700">
+                  <img src="/phone_logo.png" alt="" className="w-5 h-5"/> Téléphone
+                </a>
+              </div>
+
             </div>
-            <div className="text-sm text-white/85">
-              <a href="mailto:contact@syloria.eu" className="hover:text-white">contact@syloria.eu</a>
-              <span className="mx-2">•</span>
-              <a href="https://www.linkedin.com/company/syloria/" target="_blank" rel="noreferrer" className="hover:text-white">LinkedIn</a>
-              <span className="mx-2">•</span>
-              <span>© {new Date().getFullYear()} — Tous droits réservés</span>
+
+
+            <div className="px-6 py-4 border-t flex justify-end">
+              <button
+                onClick={() => setShowProfile(false)}
+                className="px-4 py-2 rounded-lg font-medium bg-gray-100 hover:bg-gray-200">
+                Fermer
+              </button>
             </div>
           </div>
-        </Container>
-      </footer>
+        </div>
+      </div>
+    )}
 
-      {/* token focus color var */}
+    </section>
+  );
+}
+
+// ——————————————————————————————————————————
+// 🛠️ 4) PROCESS (gradient violet → night, padding + justification)
+// ——————————————————————————————————————————
+function Process() {
+  const steps = [
+    { n: '01', t: 'Diagnostic gratuit (30 min)', d: 'Échange avec Lucas pour évaluer la faisabilité, comprendre les enjeux métier et définir une vision produit claire. Résultat : cadrage initial et premiers risques identifiés.' },
+    { n: '02', t: 'Proposition claire & chiffrée', d: 'Devis transparent avec livrables, planning et modalités (mission courte, pack, régie). Critères de succès mesurables et hypothèses validées.' },
+    { n: '03', t: 'Conception & développement', d: 'Itérations courtes (Agile), TDD quand pertinent, revues fréquentes. Documentation au fil de l’eau pour garantir la maintenabilité.' },
+    { n: '04', t: 'Validation & transfert', d: 'Livraison de code propre, schémas/PCB, API documentée. Session de passation pédagogique (démos, check-lists).' },
+    { n: '05', t: 'Suivi & amélioration', d: 'Support à la demande : audits, optimisations, industrialisation, montée en charge. Ajustements guidés par le terrain.' },
+  ];
+
+  return (
+    <section
+      id="process"
+      className="pt-20 pb-36" // ➜ plus d’espace en bas
+      style={{ background: `linear-gradient(180deg, ${brand.main} 0%, ${brand.night} 90%)` }}
+    >
+      <Container>
+        <Reveal className="mb-10">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">Notre process</h2>
+        </Reveal>
+
+        <ol className="space-y-8">
+          {steps.map((s, i) => (
+            <Reveal key={i}>
+              <li className="grid grid-cols-[88px,1fr] gap-6 items-start">
+                <div className="select-none leading-none">
+                  <span className="block text-[56px] sm:text-[68px] font-extrabold" style={{ color: brand.coral }}>
+                    {s.n}
+                  </span>
+                </div>
+
+                <div className="text-white/95">
+                  <h3 className="text-xl font-bold text-white">{s.t}</h3>
+                  <p className="mt-2 text-sm sm:text-base" style={{ textAlign: 'justify' }}>
+                    {s.d}
+                  </p>
+                </div>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
+      </Container>
+    </section>
+  );
+}
+
+// ——————————————————————————————————————————
+// 🧩 5) PORTFOLIO (cartes taille uniforme + modal)
+// ——————————————————————————————————————————
+function Portfolio() {
+  const [active, setActive] = useState(null);
+
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && setActive(null);
+    if (active) window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [active]);
+
+  const projects = useMemo(() => ([
+    {
+      id: 1,
+      title: 'Module Capteur Environnemental (BME280) — PCB 30×30 mm',
+      cat: 'Embarqué',
+      cover: '/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png',
+      description: 'Conception d’un module capteur environnemental I2C : schéma, PCB KiCad, BOM, Gerbers, rendu 3D.',
+      objectives: ['Adressage I2C configurable', 'Alim 5V→3.3V + protections', 'DRC validé, 4 fixations M2'],
+      solutions: ['Choix BME280, routage optimisé', 'LDO + protection', 'Sérigraphie claire et connectique simple'],
+      results: ['Gerbers conformes JLC/PCBWay', 'BOM auto', 'Rendu 3D prêt client'],
+      images: ['/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png', '/projet_capteur_environnemental/capteur environnemental_face_filigrame.png'],
+    },
+    {
+      id: 2,
+      title: 'Refonte Web multilingue — Alam Raya',
+      cat: 'Web',
+      cover: '/projet_alam_raya/AlamRaya_website.png',
+      description: 'Refonte du site vitrine en plateforme multilingue, responsive et optimisée SEO, orientée conversion.',
+      objectives: ['Moderniser et clarifier', 'SEO local + international', 'Formulaire + WhatsApp'],
+      solutions: ['Django + Tailwind', 'Traductions dynamiques', 'Leaflet.js pour cartes de projets'],
+      results: ['Performance élevée', 'Meilleure visibilité', 'Navigation mobile-first'],
+      link: 'https://www.alamrayabali.com/',
+    },
+  ]), []);
+
+  const cats = ['Tous', ...Array.from(new Set(projects.map(p => p.cat)))];
+  const [filter, setFilter] = useState('Tous');
+  const visible = projects.filter(p => filter === 'Tous' || p.cat === filter);
+
+  return (
+    <section id="portfolio" className="py-16" style={{ backgroundColor: brand.cloud }}>
+      <Container>
+        <Reveal className="text-center mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Nos réalisations</h2>
+          <p className="mt-3 text-gray-700">Cliquez pour ouvrir la fiche détaillée (objectifs, solutions, résultats, images) ou visiter le site si disponible.</p>
+        </Reveal>
+
+        <div className="flex flex-wrap justify-center gap-2 mb-6" role="tablist" aria-label="Filtrer par catégorie">
+          {cats.map((c) => (
+            <button key={c} role="tab" aria-selected={filter === c} onClick={() => setFilter(c)}
+              className={`px-4 py-2 rounded-full text-sm border ${filter === c ? 'text-white border-transparent' : 'text-gray-900 border-gray-300'}`}
+              style={{ backgroundColor: filter === c ? brand.main : 'transparent' }}>
+              {c}
+            </button>
+          ))}
+        </div>
+
+        {/* cartes uniformes */}
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 items-stretch">
+          {visible.map((p) => (
+            <Reveal key={p.id}>
+              <figure className="bg-white rounded-xl overflow-hidden ring-1 ring-gray-200 shadow-sm grid grid-rows-[auto,1fr,auto] min-h-[480px]">
+                {/* Media height constant */}
+                <div className="aspect-[16/9] bg-gray-100">
+                  <img src={p.cover} alt={p.title} className="w-full h-full object-cover" />
+                </div>
+
+                {/* Texte clampé pour garder la même hauteur */}
+                <figcaption className="p-4">
+                  <h3 className="font-semibold text-gray-900 title--clamp-2">{p.title}</h3>
+                  <p className="mt-1 text-sm text-gray-700 text--clamp-3">{p.description}</p>
+                </figcaption>
+
+                <div className="p-4 pt-0">
+                  {p.link ? (
+                    <a href={p.link} target="_blank" rel="noreferrer"
+                       className="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-white hover:opacity-90"
+                       style={{ backgroundColor: brand.coral }}>
+                      Voir le projet
+                    </a>
+                  ) : (
+                    <button onClick={() => setActive(p)}
+                            className="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-white hover:opacity-90"
+                            style={{ backgroundColor: brand.coral }}>
+                      Voir le projet
+                    </button>
+                  )}
+                </div>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
+      </Container>
+
+      {/* Modale (inchangée) */}
+      {active && !active.link && (
+        <div role="dialog" aria-modal="true" aria-labelledby="project-title" className="fixed inset-0 z-[200]">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setActive(null)} />
+          <div className="relative z-[210] mx-auto my-8 w-[min(1000px,92vw)]">
+            <div className="bg-white rounded-2xl shadow-2xl ring-1 ring-black/10 flex flex-col max-h-[85vh] overflow-hidden">
+              <div className="px-6 py-4 border-b flex items-center justify-between">
+                <h3 id="project-title" className="text-xl font-semibold text-gray-900">{active.title}</h3>
+                <button onClick={() => setActive(null)} className="rounded-lg p-2 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2" aria-label="Fermer" title="Fermer">✕</button>
+              </div>
+              <div className="flex-1 overflow-y-auto">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="p-6 space-y-5">
+                    <p className="text-gray-700">{active.description}</p>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Objectifs</h4>
+                      <ul className="mt-2 list-disc list-inside text-gray-700 space-y-1">{active.objectives?.map((li, i) => <li key={i}>{li}</li>)}</ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Solutions techniques</h4>
+                      <ul className="mt-2 list-disc list-inside text-gray-700 space-y-1">{active.solutions?.map((li, i) => <li key={i}>{li}</li>)}</ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Résultats & performances</h4>
+                      <ul className="mt-2 list-disc list-inside text-gray-700 space-y-1">{active.results?.map((li, i) => <li key={i}>{li}</li>)}</ul>
+                    </div>
+                  </div>
+                  <div className="p-6 grid gap-4 content-start bg-gray-50">
+                    {active.images?.slice(0,2).map((src, i) => (
+                      <div key={i} className="rounded-xl overflow-hidden ring-1 ring-gray-200 bg-white">
+                        <img src={src} alt={`${active.title} visuel ${i+1}`} className="w-full h-auto object-cover"/>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="px-6 py-4 border-t flex justify-end gap-3">
+                <a href="#contact" className="px-4 py-2 rounded-lg font-medium text-white hover:opacity-90" style={{ backgroundColor: brand.coral }}>Discuter de projet similaire</a>
+                <button onClick={() => setActive(null)} className="px-4 py-2 rounded-lg font-medium bg-gray-100 hover:bg-gray-200">Fermer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Clamp CSS pour uniformiser la hauteur des cartes */}
+      <style>{`
+        .title--clamp-2 {
+          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .text--clamp-3 {
+          display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+        }
+      `}</style>
+    </section>
+  );
+}
+
+
+// ——————————————————————————————————————————
+// ✨ 6) PHRASE FINALE + CTA
+// ——————————————————————————————————————————
+function Tagline() {
+  return (
+    <section id="tagline" className="py-20 text-center" style={{backgroundColor: brand.night}}>
+      <Container>
+        <Reveal>
+          <h3 className="text-3xl sm:text-5xl font-bold text-white">Transformons vos <span className="underline decoration-white/40">visions</span> en <span className="underline decoration-white/40">réalisations concrètes</span>.</h3>
+          <p className="mt-4 text-white/85 max-w-3xl mx-auto">Prenons 30 minutes pour comprendre votre contexte, prioriser vos objectifs et définir un premier plan d’action réaliste. Vous repartez avec des prochaines étapes claires.</p>
+          <a href="#contact" className="mt-8 inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-white hover:opacity-90" style={{backgroundColor: brand.coral}}>Discutons de votre projet</a>
+        </Reveal>
+      </Container>
+    </section>
+  )
+}
+
+// ——————————————————————————————————————————
+// ✉️ 7) CONTACT
+// ——————————————————————————————————————————
+function Contact() {
+  const [submitted, setSubmitted] = useState(false)
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    const data = { name: e.target.name.value, email: e.target.email.value, company: e.target.company.value, message: e.target.message.value }
+    try {
+      const res = await fetch(`${window.location.origin}/api/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      if (!res.ok) { alert('Erreur serveur.'); return }
+      setSubmitted(true); e.target.reset(); setTimeout(() => setSubmitted(false), 6000)
+    } catch { alert('Impossible de contacter le serveur.') }
+  }
+
+  return (
+    <section id="contact" className="py-20" style={{backgroundColor: brand.cloud}}>
+      <Container>
+        <Reveal className="text-center mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Contact</h2>
+          <p className="mt-3 text-gray-700">Racontez‑nous votre contexte et vos objectifs. Nous revenons rapidement avec une première proposition d’accompagnement.</p>
+        </Reveal>
+        <Reveal>
+          <form onSubmit={onSubmit} className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-900">Nom</label>
+                <input id="name" name="name" required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Votre nom"/>
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-900">Email</label>
+                <input id="email" name="email" type="email" required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="nom@entreprise.com"/>
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="company" className="block text-sm font-medium text-gray-900">Entreprise</label>
+                <input id="company" name="company" className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Nom de votre société (optionnel)"/>
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-900">Message</label>
+                <textarea id="message" name="message" rows={5} required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Décrivez votre projet (objectifs, délais, contraintes)…"/>
+              </div>
+            </div>
+            <div className="mt-6 flex items-center gap-3">
+              <button type="submit" className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90" style={{backgroundColor: brand.coral}}>Envoyer ma demande</button>
+              <p className="text-xs text-gray-700">En envoyant, vous acceptez notre mention RGPD.</p>
+            </div>
+            {submitted && <p className="mt-4 text-sm font-medium text-green-700">Merci, nous revenons rapidement vers vous.</p>}
+          </form>
+        </Reveal>
+      </Container>
+    </section>
+  )
+}
+
+// ——————————————————————————————————————————
+// 🦶 FOOTER
+// ——————————————————————————————————————————
+function Footer() {
+  return (
+    <footer className="py-10" style={{backgroundColor: brand.main}}>
+      <Container>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-white/90">
+          <div className="flex items-center gap-3">
+            <img src="/logo-syloria.png" alt="Syloria" className="h-8 w-auto"/>
+            <div>
+              <p className="font-semibold text-white">Syloria</p>
+              <p className="text-sm text-white/80">SAS • Gironde, Nouvelle‑Aquitaine, France</p>
+            </div>
+          </div>
+          <div className="text-sm text-white/85">
+            <a href="mailto:contact@syloria.eu" className="hover:text-white">contact@syloria.eu</a>
+            <span className="mx-2">•</span>
+            <a href="https://www.linkedin.com/company/syloria/" target="_blank" rel="noreferrer" className="hover:text-white">LinkedIn</a>
+            <span className="mx-2">•</span>
+            <span>© {new Date().getFullYear()} — Tous droits réservés</span>
+          </div>
+        </div>
+      </Container>
       <style>{`:root{--focus:${brand.blue}}`}</style>
+    </footer>
+  )
+}
+
+// ——————————————————————————————————————————
+// APP ROOT
+// ——————————————————————————————————————————
+export default function App() {
+  return (
+    <div className="font-sans antialiased text-gray-900">
+      <Header />
+      <main id="main" tabIndex={-1}>
+        <Hero />
+        <Audience />
+        <About />
+        <Process />
+        <Portfolio />
+        <Tagline />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   )
 }
