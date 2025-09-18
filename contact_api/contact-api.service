@@ -1,0 +1,20 @@
+[Unit]
+Description=Contact API (Node.js)
+After=network.target
+
+[Service]
+User=syloria
+WorkingDirectory=/home/syloria/syloria_website/contact_api
+
+# IMPORTANT: mettre Node v22 (nvm) en tête du PATH
+Environment=PATH=/home/syloria/.nvm/versions/node/v22.18.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=NODE_ENV=production PORT=3001
+
+# Démarrer via le binaire nvm
+ExecStart=/home/syloria/.nvm/versions/node/v22.18.0/bin/node /home/syloria/syloria_website/contact_api/server.js
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

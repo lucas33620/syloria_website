@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: 'contact@syloria.eu',
-    pass: process.env.MAIL_PASS, // défini dans .env
+    pass: process.env.SMTP_PASS, // défini dans .env
   },
 });
 
@@ -26,7 +26,7 @@ transporter.verify((err, ok) => {
 });
 
 // Endpoint: POST /api/contact
-app.post('/contact', async (req, res) => {
+app.post('/api/contact', async (req, res) => {
   const { name = '', email = '', company = '', message = '' } = req.body || {};
   if (!name || !email || !message) {
     return res.status(400).json({ success: false, error: 'Champs requis manquants' });
