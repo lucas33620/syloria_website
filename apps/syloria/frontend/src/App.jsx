@@ -73,7 +73,7 @@ function Header() {
   }, [])
 
   const links = [
-    { id: 'audience',  label: 'Pour qui ?' },
+    { id: 'audience',  label: 'Nos clients ?' },
     { id: 'about',     label: 'À propos de nous' },
     { id: 'process',   label: 'Méthode' },
     { id: 'portfolio', label: 'Réalisations' },
@@ -222,8 +222,8 @@ function Audience() {
     <section id="audience" className="py-16" style={{backgroundColor: brand.cloud}}>
       <Container>
         <Reveal className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Pour qui ?</h2>
-          <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : nNous adaptons notre accompagnement à votre contexte métier et vos contraintes opérationnelles.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Nos clients</h2>
+          <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : Nous adaptons notre accompagnement à votre contexte métier et vos contraintes opérationnelles.</p>
         </Reveal>
 
         <div className="mt-10 grid md:grid-cols-2 gap-6">
@@ -257,7 +257,7 @@ function About() {
   const toggle = (i) => setFlipped((f) => ({ ...f, [i]: !f[i] }));
 
   const services = [
-    { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/microprocesseur/actionneurs.' },
+    { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/microprocesseur.' },
     { t: 'Web & APIs backend', img: '/Web_logo.png',        details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' },
     { t: 'Cybersécurité / IT', img: '/Cyber_logo.png',      details: 'Audits de code, durcissement, bonnes pratiques OWASP/ANSSI, tests automatisés, qualité logicielle, revue d’architecture.' },
     { t: 'Agilité & formation',img: '/Agile_logo.png',      details: 'Kick-off, cadrage backlog, facilitation de sprints, KPI, ateliers de formation (clean code, Git, CI/CD, sécurité applicative).' },
@@ -393,7 +393,7 @@ function About() {
                 <p className="font-semibold text-lg">Parcours & expériences clés</p>
                 <ul className="list-disc list-inside space-y-1">
                   <li><strong>Fondateur de Syloria (2025)</strong> : micro-agence de consulting tech spécialisée
-                      en systèmes embarqués (STM32, ROS2, FreeRTOS), back-end Python (Django, FastAPI) et,
+                      en systèmes embarqués (STM32, ROS2, FreeRTOS), back-end Python (Django, FastAPI) et
                       dès 2026, pôle cybersécurité.</li>
                   <li><strong>3 ans chez Shark Robotics</strong> : développement embarqué sous ROS2 et STM32,
                       création de bancs de tests automatisés, mise en place de pratiques agiles (Scrum Master).</li>
@@ -413,8 +413,8 @@ function About() {
                   documentation complète, afin de livrer rapidement des solutions robustes et
                   maintenables.
                 </p>
-                <p>📍 Basé à <strong>Bordeaux</strong>, j’interviens en <strong>remote</strong> ou en mode hybride
-                  sur des projets nationaux.</p>
+                <p>📍 Basé à <strong>Bordeaux</strong>, j’interviens en mode <strong>hybride </strong> 
+                  sur des projets en <strong>Nouvelle-Aquitaine</strong> et en <strong>remote</strong> au niveau national.</p>
               </div>
 
               {/* Liens de contact */}
@@ -461,11 +461,11 @@ function About() {
 // ——————————————————————————————————————————
 function Process() {
   const steps = [
-    { n: '01', t: 'Diagnostic gratuit (30 min)', d: 'Échange avec Lucas pour évaluer la faisabilité, comprendre enjeux métier et priorités. Résultat : cadrage initial et premières solutions identifiées.' },
-    { n: '02', t: 'Proposition claire & chiffrée', d: "Plan d'action et devis transparent avec livrables, planning et modalités (mission courte, pack, régie). Critères de succès mesurables et hypothèses validées." },
-    { n: '03', t: 'Conception & développement', d: "Itérations courtes (Agile), TDD quand pertinent, revues fréquentes. Documentation au fil de l’eau pour garantir la maintenabilité." },
-    { n: '04', t: 'Validation & transfert', d: 'Livraison de code propre, schémas/PCB, API documentée. Session de passation pédagogique (démos, check-lists).' },
-    { n: '05', t: 'Suivi & amélioration', d: 'Support à la demande : audits, optimisations, industrialisation, montée en charge. Ajustements guidés par le terrain.' },
+    { n: '01', t: '1er échange gratuit (30 min)', d: 'Échange avec nous pour comprendre les enjeux métier et valider la faisabilité à haut niveau. Résultat : premières pistes et cadrage initial avant un diagnostic technique approfondi.' },
+    { n: '02', t: 'Proposition claire & chiffrée', d: "Plan d’action et devis transparents : livrables, planning et modalités (mission courte, pack, régie). Critères de succès mesurables et hypothèses validées." },
+    { n: '03', t: 'Conception & développement', d: "Itérations courtes (Agile). Nous travaillons main dans la main avec vous : revues fréquentes et feedback continu. Documentation au fil de l’eau pour garantir la maintenabilité." },
+    { n: '04', t: 'Validation & transfert', d: 'Livraison de code propre, schémas/PCB et API documentée. Session de passation pédagogique (démos, check-lists).' },
+    { n: '05', t: 'Suivi & amélioration', d: 'Support à la demande : audits, optimisations, industrialisation, montée en charge, avec des ajustements guidés par le terrain.' },
   ];
 
   return (
@@ -524,7 +524,7 @@ function Portfolio() {
       cover: '/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png',
       description: 'Conception d’un module capteur environnemental I²C : schéma, PCB KiCad, BOM, Gerbers, rendu 3D. Intégration dans une carte principale de surveillance pour serres/agriculture connectée',
       objectives: ['Adressage I2C configurable', 'Alim 5V→3.3V + protections', 'DRC validé et contraintes mécaniques respectées : PCB 30 × 30 mm, 4 fixations M2.'],
-      solutions: ['Choix du capteur BME280 pour compacité et précision ; implémentation en I²C.', 'Alimentation : LDO 3.3 V + condensateurs de découplage', 'Sérigraphie claire'],
+      solutions: ['Choix du capteur BME280 pour compacité et précision' , 'implémentation en I²C.', 'Alimentation : LDO 3.3 V + condensateurs de découplage', 'Sérigraphie claire'],
       results: ['Gerbers conformes aux fabricants (JLCPCB / PCBWay) prêts à la fabrication', 'BOM générée automatiquement', 'Rendu 3D prêt'],
       images: ['/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png', '/projet_capteur_environnemental/capteur environnemental_face_filigrame.png'],
     },
