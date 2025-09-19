@@ -139,8 +139,7 @@ function Hero() {
             Micro-agence tech qui transforme vos idées en solutions fiables
           </h2>
           <p className="mt-5 max-w-3xl mx-auto text-white/90 text-lg">
-            De l’idée à la mise en production, nous accompagnons PME, startups et industriels avec une approche claire,
-            humaine et documentée. Objectif : livrer vite, proprement, et durablement.
+            De l’idée au produit industrialisé : accompagnement technique et humain pour des solutions durables.
           </p>
           <div className="mt-8">
             <a
@@ -185,7 +184,7 @@ function Audience() {
     {
       t: 'Startup',
       d: (
-        <>Vous avez une idée, une équipe réduite et besoin d’un socle technique solide pour avancer sans dette ?</>
+        <>Vous avez une idée, une équipe réduite et besoin d’un socle technique solide pour faire évoluer rapidement votre prototype.</>
       ),
       bullets: [
         <strong key="1">MVP techniques clés en main (API, backend)</strong>,
@@ -196,7 +195,7 @@ function Audience() {
     {
       t: 'TPE-PME industrielle',
       d: (
-        <>Nous modernisons vos produits et valorisons vos données terrain en respectant vos contraintes.</>
+        <>Nous concevons vos produits dans un contexte d’évolution : modularité, tests et documentation intégrés, pour que l’évolutivité soit native.</>
       ),
       bullets: [
         <strong key="1">Firmware embarqué (STM32, ROS2, drivers)</strong>,
@@ -224,7 +223,7 @@ function Audience() {
       <Container>
         <Reveal className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Pour qui ?</h2>
-          <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : nous adaptons notre accompagnement à votre contexte, pour livrer vite et bien.</p>
+          <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : nNous adaptons notre accompagnement à votre contexte métier et vos contraintes opérationnelles.</p>
         </Reveal>
 
         <div className="mt-10 grid md:grid-cols-2 gap-6">
@@ -258,7 +257,7 @@ function About() {
   const toggle = (i) => setFlipped((f) => ({ ...f, [i]: !f[i] }));
 
   const services = [
-    { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/actuateurs.' },
+    { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/microprocesseur/actionneurs.' },
     { t: 'Web & APIs backend', img: '/Web_logo.png',        details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' },
     { t: 'Cybersécurité / IT', img: '/Cyber_logo.png',      details: 'Audits de code, durcissement, bonnes pratiques OWASP/ANSSI, tests automatisés, qualité logicielle, revue d’architecture.' },
     { t: 'Agilité & formation',img: '/Agile_logo.png',      details: 'Kick-off, cadrage backlog, facilitation de sprints, KPI, ateliers de formation (clean code, Git, CI/CD, sécurité applicative).' },
@@ -274,21 +273,21 @@ function About() {
             <div className="text-left">
               {/* <img src="/portrait-lucas.jpg" alt="Fondateur" className="hidden" /> */}
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Une micro-agence réactive, documentée et pédagogique
+                Une micro-agence réactive, concentrée sur trois expertises complémentaires
               </h2>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
                 Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), Syloria est une micro-agence Freelance basée en Nouvelle-Aquitaine.
-                Nous sommes 2 indépendants complémentaires (embarqué & cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
+                Nous sommes 2 indépendants complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
               </p>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Notre promesse : des livrables propres, documentés et transmis avec pédagogie (pas de boîte noire).
+                Notre promesse : des livrables propres, documentés et transmis avec pédagogie.
                 Itérations courtes et transparence sur les risques, coûts et délais.
               </p>
               <button
                 onClick={() => setShowProfile(true)}
                 className="mt-6 inline-flex rounded-xl px-6 py-3 font-semibold text-white hover:opacity-90"
                 style={{ backgroundColor: brand.coral }}>
-                Découvrir mon profil
+                Découvrir le profil de Lucas
               </button>
             </div>
           </Reveal>
@@ -462,9 +461,9 @@ function About() {
 // ——————————————————————————————————————————
 function Process() {
   const steps = [
-    { n: '01', t: 'Diagnostic gratuit (30 min)', d: 'Échange avec Lucas pour évaluer la faisabilité, comprendre les enjeux métier et définir une vision produit claire. Résultat : cadrage initial et premiers risques identifiés.' },
-    { n: '02', t: 'Proposition claire & chiffrée', d: 'Devis transparent avec livrables, planning et modalités (mission courte, pack, régie). Critères de succès mesurables et hypothèses validées.' },
-    { n: '03', t: 'Conception & développement', d: 'Itérations courtes (Agile), TDD quand pertinent, revues fréquentes. Documentation au fil de l’eau pour garantir la maintenabilité.' },
+    { n: '01', t: 'Diagnostic gratuit (30 min)', d: 'Échange avec Lucas pour évaluer la faisabilité, comprendre enjeux métier et priorités. Résultat : cadrage initial et premières solutions identifiées.' },
+    { n: '02', t: 'Proposition claire & chiffrée', d: "Plan d'action et devis transparent avec livrables, planning et modalités (mission courte, pack, régie). Critères de succès mesurables et hypothèses validées." },
+    { n: '03', t: 'Conception & développement', d: "Itérations courtes (Agile), TDD quand pertinent, revues fréquentes. Documentation au fil de l’eau pour garantir la maintenabilité." },
     { n: '04', t: 'Validation & transfert', d: 'Livraison de code propre, schémas/PCB, API documentée. Session de passation pédagogique (démos, check-lists).' },
     { n: '05', t: 'Suivi & amélioration', d: 'Support à la demande : audits, optimisations, industrialisation, montée en charge. Ajustements guidés par le terrain.' },
   ];
@@ -523,10 +522,10 @@ function Portfolio() {
       title: 'Module Capteur Environnemental (BME280) — PCB 30×30 mm',
       cat: 'Embarqué',
       cover: '/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png',
-      description: 'Conception d’un module capteur environnemental I2C : schéma, PCB KiCad, BOM, Gerbers, rendu 3D.',
-      objectives: ['Adressage I2C configurable', 'Alim 5V→3.3V + protections', 'DRC validé, 4 fixations M2'],
-      solutions: ['Choix BME280, routage optimisé', 'LDO + protection', 'Sérigraphie claire et connectique simple'],
-      results: ['Gerbers conformes JLC/PCBWay', 'BOM auto', 'Rendu 3D prêt client'],
+      description: 'Conception d’un module capteur environnemental I²C : schéma, PCB KiCad, BOM, Gerbers, rendu 3D. Intégration dans une carte principale de surveillance pour serres/agriculture connectée',
+      objectives: ['Adressage I2C configurable', 'Alim 5V→3.3V + protections', 'DRC validé et contraintes mécaniques respectées : PCB 30 × 30 mm, 4 fixations M2.'],
+      solutions: ['Choix du capteur BME280 pour compacité et précision ; implémentation en I²C.', 'Alimentation : LDO 3.3 V + condensateurs de découplage', 'Sérigraphie claire'],
+      results: ['Gerbers conformes aux fabricants (JLCPCB / PCBWay) prêts à la fabrication', 'BOM générée automatiquement', 'Rendu 3D prêt'],
       images: ['/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png', '/projet_capteur_environnemental/capteur environnemental_face_filigrame.png'],
     },
     {
