@@ -130,7 +130,7 @@ function Hero() {
           <div className="inline-flex flex-col items-center mb-12 sm:mb-14">
             <h1 className="text-4xl sm:text-5xl font-extrabold leading-snug tracking-wide">− SYLORIA −</h1>
             <p className="mt-2 text-xs tracking-widest uppercase font-semibold text-white/80">
-              Systèmes embarqués • Web/API • Cybersécurité/IT
+              Systèmes embarqués • Web/API • Sécurité
             </p>
           </div>
 
@@ -171,52 +171,52 @@ function Hero() {
 function Audience() {
   const items = [
     {
-      t: 'Entrepreneur',
+      t: '🚀 Entrepreneur',
       d: (
-        <>Passez de l’idée au prototype fonctionnel avec des outils clairs et adaptés à vos moyens : mini-site, formulaire, MVP API.</>
+        <>Passez de l’idée au prototype fonctionnel avec des outils simples et adaptés à vos moyens.</>
       ),
       bullets: [
-        <strong key="1">Création de MVP (API, formulaire, mini-site)</strong>,
-        <strong key="2">Bonnes pratiques cyber (backup, auth)</strong>,
-        <strong key="3">Conseils & support technique</strong>,
+        <strong key="1">Création rapide de MVP (API, mini-site, formulaire)</strong>,
+        <strong key="2">Bonnes pratiques cybersécurité (sauvegarde, authentification)</strong>,
+        <strong key="3">Conseils techniques clairs pour prendre les bonnes décisions</strong>,
       ],
     },
     {
-      t: 'Startup',
+      t: '🌱 Startup',
       d: (
-        <>Vous avez une idée, une équipe réduite et besoin d’un socle technique solide pour faire évoluer rapidement votre prototype.</>
+        <>Vous avez une idée et une petite équipe ? Nous posons un socle technique solide pour faire évoluer rapidement votre projet.</>
       ),
       bullets: [
-        <strong key="1">MVP techniques clés en main (API, backend)</strong>,
-        <strong key="2">Embarqués & edge-ready (STM32, ROS2)</strong>,
-        <strong key="3">IoT : device → data → dashboard</strong>,
+        <strong key="1">MVP clé en main (API, backend robuste)</strong>,
+        <strong key="2">Bases embarquées & edge-ready (STM32, ROS2)</strong>,
+        <strong key="3">Solutions IoT de bout en bout (objet → données → tableau de bord)</strong>,
       ],
     },
     {
-      t: 'TPE-PME industrielle',
+      t: '⚙️ TPE-PME industrielle',
       d: (
-        <>Nous concevons vos produits dans un contexte d’évolution : modularité, tests et documentation intégrés, pour que l’évolutivité soit native.</>
+        <>Nous concevons vos produits avec une logique d’évolutivité native : modularité, tests et documentation inclus dès le départ.</>
       ),
       bullets: [
         <strong key="1">Firmware embarqué (STM32, ROS2, drivers)</strong>,
-        <strong key="2">Dashboards & bancs de tests (Python, Qt)</strong>,
+        <strong key="2">Dashboards & bancs de test pour la production (Python, Qt)</strong>,
         <strong key="3">Projets IoT industriels (capteurs, supervision)</strong>,
-        <strong key="4">Accompagnement agile & reporting</strong>,
+        <strong key="4">Accompagnement agile avec reporting clair</strong>,
       ],
     },
     {
-      t: 'Responsable produit',
+      t: '🎯 Responsable produit',
       d: (
-        <>Nous transformons votre vision en livrables techniques clairs, documentés et déployables.</>
+        <>Nous transformons votre vision en livrables techniques clairs et exploitables.</>
       ),
       bullets: [
-        <strong key="1">Alignement besoin ↔ technique</strong>,
-        <strong key="2">APIs robustes (FastAPI/Django + Swagger)</strong>,
-        <strong key="3">Suivi de sprint, priorisation</strong>,
-        <strong key="4">Intégration CI/CD (GitLab/GitHub)</strong>,
+        <strong key="1">Alignement besoin ↔ technique (évite les incompréhensions)</strong>,
+        <strong key="2">APIs robustes documentées (FastAPI/Django + Swagger)</strong>,
+        <strong key="3">Suivi agile (sprint, priorisation, reporting)</strong>,
+        <strong key="4">CI/CD intégré pour des déploiements fiables</strong>,
       ],
     },
-  ]
+  ];
 
   return (
     <section id="audience" className="py-16" style={{backgroundColor: brand.cloud}}>
@@ -259,9 +259,7 @@ function About() {
   const services = [
     { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/microprocesseur.' },
     { t: 'Web & APIs backend', img: '/Web_logo.png',        details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' },
-    { t: 'Cybersécurité / IT', img: '/Cyber_logo.png',      details: 'Audits de code, durcissement, bonnes pratiques OWASP/ANSSI, tests automatisés, qualité logicielle, revue d’architecture.' },
-    { t: 'Agilité & formation',img: '/Agile_logo.png',      details: 'Kick-off, cadrage backlog, facilitation de sprints, KPI, ateliers de formation (clean code, Git, CI/CD, sécurité applicative).' },
-  ];
+    ];
 
   const [showProfile, setShowProfile] = useState(false);
 
@@ -273,15 +271,16 @@ function About() {
             <div className="text-left">
               {/* <img src="/portrait-lucas.jpg" alt="Fondateur" className="hidden" /> */}
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Une micro-agence réactive, concentrée sur trois expertises complémentaires
+                Une micro-agence réactive portée par deux ingénieurs complémentaires
               </h2>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
                 Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), Syloria est une micro-agence Freelance basée en Nouvelle-Aquitaine.
-                Nous sommes 2 indépendants complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
+                Nous sommes deux ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
               </p>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Notre promesse : des livrables propres, documentés et transmis avec pédagogie.
-                Itérations courtes et transparence sur les risques, coûts et délais.
+                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et le <strong>Web/API</strong>, avec une même promesse :
+                des livrables propres, documentés et transmis avec pédagogie.
+                Nous travaillons en itérations courtes, avec transparence sur les risques, les coûts et les délais.
               </p>
               <button
                 onClick={() => setShowProfile(true)}
@@ -292,24 +291,25 @@ function About() {
             </div>
           </Reveal>
 
-
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             {services.map((s, i) => (
               <Reveal key={i}>
                 {/* Conteneur flip */}
-                <div className={`flip-card ${flipped[i] ? 'is-flipped' : ''}`} style={{ height: 260 }}>
+                <div
+                  className={`flip-card ${flipped[i] ? 'is-flipped' : ''}`}
+                  style={{ height: 260, maxWidth: 320, margin: "0 auto" }}
+                >
                   <div className="flip-card-inner">
                     {/* Face avant */}
-                    <div className="flip-card-front">
-                      <div className="mb-3 flex items-center justify-center">
+                    <div className="flip-card-front flex flex-col items-center justify-center p-4">
                       <img
                         src={s.img}
                         alt=""
                         className="w-[120px] h-[120px] object-contain"
-                        style={{ minWidth: '120px', minHeight: '120px' }}
                       />
-                    </div>
-                      <h3 className="font-semibold text-gray-900 text-center">{s.t}</h3>
+                      <h3 className="font-semibold text-gray-900 text-center mt-3">
+                        {s.t}
+                      </h3>
                       <button
                         onClick={() => toggle(i)}
                         className="mt-3 text-sm font-medium text-white px-3 py-2 rounded-lg"
@@ -320,7 +320,7 @@ function About() {
                     </div>
 
                     {/* Face arrière */}
-                    <div className="flip-card-back">
+                    <div className="flip-card-back flex flex-col items-center justify-center p-4">
                       <p className="text-sm text-gray-800 text-center">{s.details}</p>
                       <button
                         onClick={() => toggle(i)}
