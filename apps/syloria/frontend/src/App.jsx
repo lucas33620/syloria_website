@@ -681,22 +681,40 @@ function Tagline() {
 // ——————————————————————————————————————————
 function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const [selectedService, setSelectedService] = useState("") // <— AJOUT
+
   const onSubmit = async (e) => {
     e.preventDefault()
-    const data = { name: e.target.name.value, email: e.target.email.value, company: e.target.company.value, message: e.target.message.value }
+    const data = { 
+      name: e.target.name.value, 
+      email: e.target.email.value, 
+      company: e.target.company.value, 
+      service: e.target.service.value, 
+      other: e.target.other?.value || "" // safe si champ pas présent
+    }
     try {
-      const res = await fetch(`${window.location.origin}/api/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      const res = await fetch(`${window.location.origin}/api/contact`, { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(data) 
+      })
       if (!res.ok) { alert('Erreur serveur.'); return }
       setSubmitted(true); e.target.reset(); setTimeout(() => setSubmitted(false), 6000)
-    } catch { alert('Impossible de contacter le serveur.') }
+      setSelectedService("") // reset du choix
+    } catch { 
+      alert('Impossible de contacter le serveur.') 
+    }
   }
 
   return (
     <section id="contact" className="py-20" style={{backgroundColor: brand.cloud}}>
       <Container>
         <Reveal className="text-center mb-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Contact</h2>
-          <p className="mt-3 text-gray-700">Racontez‑nous votre contexte et vos objectifs. Nous revenons rapidement avec une première proposition d’accompagnement.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Être contacté</h2>
+          <p className="mt-3 text-gray-700">
+            Sélectionnez le sujet qui vous intéresse et laissez-nous vos coordonnées. 
+            Nous revenons rapidement vers vous.
+          </p>
         </Reveal>
         <Reveal>
           <form onSubmit={onSubmit} className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200">
@@ -714,9 +732,28 @@ function Contact() {
                 <input id="company" name="company" className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Nom de votre société (optionnel)"/>
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-900">Message</label>
-                <textarea id="message" name="message" rows={5} required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Décrivez votre projet (objectifs, délais, contraintes)…"/>
+                <label htmlFor="service" className="block text-sm font-medium text-gray-900">Je suis intéressé par :</label>
+                <select 
+                  id="service" 
+                  name="service" 
+                  required 
+                  className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0"
+                  onChange={(e) => setSelectedService(e.target.value)} // <— AJOUT
+                  value={selectedService} // <— AJOUT
+                >
+                  <option value="">— Choisissez une option —</option>
+                  <option value="Systèmes embarqués">Systèmes embarqués</option>
+                  <option value="Web & APIs backend">Web & APIs backend</option>
+                  <option value="Informations supplémentaires">Informations supplémentaires</option>
+                  <option value="Autre">Autre (à préciser)</option>
+                </select>
               </div>
+              {selectedService === "Autre" && (
+                <div className="sm:col-span-2">
+                  <label htmlFor="other" className="block text-sm font-medium text-gray-900">Précisez votre besoin</label>
+                  <input id="other" name="other" className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Votre besoin"/>
+                </div>
+              )}
             </div>
             <div className="mt-6 flex items-center gap-3">
               <button type="submit" className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90" style={{backgroundColor: brand.coral}}>Envoyer ma demande</button>
@@ -729,6 +766,7 @@ function Contact() {
     </section>
   )
 }
+
 
 // ——————————————————————————————————————————
 // 🦶 FOOTER
