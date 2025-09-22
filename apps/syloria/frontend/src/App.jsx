@@ -73,7 +73,7 @@ function Header() {
   }, [])
 
   const links = [
-    { id: 'audience',  label: 'Pour qui ?' },
+    { id: 'audience',  label: 'Nos clients ?' },
     { id: 'about',     label: 'À propos de nous' },
     { id: 'process',   label: 'Méthode' },
     { id: 'portfolio', label: 'Réalisations' },
@@ -130,7 +130,7 @@ function Hero() {
           <div className="inline-flex flex-col items-center mb-12 sm:mb-14">
             <h1 className="text-4xl sm:text-5xl font-extrabold leading-snug tracking-wide">− SYLORIA −</h1>
             <p className="mt-2 text-xs tracking-widest uppercase font-semibold text-white/80">
-              Systèmes embarqués • Web/API • Cybersécurité/IT
+              Systèmes embarqués • Web/API • Sécurité
             </p>
           </div>
 
@@ -139,8 +139,7 @@ function Hero() {
             Micro-agence tech qui transforme vos idées en solutions fiables
           </h2>
           <p className="mt-5 max-w-3xl mx-auto text-white/90 text-lg">
-            De l’idée à la mise en production, nous accompagnons PME, startups et industriels avec une approche claire,
-            humaine et documentée. Objectif : livrer vite, proprement, et durablement.
+            De l’idée au produit industrialisé : accompagnement technique et humain pour des solutions durables.
           </p>
           <div className="mt-8">
             <a
@@ -172,59 +171,59 @@ function Hero() {
 function Audience() {
   const items = [
     {
-      t: 'Entrepreneur',
+      t: '🚀 Entrepreneur',
       d: (
-        <>Passez de l’idée au prototype fonctionnel avec des outils clairs et adaptés à vos moyens : mini-site, formulaire, MVP API.</>
+        <>Passez de l’idée au prototype fonctionnel avec des outils simples et adaptés à vos moyens.</>
       ),
       bullets: [
-        <strong key="1">Création de MVP (API, formulaire, mini-site)</strong>,
-        <strong key="2">Bonnes pratiques cyber (backup, auth)</strong>,
-        <strong key="3">Conseils & support technique</strong>,
+        <strong key="1">Création rapide de MVP (API, mini-site, formulaire)</strong>,
+        <strong key="2">Bonnes pratiques cybersécurité (sauvegarde, authentification)</strong>,
+        <strong key="3">Conseils techniques clairs pour prendre les bonnes décisions</strong>,
       ],
     },
     {
-      t: 'Startup',
+      t: '🌱 Startup',
       d: (
-        <>Vous avez une idée, une équipe réduite et besoin d’un socle technique solide pour avancer sans dette ?</>
+        <>Vous avez une idée et une petite équipe ? Nous posons un socle technique solide pour faire évoluer rapidement votre projet.</>
       ),
       bullets: [
-        <strong key="1">MVP techniques clés en main (API, backend)</strong>,
-        <strong key="2">Embarqués & edge-ready (STM32, ROS2)</strong>,
-        <strong key="3">IoT : device → data → dashboard</strong>,
+        <strong key="1">MVP clé en main (API, backend robuste)</strong>,
+        <strong key="2">Bases embarquées & edge-ready (STM32, ROS2)</strong>,
+        <strong key="3">Solutions IoT de bout en bout (objet → données → tableau de bord)</strong>,
       ],
     },
     {
-      t: 'TPE-PME industrielle',
+      t: '⚙️ TPE-PME industrielle',
       d: (
-        <>Nous modernisons vos produits et valorisons vos données terrain en respectant vos contraintes.</>
+        <>Nous concevons vos produits avec une logique d’évolutivité native : modularité, tests et documentation inclus dès le départ.</>
       ),
       bullets: [
         <strong key="1">Firmware embarqué (STM32, ROS2, drivers)</strong>,
-        <strong key="2">Dashboards & bancs de tests (Python, Qt)</strong>,
+        <strong key="2">Dashboards & bancs de test pour la production (Python, Qt)</strong>,
         <strong key="3">Projets IoT industriels (capteurs, supervision)</strong>,
-        <strong key="4">Accompagnement agile & reporting</strong>,
+        <strong key="4">Accompagnement agile avec reporting clair</strong>,
       ],
     },
     {
-      t: 'Responsable produit',
+      t: '🎯 Responsable produit',
       d: (
-        <>Nous transformons votre vision en livrables techniques clairs, documentés et déployables.</>
+        <>Nous transformons votre vision en livrables techniques clairs et exploitables.</>
       ),
       bullets: [
-        <strong key="1">Alignement besoin ↔ technique</strong>,
-        <strong key="2">APIs robustes (FastAPI/Django + Swagger)</strong>,
-        <strong key="3">Suivi de sprint, priorisation</strong>,
-        <strong key="4">Intégration CI/CD (GitLab/GitHub)</strong>,
+        <strong key="1">Alignement besoin ↔ technique (évite les incompréhensions)</strong>,
+        <strong key="2">APIs robustes documentées (FastAPI/Django + Swagger)</strong>,
+        <strong key="3">Suivi agile (sprint, priorisation, reporting)</strong>,
+        <strong key="4">CI/CD intégré pour des déploiements fiables</strong>,
       ],
     },
-  ]
+  ];
 
   return (
     <section id="audience" className="py-16" style={{backgroundColor: brand.cloud}}>
       <Container>
         <Reveal className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Pour qui ?</h2>
-          <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : nous adaptons notre accompagnement à votre contexte, pour livrer vite et bien.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Nos clients</h2>
+          <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : Nous adaptons notre accompagnement à votre contexte métier et vos contraintes opérationnelles.</p>
         </Reveal>
 
         <div className="mt-10 grid md:grid-cols-2 gap-6">
@@ -258,11 +257,9 @@ function About() {
   const toggle = (i) => setFlipped((f) => ({ ...f, [i]: !f[i] }));
 
   const services = [
-    { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/actuateurs.' },
+    { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/microprocesseur.' },
     { t: 'Web & APIs backend', img: '/Web_logo.png',        details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' },
-    { t: 'Cybersécurité / IT', img: '/Cyber_logo.png',      details: 'Audits de code, durcissement, bonnes pratiques OWASP/ANSSI, tests automatisés, qualité logicielle, revue d’architecture.' },
-    { t: 'Agilité & formation',img: '/Agile_logo.png',      details: 'Kick-off, cadrage backlog, facilitation de sprints, KPI, ateliers de formation (clean code, Git, CI/CD, sécurité applicative).' },
-  ];
+    ];
 
   const [showProfile, setShowProfile] = useState(false);
 
@@ -274,43 +271,45 @@ function About() {
             <div className="text-left">
               {/* <img src="/portrait-lucas.jpg" alt="Fondateur" className="hidden" /> */}
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Une micro-agence réactive, documentée et pédagogique
+                Une micro-agence réactive portée par deux ingénieurs complémentaires
               </h2>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
                 Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), Syloria est une micro-agence Freelance basée en Nouvelle-Aquitaine.
-                Nous sommes 2 indépendants complémentaires (embarqué & cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
+                Nous sommes deux ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
               </p>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Notre promesse : des livrables propres, documentés et transmis avec pédagogie (pas de boîte noire).
-                Itérations courtes et transparence sur les risques, coûts et délais.
+                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et le <strong>Web/API</strong>, avec une même promesse :
+                des livrables propres, documentés et transmis avec pédagogie.
+                Nous travaillons en itérations courtes, avec transparence sur les risques, les coûts et les délais.
               </p>
               <button
                 onClick={() => setShowProfile(true)}
                 className="mt-6 inline-flex rounded-xl px-6 py-3 font-semibold text-white hover:opacity-90"
                 style={{ backgroundColor: brand.coral }}>
-                Découvrir mon profil
+                Découvrir le profil de Lucas
               </button>
             </div>
           </Reveal>
 
-
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             {services.map((s, i) => (
               <Reveal key={i}>
                 {/* Conteneur flip */}
-                <div className={`flip-card ${flipped[i] ? 'is-flipped' : ''}`} style={{ height: 260 }}>
+                <div
+                  className={`flip-card ${flipped[i] ? 'is-flipped' : ''}`}
+                  style={{ height: 260, maxWidth: 320, margin: "0 auto" }}
+                >
                   <div className="flip-card-inner">
                     {/* Face avant */}
-                    <div className="flip-card-front">
-                      <div className="mb-3 flex items-center justify-center">
+                    <div className="flip-card-front flex flex-col items-center justify-center p-4">
                       <img
                         src={s.img}
                         alt=""
                         className="w-[120px] h-[120px] object-contain"
-                        style={{ minWidth: '120px', minHeight: '120px' }}
                       />
-                    </div>
-                      <h3 className="font-semibold text-gray-900 text-center">{s.t}</h3>
+                      <h3 className="font-semibold text-gray-900 text-center mt-3">
+                        {s.t}
+                      </h3>
                       <button
                         onClick={() => toggle(i)}
                         className="mt-3 text-sm font-medium text-white px-3 py-2 rounded-lg"
@@ -321,7 +320,7 @@ function About() {
                     </div>
 
                     {/* Face arrière */}
-                    <div className="flip-card-back">
+                    <div className="flip-card-back flex flex-col items-center justify-center p-4">
                       <p className="text-sm text-gray-800 text-center">{s.details}</p>
                       <button
                         onClick={() => toggle(i)}
@@ -394,7 +393,7 @@ function About() {
                 <p className="font-semibold text-lg">Parcours & expériences clés</p>
                 <ul className="list-disc list-inside space-y-1">
                   <li><strong>Fondateur de Syloria (2025)</strong> : micro-agence de consulting tech spécialisée
-                      en systèmes embarqués (STM32, ROS2, FreeRTOS), back-end Python (Django, FastAPI) et,
+                      en systèmes embarqués (STM32, ROS2, FreeRTOS), back-end Python (Django, FastAPI) et
                       dès 2026, pôle cybersécurité.</li>
                   <li><strong>3 ans chez Shark Robotics</strong> : développement embarqué sous ROS2 et STM32,
                       création de bancs de tests automatisés, mise en place de pratiques agiles (Scrum Master).</li>
@@ -414,8 +413,8 @@ function About() {
                   documentation complète, afin de livrer rapidement des solutions robustes et
                   maintenables.
                 </p>
-                <p>📍 Basé à <strong>Bordeaux</strong>, j’interviens en <strong>remote</strong> ou en mode hybride
-                  sur des projets nationaux.</p>
+                <p>📍 Basé à <strong>Bordeaux</strong>, j’interviens en mode <strong>hybride </strong> 
+                  sur des projets en <strong>Nouvelle-Aquitaine</strong> et en <strong>remote</strong> au niveau national.</p>
               </div>
 
               {/* Liens de contact */}
@@ -462,11 +461,11 @@ function About() {
 // ——————————————————————————————————————————
 function Process() {
   const steps = [
-    { n: '01', t: 'Diagnostic gratuit (30 min)', d: 'Échange avec Lucas pour évaluer la faisabilité, comprendre les enjeux métier et définir une vision produit claire. Résultat : cadrage initial et premiers risques identifiés.' },
-    { n: '02', t: 'Proposition claire & chiffrée', d: 'Devis transparent avec livrables, planning et modalités (mission courte, pack, régie). Critères de succès mesurables et hypothèses validées.' },
-    { n: '03', t: 'Conception & développement', d: 'Itérations courtes (Agile), TDD quand pertinent, revues fréquentes. Documentation au fil de l’eau pour garantir la maintenabilité.' },
-    { n: '04', t: 'Validation & transfert', d: 'Livraison de code propre, schémas/PCB, API documentée. Session de passation pédagogique (démos, check-lists).' },
-    { n: '05', t: 'Suivi & amélioration', d: 'Support à la demande : audits, optimisations, industrialisation, montée en charge. Ajustements guidés par le terrain.' },
+    { n: '01', t: '1er échange gratuit (30 min)', d: 'Échange avec nous pour comprendre les enjeux métier et valider la faisabilité à haut niveau. Résultat : premières pistes et cadrage initial avant un diagnostic technique approfondi.' },
+    { n: '02', t: 'Proposition claire & chiffrée', d: "Plan d’action et devis transparents : livrables, planning et modalités (mission courte, pack, régie). Critères de succès mesurables et hypothèses validées." },
+    { n: '03', t: 'Conception & développement', d: "Itérations courtes (Agile). Nous travaillons main dans la main avec vous : revues fréquentes et feedback continu. Documentation au fil de l’eau pour garantir la maintenabilité." },
+    { n: '04', t: 'Validation & transfert', d: 'Livraison de code propre, schémas/PCB et API documentée. Session de passation pédagogique (démos, check-lists).' },
+    { n: '05', t: 'Suivi & amélioration', d: 'Support à la demande : audits, optimisations, industrialisation, montée en charge, avec des ajustements guidés par le terrain.' },
   ];
 
   return (
@@ -523,10 +522,10 @@ function Portfolio() {
       title: 'Module Capteur Environnemental (BME280) — PCB 30×30 mm',
       cat: 'Embarqué',
       cover: '/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png',
-      description: 'Conception d’un module capteur environnemental I2C : schéma, PCB KiCad, BOM, Gerbers, rendu 3D.',
-      objectives: ['Adressage I2C configurable', 'Alim 5V→3.3V + protections', 'DRC validé, 4 fixations M2'],
-      solutions: ['Choix BME280, routage optimisé', 'LDO + protection', 'Sérigraphie claire et connectique simple'],
-      results: ['Gerbers conformes JLC/PCBWay', 'BOM auto', 'Rendu 3D prêt client'],
+      description: 'Conception d’un module capteur environnemental I²C : schéma, PCB KiCad, BOM, Gerbers, rendu 3D. Intégration dans une carte principale de surveillance pour serres/agriculture connectée',
+      objectives: ['Adressage I2C configurable', 'Alim 5V→3.3V + protections', 'DRC validé et contraintes mécaniques respectées : PCB 30 × 30 mm, 4 fixations M2.'],
+      solutions: ['Choix du capteur BME280 pour compacité et précision' , 'implémentation en I²C.', 'Alimentation : LDO 3.3 V + condensateurs de découplage', 'Sérigraphie claire'],
+      results: ['Gerbers conformes aux fabricants (JLCPCB / PCBWay) prêts à la fabrication', 'BOM générée automatiquement', 'Rendu 3D prêt'],
       images: ['/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png', '/projet_capteur_environnemental/capteur environnemental_face_filigrame.png'],
     },
     {
@@ -677,30 +676,54 @@ function Tagline() {
   )
 }
 
-// ——————————————————————————————————————————
 // ✉️ 7) CONTACT
 // ——————————————————————————————————————————
 function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const [selectedService, setSelectedService] = useState("")
+  const [showPrivacy, setShowPrivacy] = useState(false) 
+
   const onSubmit = async (e) => {
     e.preventDefault()
-    const data = { name: e.target.name.value, email: e.target.email.value, company: e.target.company.value, message: e.target.message.value }
+    const data = { 
+      name: e.target.name.value, 
+      email: e.target.email.value, 
+      company: e.target.company.value, 
+      service: e.target.service.value, 
+      other: e.target.other?.value || "" 
+    }
     try {
-      const res = await fetch(`${window.location.origin}/api/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      const res = await fetch(`${window.location.origin}/api/contact`, { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(data) 
+      })
       if (!res.ok) { alert('Erreur serveur.'); return }
-      setSubmitted(true); e.target.reset(); setTimeout(() => setSubmitted(false), 6000)
-    } catch { alert('Impossible de contacter le serveur.') }
+      setSubmitted(true)
+      e.target.reset()
+      setTimeout(() => setSubmitted(false), 6000)
+      setSelectedService("")
+    } catch { 
+      alert('Impossible de contacter le serveur.') 
+    }
   }
 
   return (
     <section id="contact" className="py-20" style={{backgroundColor: brand.cloud}}>
       <Container>
         <Reveal className="text-center mb-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Contact</h2>
-          <p className="mt-3 text-gray-700">Racontez‑nous votre contexte et vos objectifs. Nous revenons rapidement avec une première proposition d’accompagnement.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Être contacté</h2>
+          <p className="mt-3 text-gray-700">
+            Sélectionnez le sujet qui vous intéresse et laissez-nous vos coordonnées. 
+            Nous revenons rapidement vers vous.
+          </p>
         </Reveal>
+
         <Reveal>
-          <form onSubmit={onSubmit} className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200">
+          <form
+            onSubmit={onSubmit}
+            className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200"
+          >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-900">Nom</label>
@@ -715,17 +738,183 @@ function Contact() {
                 <input id="company" name="company" className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Nom de votre société (optionnel)"/>
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-900">Message</label>
-                <textarea id="message" name="message" rows={5} required className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Décrivez votre projet (objectifs, délais, contraintes)…"/>
+                <label htmlFor="service" className="block text-sm font-medium text-gray-900">Je suis intéressé par :</label>
+                <select 
+                  id="service" 
+                  name="service" 
+                  required 
+                  className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0"
+                  onChange={(e) => setSelectedService(e.target.value)}
+                  value={selectedService}
+                >
+                  <option value="">— Choisissez une option —</option>
+                  <option value="Systèmes embarqués">Systèmes embarqués</option>
+                  <option value="Web & APIs backend">Web & APIs backend</option>
+                  <option value="Informations supplémentaires">Informations supplémentaires</option>
+                  <option value="Autre">Autre (à préciser)</option>
+                </select>
               </div>
+              {selectedService === "Autre" && (
+                <div className="sm:col-span-2">
+                  <label htmlFor="other" className="block text-sm font-medium text-gray-900">Précisez votre besoin</label>
+                  <input id="other" name="other" className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0" placeholder="Votre besoin"/>
+                </div>
+              )}
             </div>
+
+            {/* ✅ Bouton + lien ouvrant la modale */}
             <div className="mt-6 flex items-center gap-3">
-              <button type="submit" className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90" style={{backgroundColor: brand.coral}}>Envoyer ma demande</button>
-              <p className="text-xs text-gray-700">En envoyant, vous acceptez notre mention RGPD.</p>
+              <button
+                type="submit"
+                className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90"
+                style={{backgroundColor: brand.coral}}
+              >
+                Envoyer ma demande
+              </button>
+              <p className="text-xs text-gray-700">
+                En envoyant, vous acceptez notre{" "}
+                <button
+                  type="button"
+                  onClick={() => setShowPrivacy(true)}
+                  className="text-blue-600 hover:underline"
+                >
+                  Politique de confidentialité
+                </button>.
+              </p>
             </div>
-            {submitted && <p className="mt-4 text-sm font-medium text-green-700">Merci, nous revenons rapidement vers vous.</p>}
+
+            {submitted && (
+              <p className="mt-4 text-sm font-medium text-green-700">
+                Merci, nous revenons rapidement vers vous.
+              </p>
+            )}
           </form>
         </Reveal>
+        
+        {/*Affichage overlay*/}
+        {showPrivacy && (
+          <div role="dialog" aria-modal="true" className="fixed inset-0 z-[200]">
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setShowPrivacy(false)}
+            />
+            <div className="relative z-[210] mx-auto my-8 w-[min(900px,92vw)]">
+              <div className="bg-white rounded-2xl shadow-2xl ring-1 ring-black/10 flex flex-col max-h-[85vh] overflow-hidden">
+
+                {/* Header */}
+                <div className="px-6 py-4 border-b flex items-center justify-between">
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    Politique de confidentialité – Formulaire de contact
+                  </h3>
+                  <button
+                    onClick={() => setShowPrivacy(false)}
+                    className="rounded-lg p-2 hover:bg-gray-100"
+                    aria-label="Fermer"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* Contenu scrollable */}
+                <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-b from-white to-gray-50 space-y-8 text-gray-800">
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Responsable du traitement</h4>
+                    <p>
+                      Syloria – 585 route de Marsas 33620 Laruscade<br/>
+                      Email de contact : <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline">contact@syloria.eu</a>
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Données collectées</h4>
+                    <p>Lorsque vous remplissez ce formulaire, nous recueillons les informations suivantes :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>votre nom,</li>
+                      <li>votre adresse email,</li>
+                      <li>le nom de votre société (facultatif),</li>
+                      <li>le sujet de votre intérêt (par exemple « Systèmes embarqués »).</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Finalités et base légale</h4>
+                    <p>Ces données sont traitées afin de :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>répondre à votre demande d’information ou de devis,</li>
+                      <li>vous recontacter pour un suivi commercial.</li>
+                    </ul>
+                    <p>
+                      Le traitement repose sur notre intérêt légitime à répondre à vos sollicitations
+                      (article 6.1.f du RGPD).
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Durée de conservation</h4>
+                    <p>
+                      Vos données sont conservées pendant <strong>2 ans</strong> après
+                      notre dernier échange, sauf si la loi impose une durée différente.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Destinataires</h4>
+                    <p>
+                      Les informations sont destinées uniquement aux services internes de
+                      <strong>Syloria</strong> et ne sont pas transmises à des
+                      tiers sans votre accord, sauf obligation légale.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Vos droits</h4>
+                    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>accès à vos données,</li>
+                      <li>rectification ou mise à jour,</li>
+                      <li>effacement (« droit à l’oubli »),</li>
+                      <li>limitation ou opposition au traitement,</li>
+                      <li>portabilité de vos données.</li>
+                    </ul>
+                    <p>
+                      Pour exercer ces droits, contactez-nous à l’adresse :
+                      <strong> contact@syloria.eu</strong>.
+                    </p>
+                    <p>
+                      Vous pouvez également adresser une réclamation à la{" "}
+                      <a
+                        href="https://www.cnil.fr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        CNIL
+                      </a>.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Sécurité</h4>
+                    <p>
+                      Nous mettons en œuvre des mesures techniques et organisationnelles pour
+                      protéger vos données personnelles.
+                    </p>
+                  </section>
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 border-t flex justify-end">
+                  <button
+                    onClick={() => setShowPrivacy(false)}
+                    className="px-4 py-2 rounded-lg font-medium bg-gray-100 hover:bg-gray-200"
+                  >
+                    Fermer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </Container>
     </section>
   )

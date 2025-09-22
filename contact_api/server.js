@@ -27,8 +27,8 @@ transporter.verify((err, ok) => {
 
 // Endpoint: POST /api/contact
 app.post('/api/contact', async (req, res) => {
-  const { name = '', email = '', company = '', message = '' } = req.body || {};
-  if (!name || !email || !message) {
+  const { name = '', email = '', company = '', service = '', other = '' } = req.body || {};
+  if (!name || !email || !service) {
     return res.status(400).json({ success: false, error: 'Champs requis manquants' });
   }
 
@@ -36,15 +36,15 @@ app.post('/api/contact', async (req, res) => {
     await transporter.sendMail({
       from: `"Site Syloria" <contact@syloria.eu>`,
       to: 'contact@syloria.eu',
-      replyTo: email, // pratique pour répondre directement
-      subject: `📩 Nouveau message — ${name}`,
+      replyTo: email,
+      subject: `📩 Nouvelle demande de contact — ${name}`,
       text:
 `Nom: ${name}
 Email: ${email}
 Entreprise: ${company}
 
-Message:
-${message}`,
+Service choisi: ${service}
+Autre précision: ${other || '(aucune)'}`,
     });
 
     res.json({ success: true });
@@ -53,6 +53,8 @@ ${message}`,
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
+
 
 const PORT = 3001;
 app.listen(PORT, () => console.log(`🚀 API Contact sur http://localhost:${PORT}`));
