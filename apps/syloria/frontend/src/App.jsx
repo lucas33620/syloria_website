@@ -861,7 +861,7 @@ function Contact() {
                     <h4 className="font-semibold text-lg mb-2">Destinataires</h4>
                     <p>
                       Les informations sont destinées uniquement aux services internes de
-                      <strong> [Nom de votre entreprise]</strong> et ne sont pas transmises à des
+                      <strong>Syloria</strong> et ne sont pas transmises à des
                       tiers sans votre accord, sauf obligation légale.
                     </p>
                   </section>
