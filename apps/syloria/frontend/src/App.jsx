@@ -681,7 +681,7 @@ function Tagline() {
 function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [selectedService, setSelectedService] = useState("")
-  const [showPrivacy, setShowPrivacy] = useState(false) // ✅ Ajout pour la modale
+  const [showPrivacy, setShowPrivacy] = useState(false) 
 
   const onSubmit = async (e) => {
     e.preventDefault()
