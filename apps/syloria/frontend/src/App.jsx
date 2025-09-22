@@ -900,6 +900,40 @@ function Contact() {
                       protéger vos données personnelles.
                     </p>
                   </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Statistiques de visite – Google Analytics</h4>
+                    <p>
+                      Ce site utilise Google Analytics 4 en
+                      mode « cookieless » (sans cookies de suivi) :
+                    </p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>
+                        aucun cookie _ga ou identifiant persistant n’est déposé sur votre appareil ;
+                      </li>
+                      <li>
+                        seules des informations <strong>agrégées et anonymisées</strong>
+                        (pings sans cookie) sont envoyées à Google pour mesurer
+                        la fréquentation du site ;
+                      </li>
+                      <li>
+                        ces données servent uniquement à établir des statistiques globales
+                        (nombre de visites, pages consultées, etc.).
+                      </li>
+                    </ul>
+                    <p>
+                      Vous pouvez consulter la politique de confidentialité de Google à l’adresse&nbsp;
+                      <a
+                        href="https://policies.google.com/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        https://policies.google.com/privacy
+                      </a>.
+                    </p>
+                  </section>
+
                 </div>
 
                 {/* Footer */}
