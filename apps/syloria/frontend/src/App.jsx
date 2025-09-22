@@ -676,12 +676,12 @@ function Tagline() {
   )
 }
 
-// ——————————————————————————————————————————
 // ✉️ 7) CONTACT
 // ——————————————————————————————————————————
 function Contact() {
   const [submitted, setSubmitted] = useState(false)
-  const [selectedService, setSelectedService] = useState("") // <— AJOUT
+  const [selectedService, setSelectedService] = useState("")
+  const [showPrivacy, setShowPrivacy] = useState(false) // ✅ Ajout pour la modale
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -690,7 +690,7 @@ function Contact() {
       email: e.target.email.value, 
       company: e.target.company.value, 
       service: e.target.service.value, 
-      other: e.target.other?.value || "" // safe si champ pas présent
+      other: e.target.other?.value || "" 
     }
     try {
       const res = await fetch(`${window.location.origin}/api/contact`, { 
@@ -699,8 +699,10 @@ function Contact() {
         body: JSON.stringify(data) 
       })
       if (!res.ok) { alert('Erreur serveur.'); return }
-      setSubmitted(true); e.target.reset(); setTimeout(() => setSubmitted(false), 6000)
-      setSelectedService("") // reset du choix
+      setSubmitted(true)
+      e.target.reset()
+      setTimeout(() => setSubmitted(false), 6000)
+      setSelectedService("")
     } catch { 
       alert('Impossible de contacter le serveur.') 
     }
@@ -716,8 +718,12 @@ function Contact() {
             Nous revenons rapidement vers vous.
           </p>
         </Reveal>
+
         <Reveal>
-          <form onSubmit={onSubmit} className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200">
+          <form
+            onSubmit={onSubmit}
+            className="mx-auto max-w-2xl bg-white rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-gray-200"
+          >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-900">Nom</label>
@@ -738,8 +744,8 @@ function Contact() {
                   name="service" 
                   required 
                   className="mt-1 w-full rounded-xl border-gray-300 focus:border-[var(--focus)] focus:ring-0"
-                  onChange={(e) => setSelectedService(e.target.value)} // <— AJOUT
-                  value={selectedService} // <— AJOUT
+                  onChange={(e) => setSelectedService(e.target.value)}
+                  value={selectedService}
                 >
                   <option value="">— Choisissez une option —</option>
                   <option value="Systèmes embarqués">Systèmes embarqués</option>
@@ -755,18 +761,164 @@ function Contact() {
                 </div>
               )}
             </div>
+
+            {/* ✅ Bouton + lien ouvrant la modale */}
             <div className="mt-6 flex items-center gap-3">
-              <button type="submit" className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90" style={{backgroundColor: brand.coral}}>Envoyer ma demande</button>
-              <p className="text-xs text-gray-700">En envoyant, vous acceptez notre mention RGPD.</p>
+              <button
+                type="submit"
+                className="px-6 py-3 rounded-xl font-semibold text-white shadow-md hover:opacity-90"
+                style={{backgroundColor: brand.coral}}
+              >
+                Envoyer ma demande
+              </button>
+              <p className="text-xs text-gray-700">
+                En envoyant, vous acceptez notre{" "}
+                <button
+                  type="button"
+                  onClick={() => setShowPrivacy(true)}
+                  className="text-blue-600 hover:underline"
+                >
+                  Politique de confidentialité
+                </button>.
+              </p>
             </div>
-            {submitted && <p className="mt-4 text-sm font-medium text-green-700">Merci, nous revenons rapidement vers vous.</p>}
+
+            {submitted && (
+              <p className="mt-4 text-sm font-medium text-green-700">
+                Merci, nous revenons rapidement vers vous.
+              </p>
+            )}
           </form>
         </Reveal>
+
+        {/* ✅ Modale Politique de confidentialité */}
+        {showPrivacy && (
+          <div role="dialog" aria-modal="true" className="fixed inset-0 z-[200]">
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setShowPrivacy(false)}
+            />
+            <div className="relative z-[210] mx-auto my-8 w-[min(900px,92vw)]">
+              <div className="bg-white rounded-2xl shadow-2xl ring-1 ring-black/10 flex flex-col max-h-[85vh] overflow-hidden">
+
+                {/* Header */}
+                <div className="px-6 py-4 border-b flex items-center justify-between">
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    Politique de confidentialité – Formulaire de contact
+                  </h3>
+                  <button
+                    onClick={() => setShowPrivacy(false)}
+                    className="rounded-lg p-2 hover:bg-gray-100"
+                    aria-label="Fermer"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* Contenu scrollable */}
+                <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-b from-white to-gray-50 space-y-8 text-gray-800">
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Responsable du traitement</h4>
+                    <p>
+                      Syloria – 585 route de Marsas 33620 Laruscade<br/>
+                      Email de contact : <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline">contact@syloria.eu</a>
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Données collectées</h4>
+                    <p>Lorsque vous remplissez ce formulaire, nous recueillons les informations suivantes :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>votre nom,</li>
+                      <li>votre adresse email,</li>
+                      <li>le nom de votre société (facultatif),</li>
+                      <li>le sujet de votre intérêt (par exemple « Systèmes embarqués »).</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Finalités et base légale</h4>
+                    <p>Ces données sont traitées afin de :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>répondre à votre demande d’information ou de devis,</li>
+                      <li>vous recontacter pour un suivi commercial.</li>
+                    </ul>
+                    <p>
+                      Le traitement repose sur notre intérêt légitime à répondre à vos sollicitations
+                      (article 6.1.f du RGPD).
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Durée de conservation</h4>
+                    <p>
+                      Vos données sont conservées pendant <strong>2 ans</strong> après
+                      notre dernier échange, sauf si la loi impose une durée différente.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Destinataires</h4>
+                    <p>
+                      Les informations sont destinées uniquement aux services internes de
+                      <strong> [Nom de votre entreprise]</strong> et ne sont pas transmises à des
+                      tiers sans votre accord, sauf obligation légale.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Vos droits</h4>
+                    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>accès à vos données,</li>
+                      <li>rectification ou mise à jour,</li>
+                      <li>effacement (« droit à l’oubli »),</li>
+                      <li>limitation ou opposition au traitement,</li>
+                      <li>portabilité de vos données.</li>
+                    </ul>
+                    <p>
+                      Pour exercer ces droits, contactez-nous à l’adresse :
+                      <strong> contact@syloria.eu</strong>.
+                    </p>
+                    <p>
+                      Vous pouvez également adresser une réclamation à la{" "}
+                      <a
+                        href="https://www.cnil.fr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        CNIL
+                      </a>.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Sécurité</h4>
+                    <p>
+                      Nous mettons en œuvre des mesures techniques et organisationnelles pour
+                      protéger vos données personnelles.
+                    </p>
+                  </section>
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 border-t flex justify-end">
+                  <button
+                    onClick={() => setShowPrivacy(false)}
+                    className="px-4 py-2 rounded-lg font-medium bg-gray-100 hover:bg-gray-200"
+                  >
+                    Fermer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </Container>
     </section>
   )
 }
-
 
 // ——————————————————————————————————————————
 // 🦶 FOOTER
