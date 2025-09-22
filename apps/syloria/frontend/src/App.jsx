@@ -790,8 +790,8 @@ function Contact() {
             )}
           </form>
         </Reveal>
-
-        {/* ✅ Modale Politique de confidentialité */}
+        
+        {/*Affichage overlay*/}
         {showPrivacy && (
           <div role="dialog" aria-modal="true" className="fixed inset-0 z-[200]">
             <div
