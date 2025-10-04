@@ -1,5 +1,5 @@
 /*
-  Syloria – Landing Page (Maquette v2.1)
+  SYLORIA® – Landing Page (Maquette v2.1)
   -------------------------------------------------------
   ▶️ Mise à jour suite à tes demandes du dernier message.
 
@@ -93,7 +93,7 @@ function Header() {
       <Container className="h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img src="/logo-syloria.png" alt="Syloria" className="h-8 w-auto"/>
-          <span className="text-lg font-semibold">Syloria</span>
+          <span className="text-lg font-semibold">SYLORIA®</span>
         </div>
         <nav className="hidden md:flex items-center gap-2" aria-label="Navigation principale">
           <NavLinks />
@@ -128,7 +128,7 @@ function Hero() {
         <Reveal className="text-center text-white pt-24 sm:pt-16 md:pt-8 lg:pt-6 pb-28 sm:pb-24 md:pb-20">
           {/* Bloc marque */}
           <div className="inline-flex flex-col items-center mb-12 sm:mb-14">
-            <h1 className="text-4xl sm:text-5xl font-extrabold leading-snug tracking-wide">− SYLORIA −</h1>
+            <h1 className="text-4xl sm:text-5xl font-extrabold leading-snug tracking-wide">− SYLORIA® −</h1>
             <p className="mt-2 text-xs tracking-widest uppercase font-semibold text-white/80">
               Systèmes embarqués • Web/API • Sécurité
             </p>
@@ -136,11 +136,9 @@ function Hero() {
 
           {/* Titre + pitch + CTA */}
           <h2 className="text-4xl sm:text-6xl font-extrabold leading-tight">
-            Micro-agence tech qui transforme vos idées en solutions fiables
+            Une équipe tech indépendante qui transforme vos idées en solutions fiables
           </h2>
-          <p className="mt-5 max-w-3xl mx-auto text-white/90 text-lg">
-            De l’idée au produit industrialisé : accompagnement technique et humain pour des solutions durables.
-          </p>
+
           <div className="mt-8">
             <a
               href="#contact"
@@ -271,14 +269,14 @@ function About() {
             <div className="text-left">
               {/* <img src="/portrait-lucas.jpg" alt="Fondateur" className="hidden" /> */}
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Une micro-agence réactive portée par deux ingénieurs complémentaires
+                Une équipe tech réactive portée par 2 ingénieurs
               </h2>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), Syloria est une micro-agence Freelance basée en Nouvelle-Aquitaine.
-                Nous sommes deux ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
+                Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), SYLORIA® est une micro-agence freelance basée en Nouvelle-Aquitaine.
+                Nous sommes 2 ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
               </p>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et le <strong>Web/API</strong>, avec une même promesse :
+                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et le <strong>web/API</strong>, avec une même promesse :
                 des livrables propres, documentés et transmis avec pédagogie.
                 Nous travaillons en itérations courtes, avec transparence sur les risques, les coûts et les délais.
               </p>
@@ -392,7 +390,7 @@ function About() {
               <div className="space-y-4 text-gray-800">
                 <p className="font-semibold text-lg">Parcours & expériences clés</p>
                 <ul className="list-disc list-inside space-y-1">
-                  <li><strong>Fondateur de Syloria (2025)</strong> : micro-agence de consulting tech spécialisée
+                  <li><strong>Fondateur de SYLORIA® (2025)</strong> : micro-agence de consulting tech spécialisée
                       en systèmes embarqués (STM32, ROS2, FreeRTOS), back-end Python (Django, FastAPI) et
                       dès 2026, pôle cybersécurité.</li>
                   <li><strong>3 ans chez Shark Robotics</strong> : développement embarqué sous ROS2 et STM32,
@@ -436,9 +434,7 @@ function About() {
                   <img src="/phone_logo.png" alt="" className="w-5 h-5"/> Téléphone
                 </a>
               </div>
-
             </div>
-
 
             <div className="px-6 py-4 border-t flex justify-end">
               <button
@@ -539,6 +535,40 @@ function Portfolio() {
       results: ['Performance élevée', 'Meilleure visibilité', 'Navigation mobile-first'],
       link: 'https://www.alamrayabali.com/',
     },
+    {
+    id: 2,
+    title: "Contrôleur BLDC 24 V / 6 A avec télémétrie CAN — STM32G431",
+    cat: "Embarqué",
+    cover: "/projet_bldc_can/bldc_can_cover.png",
+    description:
+      "Carte de contrôle moteur BLDC triphasé (DRV8313) avec retour courant/puissance (INA228), température NTC et communication CAN (TCAN1051). Microcontrôleur STM32G431, alimentation buck 24 V → 3.3 V. Schéma, PCB KiCad 2 couches, BOM, Gerbers et rendus 3D prêts fabrication.",
+    objectives: [
+      "Pilotage BLDC 3 phases en PWM (TIM1) jusqu’à 6 A (10 A crête)",
+      "Communication CAN 2.0B (500 kbps–1 Mbps) avec télémétrie (I, V, W, °C, status)",
+      "Mesure de courant haute précision (INA228) et NTC proche du driver",
+      "Connectique industrielle (Molex 431604302) et debug SWD + UART",
+      "Contraintes mécaniques 100 × 100 mm, 4 fixations M3"
+    ],
+    solutions: [
+      "MCU STM32G431 (PWM avancé, ADC, CAN natif) + transceiver TCAN1051",
+      "Driver BLDC DRV8313 avec découplages VCP/CPH-CPL/VM selon recommandations",
+      "Shunt 16 mΩ / 2 W en Kelvin + filtrage, lecture via INA228 en I²C",
+      "Alim buck LM61495 24 V → 3.3 V, CBOOT 100 nF, routage boucle chaude minimisée",
+      "Protection inversion +24 V par diode Schottky de puissance (série)",
+      "Cage de Faraday locale autour du quartz (via-fence + zones GND top/bottom)"
+    ],
+    results: [
+      "Gerbers conformes (JLCPCB) + BOM/CPL prêtes à l’assemblage",
+      "DRC/ERC validés, règles de largeur pistes puissance (5 mm @ 6 A)",
+      "Rendus 3D haute résolution pour présentations client",
+      "Plan de test bring-up : alims, SWD, UART, PWM à vide, CAN, moteur en charge",
+      "Profil CAN documenté (IDs, périodicités, échelles) prêt à l’intégration"
+    ],
+    images: [
+      "/projet_bldc_can/bldc_can_cover.png"
+    ]
+  }
+
   ]), []);
 
   const cats = ['Tous', ...Array.from(new Set(projects.map(p => p.cat)))];
@@ -675,7 +705,7 @@ function Tagline() {
     </section>
   )
 }
-
+// ——————————————————————————————————————————
 // ✉️ 7) CONTACT
 // ——————————————————————————————————————————
 function Contact() {
@@ -817,120 +847,124 @@ function Contact() {
 
                 {/* Contenu scrollable */}
                 <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-b from-white to-gray-50 space-y-8 text-gray-800">
+
                   <section>
                     <h4 className="font-semibold text-lg mb-2">Responsable du traitement</h4>
-                    <p>
-                      Syloria – 585 route de Marsas 33620 Laruscade<br/>
-                      Email de contact : <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline">contact@syloria.eu</a>
+                    <p className="space-y-1">
+                      <span className="block"><strong>SYLORIA®</strong> – Société par actions simplifiée</span>
+                      <span className="block">SIREN : 989 239 884 — SIRET (siège) : 989 239 884 00012 — TVA : FR08989239884</span>
+                      <span className="block">NAF / APE : 6202A — Conseil en systèmes et logiciels informatiques</span>
+                      <span className="block">Date de création : 15 juillet 2025</span>
+                      <span className="block">Adresse : 585 route de Marsas, 33620 Laruscade, France</span>
+                      <span className="block">Email de contact (RGPD & général) : <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">contact@syloria.fr</a></span>
                     </p>
                   </section>
 
                   <section>
                     <h4 className="font-semibold text-lg mb-2">Données collectées</h4>
-                    <p>Lorsque vous remplissez ce formulaire, nous recueillons les informations suivantes :</p>
+                    <p>Lorsque vous remplissez ce formulaire, nous recueillons :</p>
                     <ul className="list-disc list-inside space-y-1">
                       <li>votre nom,</li>
                       <li>votre adresse email,</li>
                       <li>le nom de votre société (facultatif),</li>
-                      <li>le sujet de votre intérêt (par exemple « Systèmes embarqués »).</li>
+                      <li>le sujet de votre intérêt (ex. « Systèmes embarqués »),</li>
+                      <li><strong>le contenu de votre message</strong>,</li>
+                      <li><strong>des données techniques</strong> (date/heure, journaux serveur et adresse IP, aux seules fins de sécurité et d’acheminement).</li>
                     </ul>
                   </section>
 
                   <section>
-                    <h4 className="font-semibold text-lg mb-2">Finalités et base légale</h4>
-                    <p>Ces données sont traitées afin de :</p>
+                    <h4 className="font-semibold text-lg mb-2">Finalités et bases légales</h4>
+                    <p>Vos données sont traitées afin de :</p>
                     <ul className="list-disc list-inside space-y-1">
                       <li>répondre à votre demande d’information ou de devis,</li>
-                      <li>vous recontacter pour un suivi commercial.</li>
+                      <li>vous recontacter pour un suivi commercial directement lié à votre demande.</li>
                     </ul>
                     <p>
-                      Le traitement repose sur notre intérêt légitime à répondre à vos sollicitations
-                      (article 6.1.f du RGPD).
+                      Base légale : <strong>intérêt légitime</strong> (article 6(1)(f) du RGPD). Aucune décision automatisée ni profilage.
                     </p>
                   </section>
 
                   <section>
-                    <h4 className="font-semibold text-lg mb-2">Durée de conservation</h4>
-                    <p>
-                      Vos données sont conservées pendant <strong>2 ans</strong> après
-                      notre dernier échange, sauf si la loi impose une durée différente.
+                    <h4 className="font-semibold text-lg mb-2">Durées de conservation</h4>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>Demandes et échanges commerciaux : <strong>2 ans après le dernier contact</strong>.</li>
+                      <li>Journaux techniques (logs/IP) : <strong>6 à 12 mois</strong> maximum.</li>
+                      <li>Des obligations légales spécifiques peuvent imposer d’autres durées.</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Destinataires & sous-traitants</h4>
+                    <p className="mb-2">
+                      Les informations sont destinées aux équipes internes de <strong>SYLORIA®</strong>. Lorsque cela est nécessaire, nous faisons appel à des prestataires agissant en notre nom.
+                    </p>  
+                    <p className="mt-2">
+                      Des <strong>accords de sous-traitance (DPA)</strong> sont mis en place avec nos prestataires, conformément à l’article 28 du RGPD.
                     </p>
                   </section>
 
                   <section>
-                    <h4 className="font-semibold text-lg mb-2">Destinataires</h4>
+                    <h4 className="font-semibold text-lg mb-2">Transferts hors Union européenne</h4>
                     <p>
-                      Les informations sont destinées uniquement aux services internes de
-                      <strong>Syloria</strong> et ne sont pas transmises à des
-                      tiers sans votre accord, sauf obligation légale.
+                      Certains outils (ex. <strong>Notion</strong>) sont fournis par des sociétés établies aux <strong>États-Unis</strong>. Le cas échéant, les transferts sont encadrés par des
+                      <strong> Clauses Contractuelles Types (SCC)</strong> et/ou le <strong>Data Privacy Framework</strong>. Vous pouvez obtenir des informations sur ces garanties en nous écrivant.
                     </p>
                   </section>
 
                   <section>
                     <h4 className="font-semibold text-lg mb-2">Vos droits</h4>
-                    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+                    <p>Conformément au RGPD, vous disposez des droits :</p>
                     <ul className="list-disc list-inside space-y-1">
-                      <li>accès à vos données,</li>
-                      <li>rectification ou mise à jour,</li>
-                      <li>effacement (« droit à l’oubli »),</li>
-                      <li>limitation ou opposition au traitement,</li>
-                      <li>portabilité de vos données.</li>
+                      <li>d’accès,</li>
+                      <li>de rectification,</li>
+                      <li>d’effacement,</li>
+                      <li>de limitation,</li>
+                      <li>d’opposition (notamment à la prospection),</li>
+                      <li>de portabilité.</li>
                     </ul>
-                    <p>
-                      Pour exercer ces droits, contactez-nous à l’adresse :
-                      <strong> contact@syloria.eu</strong>.
+                    <p className="mt-2">
+                      Pour exercer vos droits : <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline"><strong>contact@syloria.fr</strong></a>.
+                      Nous répondons sous <strong>1 mois</strong> (délai prolongeable en cas de complexité).
                     </p>
                     <p>
-                      Vous pouvez également adresser une réclamation à la{" "}
-                      <a
-                        href="https://www.cnil.fr"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        CNIL
-                      </a>.
+                      Vous pouvez également adresser une réclamation à la&nbsp;
+                      <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">CNIL</a>.
                     </p>
                   </section>
 
                   <section>
                     <h4 className="font-semibold text-lg mb-2">Sécurité</h4>
                     <p>
-                      Nous mettons en œuvre des mesures techniques et organisationnelles pour
-                      protéger vos données personnelles.
+                      Mesures techniques et organisationnelles : chiffrement TLS, contrôle d’accès, sauvegardes, authentification multifacteur, journalisation et durcissement des services.
                     </p>
                   </section>
 
                   <section>
-                    <h4 className="font-semibold text-lg mb-2">Statistiques de visite – Google Analytics</h4>
+                    <h4 className="font-semibold text-lg mb-2">Statistiques de visite – Google Analytics (mode « cookieless »)</h4>
                     <p>
-                      Ce site utilise Google Analytics 4 en
-                      mode « cookieless » (sans cookies de suivi) :
+                      Ce site utilise <strong>Google Analytics 4</strong> en mode <strong>sans cookies</strong> (<em>cookieless</em>) pour produire des statistiques agrégées d’audience.
+                      Aucun cookie <code>_ga</code> ni identifiant persistant n’est déposé sur votre appareil.
                     </p>
-                    <ul className="list-disc list-inside space-y-1">
-                      <li>
-                        aucun cookie _ga ou identifiant persistant n’est déposé sur votre appareil ;
-                      </li>
-                      <li>
-                        seules des informations <strong>agrégées et anonymisées</strong>
-                        (pings sans cookie) sont envoyées à Google pour mesurer
-                        la fréquentation du site ;
-                      </li>
-                      <li>
-                        ces données servent uniquement à établir des statistiques globales
-                        (nombre de visites, pages consultées, etc.).
-                      </li>
+                    <ul className="list-disc list-inside space-y-1 mt-2">
+                      <li>Des <strong>données techniques</strong> (ex. informations de navigation, adresse IP tronquée) peuvent être transmises à Google afin de générer des rapports d’audience.</li>
+                      <li><strong>Base légale</strong> : intérêt légitime pour la seule mesure d’audience, sans reciblage publicitaire.</li>
+                      <li><strong>Transferts</strong> : les données peuvent être traitées aux <strong>États-Unis</strong> (SCC/DPF en place).</li>
+                      <li>Vous pouvez <strong>vous opposer</strong> à cette mesure d’audience en nous écrivant à <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">contact@syloria.fr</a>.</li>
                     </ul>
-                    <p>
-                      Vous pouvez consulter la politique de confidentialité de Google à l’adresse&nbsp;
-                      <a
-                        href="https://policies.google.com/privacy"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
+                    <p className="mt-2">
+                      Politique de confidentialité de Google :&nbsp;
+                      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                         https://policies.google.com/privacy
                       </a>.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Sources & mises à jour</h4>
+                    <p className="space-y-1">
+                      <span className="block">Sources : RCS • INSEE • RNES • HAL (extraits d’identification d’entreprise).</span>
+                      <span className="block">Dernière mise à jour : <strong>03/10/2025</strong>.</span>
                     </p>
                   </section>
 
@@ -955,37 +989,274 @@ function Contact() {
 }
 
 // ——————————————————————————————————————————
-// 🦶 FOOTER
+// ✉️ 8) FOOTER
 // ——————————————————————————————————————————
-function Footer() {
+function Modal({ title, onClose, children }) {  
   return (
-    <footer className="py-10" style={{backgroundColor: brand.main}}>
+    <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className="fixed inset-0 z-[200]">
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative z-[210] mx-auto my-8 w-[min(900px,92vw)]">
+        <div className="bg-white rounded-2xl shadow-2xl ring-1 ring-black/10 flex flex-col max-h-[85vh] overflow-hidden">
+          <div className="px-6 py-4 border-b flex items-center justify-between">
+            <h3 id="modal-title" className="text-xl font-semibold text-gray-900">{title}</h3>
+            <button onClick={onClose} className="rounded-lg p-2 hover:bg-gray-100" aria-label="Fermer">✕</button>
+          </div>
+          <div className="overflow-y-auto">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Footer({
+  brand = { main: "#0f172a", blue: "#3b82f6" }, // fallback safe
+}) {
+  const [showLegal, setShowLegal] = useState(false);
+  return (
+    <footer className="py-10" style={{ backgroundColor: brand.main }}>
       <Container>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-white/90">
+          {/* Bloc identifiant */}
           <div className="flex items-center gap-3">
-            <img src="/logo-syloria.png" alt="Syloria" className="h-8 w-auto"/>
+            <img src="/logo-syloria.png" alt="SYLORIA®" className="h-8 w-auto" />
             <div>
-              <p className="font-semibold text-white">Syloria</p>
-              <p className="text-sm text-white/80">SAS • Gironde, Nouvelle‑Aquitaine, France</p>
+              <p className="font-semibold text-white">SYLORIA® - marque déposée à l’INPI France</p>
+              <p className="text-sm text-white/80">SAS • Gironde, Nouvelle-Aquitaine, France</p>
             </div>
           </div>
-          <div className="text-sm text-white/85">
-            <a href="mailto:contact@syloria.eu" className="hover:text-white">contact@syloria.eu</a>
-            <span className="mx-2">•</span>
-            <a href="https://www.linkedin.com/company/syloria/" target="_blank" rel="noreferrer" className="hover:text-white">LinkedIn</a>
-            <span className="mx-2">•</span>
+
+          {/* Liens + boutons légaux */}
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-sm text-white/80">
+            <a href="mailto:contact@syloria.fr" className="hover:text-white">contact@syloria.fr</a>
+            <span className="hidden sm:inline">•</span>
+
+            <a
+              href="https://www.linkedin.com/company/syloria/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              LinkedIn
+            </a>
+            <span className="hidden sm:inline">•</span>
+
+            {/* Mentions légales */}
+            <button
+              type="button"
+              onClick={() => setShowLegal(true)}
+              className="underline underline-offset-2 hover:text-white"
+            >
+              Mentions légales
+            </button>
+            <span className="hidden sm:inline">•</span>
+
+            {/* CGV (à venir) */}
+            <button
+              type="button"
+              onClick={() => setShowCGV(true)}
+              className="underline underline-offset-2 hover:text-white"
+              aria-describedby="cgv-soon"
+            >
+              CGV
+            </button>
+
+            <span className="hidden sm:inline">•</span>
             <span>© {new Date().getFullYear()} — Tous droits réservés</span>
           </div>
         </div>
       </Container>
+
+        {/* style focus var si besoin */}
       <style>{`:root{--focus:${brand.blue}}`}</style>
+
+      {/* Modale Mentions légales */}
+      {showLegal && (
+        <Modal title="Mentions légales" onClose={() => setShowLegal(false)}>
+          <div className="p-6 space-y-6 text-gray-800">
+            <section>
+              <p className="text-sm text-gray-600">
+                Dernière mise à jour : <strong>03/10/2025</strong>
+              </p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Éditeur du site</h4>
+              <p className="space-y-1">
+                <span className="block"><strong>SYLORIA®</strong> — Société par actions simplifiée</span>
+                <span className="block">SIREN : 989 239 884 — SIRET (siège) : 989 239 884 00012 — TVA : FR08989239884</span>
+                <span className="block">NAF / APE : 6202A — Conseil en systèmes et logiciels informatiques</span>
+                <span className="block">Adresse : 585 route de Marsas, 33620 Laruscade, France</span>
+                <span className="block">Date de création : 15 juillet 2025</span>
+                <span className="block">
+                  Email :{" "}
+                  <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">
+                    contact@syloria.fr
+                  </a>
+                </span>
+              </p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Directeur de la publication</h4>
+              <p>Baquey Lucas — Président de SYLORIA®.</p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Hébergement</h4>
+              <p className="space-y-1">
+                <span className="block"><strong>Hébergeur :</strong> OVH SAS (OVHcloud)</span>
+                <span className="block">Adresse : 2 rue Kellermann, 59100 Roubaix, France</span>
+                <span className="block">Téléphone : +33 9 72 10 10 07</span>
+                <span className="block">
+                  Site :{" "}
+                  <a
+                    href="https://www.ovhcloud.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    ovhcloud.com
+                  </a>
+                </span>
+                <span className="block">
+                  Contact :{" "}
+                  <a href="mailto:support@ovhcloud.com" className="text-blue-600 hover:underline">
+                    support@ovhcloud.com
+                  </a>
+                </span>
+              </p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Propriété intellectuelle</h4>
+              <p>
+                Le site et l’ensemble de ses contenus (textes, images, illustrations, logos, marques, codes) sont
+                protégés par le droit de la propriété intellectuelle et restent la propriété exclusive de SYLORIA®
+                ou de leurs titulaires respectifs. Toute reproduction, représentation, modification ou redistribution,
+                totale ou partielle, est interdite sans autorisation écrite préalable.
+              </p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Responsabilité</h4>
+              <p>
+                Les informations publiées sur ce site le sont à titre informatif. Malgré nos soins, SYLORIA® ne peut garantir
+                l’exactitude, la complétude ou l’actualisation permanente des contenus. Les liens vers des sites tiers sont
+                fournis à titre de commodité ; SYLORIA® n’exerce aucun contrôle sur ces sites et décline toute responsabilité
+                quant à leurs contenus.
+              </p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Données personnelles</h4>
+              <p>
+                Pour nos engagements RGPD (finalités, bases légales, droits, durées), voir la{" "}
+                <a href="/politique-de-confidentialite" className="text-blue-600 hover:underline">
+                  Politique de confidentialité
+                </a>.
+              </p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Cookies & mesure d’audience</h4>
+              <p>
+                Le site ne dépose pas de cookies de suivi. Une mesure d’audience sans cookie est opérée via Google
+                Analytics 4 en mode “cookieless”, telle que décrite dans la{" "}
+                <a href="/politique-de-confidentialite" className="text-blue-600 hover:underline">
+                  Politique de confidentialité
+                </a>.
+              </p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Crédits</h4>
+              <div className="space-y-2 text-sm">
+                <p>© SYLORIA® — sauf mention contraire.</p>
+                <p>Icônes / logos de la page : ressources gratuites (licence Flaticon / Freepik) :  </p>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>
+                    <a
+                      href="https://www.flaticon.com/fr/icones-gratuites/la-cyber-securite"
+                      title="la cyber-sécurité icônes"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      La cyber-sécurité — icônes créées par Freepik — Flaticon
+                    </a>
+                  </li>
+                  <li>
+                    Agile_logo : auteur <strong>katemangostar</strong> / Freepik
+                  </li>
+                  <li>
+                    Electronic_logo : auteur <strong>macrovector</strong> / Freepik
+                  </li>
+                  <li>
+                    Web_logo : auteur <strong>Freepik</strong> (libre / Freepik)
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.flaticon.com/fr/icones-gratuites/telephone"
+                      title="téléphone icônes"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Téléphone — icônes créées par Freepik — Flaticon
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.flaticon.com/fr/icones-gratuites/github"
+                      title="github icônes"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      GitHub — icônes créées par Freepik — Flaticon
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.flaticon.com/fr/icones-gratuites/linkedin"
+                      title="linkedin icônes"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      LinkedIn — icônes créées par Freepik — Flaticon
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Signalement de contenu illicite</h4>
+              <p>
+                Pour signaler un contenu manifestement illicite, écrivez à{" "}
+                <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">
+                  contact@syloria.fr
+                </a>{" "}
+                en précisant l’URL et la nature du contenu.
+              </p>
+            </section>
+
+            <section>
+              <h4 className="font-semibold text-lg mb-2">Droit applicable</h4>
+              <p>
+                Les présentes mentions légales sont régies par le droit français. À défaut de résolution amiable, les tribunaux
+                compétents du ressort du siège de SYLORIA® seront seuls compétents.
+              </p>
+            </section>
+          </div>
+        </Modal>
+      )}
     </footer>
-  )
+  );
 }
 
-// ——————————————————————————————————————————
-// APP ROOT
-// ——————————————————————————————————————————
+
 export default function App() {
   return (
     <div className="font-sans antialiased text-gray-900">
@@ -999,7 +1270,7 @@ export default function App() {
         <Tagline />
         <Contact />
       </main>
-      <Footer />
+      <Footer brand={brand} />
     </div>
-  )
+  );
 }
