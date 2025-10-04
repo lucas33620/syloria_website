@@ -136,11 +136,9 @@ function Hero() {
 
           {/* Titre + pitch + CTA */}
           <h2 className="text-4xl sm:text-6xl font-extrabold leading-tight">
-            Micro-agence tech qui transforme vos idées en solutions fiables
+            Une équipe tech indépendante qui transforme vos idées en solutions fiables
           </h2>
-          <p className="mt-5 max-w-3xl mx-auto text-white/90 text-lg">
-            De l’idée au produit industrialisé : accompagnement technique et humain pour des solutions durables.
-          </p>
+
           <div className="mt-8">
             <a
               href="#contact"
@@ -271,11 +269,11 @@ function About() {
             <div className="text-left">
               {/* <img src="/portrait-lucas.jpg" alt="Fondateur" className="hidden" /> */}
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Une micro-agence réactive portée par deux ingénieurs complémentaires
+                Une équipe tech réactive portée par 2 ingénieurs
               </h2>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), Syloria est une micro-agence Freelance basée en Nouvelle-Aquitaine.
-                Nous sommes deux ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
+                Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), Syloria est une micro-agence freelance basée en Nouvelle-Aquitaine.
+                Nous sommes 2 ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
               </p>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
                 Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et le <strong>Web/API</strong>, avec une même promesse :
@@ -437,7 +435,7 @@ function About() {
                 </a>
               </div>
             </div>
-            
+
             <div className="px-6 py-4 border-t flex justify-end">
               <button
                 onClick={() => setShowProfile(false)}
