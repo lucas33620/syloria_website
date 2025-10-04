@@ -1,5 +1,5 @@
 /*
-  Syloria – Landing Page (Maquette v2.1)
+  SYLORIA® – Landing Page (Maquette v2.1)
   -------------------------------------------------------
   ▶️ Mise à jour suite à tes demandes du dernier message.
 
@@ -93,7 +93,7 @@ function Header() {
       <Container className="h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img src="/logo-syloria.png" alt="Syloria" className="h-8 w-auto"/>
-          <span className="text-lg font-semibold">Syloria</span>
+          <span className="text-lg font-semibold">SYLORIA®</span>
         </div>
         <nav className="hidden md:flex items-center gap-2" aria-label="Navigation principale">
           <NavLinks />
@@ -128,7 +128,7 @@ function Hero() {
         <Reveal className="text-center text-white pt-24 sm:pt-16 md:pt-8 lg:pt-6 pb-28 sm:pb-24 md:pb-20">
           {/* Bloc marque */}
           <div className="inline-flex flex-col items-center mb-12 sm:mb-14">
-            <h1 className="text-4xl sm:text-5xl font-extrabold leading-snug tracking-wide">− SYLORIA −</h1>
+            <h1 className="text-4xl sm:text-5xl font-extrabold leading-snug tracking-wide">− SYLORIA® −</h1>
             <p className="mt-2 text-xs tracking-widest uppercase font-semibold text-white/80">
               Systèmes embarqués • Web/API • Sécurité
             </p>
@@ -272,11 +272,11 @@ function About() {
                 Une équipe tech réactive portée par 2 ingénieurs
               </h2>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), Syloria est une micro-agence freelance basée en Nouvelle-Aquitaine.
+                Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), SYLORIA® est une micro-agence freelance basée en Nouvelle-Aquitaine.
                 Nous sommes 2 ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
               </p>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et le <strong>Web/API</strong>, avec une même promesse :
+                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et le <strong>web/API</strong>, avec une même promesse :
                 des livrables propres, documentés et transmis avec pédagogie.
                 Nous travaillons en itérations courtes, avec transparence sur les risques, les coûts et les délais.
               </p>
@@ -390,7 +390,7 @@ function About() {
               <div className="space-y-4 text-gray-800">
                 <p className="font-semibold text-lg">Parcours & expériences clés</p>
                 <ul className="list-disc list-inside space-y-1">
-                  <li><strong>Fondateur de Syloria (2025)</strong> : micro-agence de consulting tech spécialisée
+                  <li><strong>Fondateur de SYLORIA® (2025)</strong> : micro-agence de consulting tech spécialisée
                       en systèmes embarqués (STM32, ROS2, FreeRTOS), back-end Python (Django, FastAPI) et
                       dès 2026, pôle cybersécurité.</li>
                   <li><strong>3 ans chez Shark Robotics</strong> : développement embarqué sous ROS2 et STM32,
@@ -851,7 +851,7 @@ function Contact() {
                   <section>
                     <h4 className="font-semibold text-lg mb-2">Responsable du traitement</h4>
                     <p className="space-y-1">
-                      <span className="block"><strong>SYLORIA</strong> – Société par actions simplifiée</span>
+                      <span className="block"><strong>SYLORIA®</strong> – Société par actions simplifiée</span>
                       <span className="block">SIREN : 989 239 884 — SIRET (siège) : 989 239 884 00012 — TVA : FR08989239884</span>
                       <span className="block">NAF / APE : 6202A — Conseil en systèmes et logiciels informatiques</span>
                       <span className="block">Date de création : 15 juillet 2025</span>
@@ -897,7 +897,7 @@ function Contact() {
                   <section>
                     <h4 className="font-semibold text-lg mb-2">Destinataires & sous-traitants</h4>
                     <p className="mb-2">
-                      Les informations sont destinées aux équipes internes de <strong>SYLORIA</strong>. Lorsque cela est nécessaire, nous faisons appel à des prestataires agissant en notre nom.
+                      Les informations sont destinées aux équipes internes de <strong>SYLORIA®</strong>. Lorsque cela est nécessaire, nous faisons appel à des prestataires agissant en notre nom.
                     </p>  
                     <p className="mt-2">
                       Des <strong>accords de sous-traitance (DPA)</strong> sont mis en place avec nos prestataires, conformément à l’article 28 du RGPD.
@@ -1012,17 +1012,15 @@ export function Footer({
   brand = { main: "#0f172a", blue: "#3b82f6" }, // fallback safe
 }) {
   const [showLegal, setShowLegal] = useState(false);
-  const [showCGV, setShowCGV] = useState(false); // placeholder
-
   return (
     <footer className="py-10" style={{ backgroundColor: brand.main }}>
       <Container>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-white/90">
           {/* Bloc identifiant */}
           <div className="flex items-center gap-3">
-            <img src="/logo-syloria.png" alt="Syloria" className="h-8 w-auto" />
+            <img src="/logo-syloria.png" alt="SYLORIA®" className="h-8 w-auto" />
             <div>
-              <p className="font-semibold text-white">Syloria</p>
+              <p className="font-semibold text-white">SYLORIA® - marque déposée à l’INPI France</p>
               <p className="text-sm text-white/80">SAS • Gironde, Nouvelle-Aquitaine, France</p>
             </div>
           </div>
@@ -1084,7 +1082,7 @@ export function Footer({
             <section>
               <h4 className="font-semibold text-lg mb-2">Éditeur du site</h4>
               <p className="space-y-1">
-                <span className="block"><strong>SYLORIA</strong> — Société par actions simplifiée</span>
+                <span className="block"><strong>SYLORIA®</strong> — Société par actions simplifiée</span>
                 <span className="block">SIREN : 989 239 884 — SIRET (siège) : 989 239 884 00012 — TVA : FR08989239884</span>
                 <span className="block">NAF / APE : 6202A — Conseil en systèmes et logiciels informatiques</span>
                 <span className="block">Adresse : 585 route de Marsas, 33620 Laruscade, France</span>
@@ -1100,7 +1098,7 @@ export function Footer({
 
             <section>
               <h4 className="font-semibold text-lg mb-2">Directeur de la publication</h4>
-              <p>Baquey Lucas — Président de SYLORIA.</p>
+              <p>Baquey Lucas — Président de SYLORIA®.</p>
             </section>
 
             <section>
@@ -1133,7 +1131,7 @@ export function Footer({
               <h4 className="font-semibold text-lg mb-2">Propriété intellectuelle</h4>
               <p>
                 Le site et l’ensemble de ses contenus (textes, images, illustrations, logos, marques, codes) sont
-                protégés par le droit de la propriété intellectuelle et restent la propriété exclusive de SYLORIA
+                protégés par le droit de la propriété intellectuelle et restent la propriété exclusive de SYLORIA®
                 ou de leurs titulaires respectifs. Toute reproduction, représentation, modification ou redistribution,
                 totale ou partielle, est interdite sans autorisation écrite préalable.
               </p>
@@ -1142,9 +1140,9 @@ export function Footer({
             <section>
               <h4 className="font-semibold text-lg mb-2">Responsabilité</h4>
               <p>
-                Les informations publiées sur ce site le sont à titre informatif. Malgré nos soins, SYLORIA ne peut garantir
+                Les informations publiées sur ce site le sont à titre informatif. Malgré nos soins, SYLORIA® ne peut garantir
                 l’exactitude, la complétude ou l’actualisation permanente des contenus. Les liens vers des sites tiers sont
-                fournis à titre de commodité ; SYLORIA n’exerce aucun contrôle sur ces sites et décline toute responsabilité
+                fournis à titre de commodité ; SYLORIA® n’exerce aucun contrôle sur ces sites et décline toute responsabilité
                 quant à leurs contenus.
               </p>
             </section>
@@ -1173,7 +1171,7 @@ export function Footer({
             <section>
               <h4 className="font-semibold text-lg mb-2">Crédits</h4>
               <div className="space-y-2 text-sm">
-                <p>© SYLORIA — sauf mention contraire.</p>
+                <p>© SYLORIA® — sauf mention contraire.</p>
                 <p>Icônes / logos de la page : ressources gratuites (licence Flaticon / Freepik) :  </p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>
@@ -1248,25 +1246,9 @@ export function Footer({
               <h4 className="font-semibold text-lg mb-2">Droit applicable</h4>
               <p>
                 Les présentes mentions légales sont régies par le droit français. À défaut de résolution amiable, les tribunaux
-                compétents du ressort du siège de SYLORIA seront seuls compétents.
+                compétents du ressort du siège de SYLORIA® seront seuls compétents.
               </p>
             </section>
-          </div>
-        </Modal>
-      )}
-
-      {/* Modale CGV (placeholder, à remplir plus tard) */}
-      {showCGV && (
-        <Modal title="Conditions Générales de Vente (CGV)" onClose={() => setShowCGV(false)}>
-          <div className="p-6 text-gray-800 space-y-4">
-            <p>
-              La version détaillée des CGV sera prochainement disponible. Nous y préciserons :
-              champ d’application, devis/commandes, prix & modalités de paiement, propriété intellectuelle,
-              confidentialité, garanties & responsabilités, force majeure, résiliation, droit applicable & juridiction.
-            </p>
-            <p className="text-sm text-gray-600">
-              Lorsque tu valideras la V1 des CGV, on branchera ici le texte complet et on ajoutera un bouton “Télécharger le PDF”.
-            </p>
           </div>
         </Modal>
       )}
