@@ -436,10 +436,8 @@ function About() {
                   <img src="/phone_logo.png" alt="" className="w-5 h-5"/> Téléphone
                 </a>
               </div>
-
             </div>
-
-
+            
             <div className="px-6 py-4 border-t flex justify-end">
               <button
                 onClick={() => setShowProfile(false)}
@@ -539,6 +537,40 @@ function Portfolio() {
       results: ['Performance élevée', 'Meilleure visibilité', 'Navigation mobile-first'],
       link: 'https://www.alamrayabali.com/',
     },
+    {
+    id: 2,
+    title: "Contrôleur BLDC 24 V / 6 A avec télémétrie CAN — STM32G431",
+    cat: "Embarqué",
+    cover: "/projet_bldc_can/bldc_can_cover.png",
+    description:
+      "Carte de contrôle moteur BLDC triphasé (DRV8313) avec retour courant/puissance (INA228), température NTC et communication CAN (TCAN1051). Microcontrôleur STM32G431, alimentation buck 24 V → 3.3 V. Schéma, PCB KiCad 2 couches, BOM, Gerbers et rendus 3D prêts fabrication.",
+    objectives: [
+      "Pilotage BLDC 3 phases en PWM (TIM1) jusqu’à 6 A (10 A crête)",
+      "Communication CAN 2.0B (500 kbps–1 Mbps) avec télémétrie (I, V, W, °C, status)",
+      "Mesure de courant haute précision (INA228) et NTC proche du driver",
+      "Connectique industrielle (Molex 431604302) et debug SWD + UART",
+      "Contraintes mécaniques 100 × 100 mm, 4 fixations M3"
+    ],
+    solutions: [
+      "MCU STM32G431 (PWM avancé, ADC, CAN natif) + transceiver TCAN1051",
+      "Driver BLDC DRV8313 avec découplages VCP/CPH-CPL/VM selon recommandations",
+      "Shunt 16 mΩ / 2 W en Kelvin + filtrage, lecture via INA228 en I²C",
+      "Alim buck LM61495 24 V → 3.3 V, CBOOT 100 nF, routage boucle chaude minimisée",
+      "Protection inversion +24 V par diode Schottky de puissance (série)",
+      "Cage de Faraday locale autour du quartz (via-fence + zones GND top/bottom)"
+    ],
+    results: [
+      "Gerbers conformes (JLCPCB) + BOM/CPL prêtes à l’assemblage",
+      "DRC/ERC validés, règles de largeur pistes puissance (5 mm @ 6 A)",
+      "Rendus 3D haute résolution pour présentations client",
+      "Plan de test bring-up : alims, SWD, UART, PWM à vide, CAN, moteur en charge",
+      "Profil CAN documenté (IDs, périodicités, échelles) prêt à l’intégration"
+    ],
+    images: [
+      "/projet_bldc_can/bldc_can_cover.png"
+    ]
+  }
+
   ]), []);
 
   const cats = ['Tous', ...Array.from(new Set(projects.map(p => p.cat)))];
@@ -1144,8 +1176,7 @@ export function Footer({
               <h4 className="font-semibold text-lg mb-2">Crédits</h4>
               <div className="space-y-2 text-sm">
                 <p>© SYLORIA — sauf mention contraire.</p>
-                <p>Icônes / logos de la page : ressources gratuites (licence Flaticon / Freepik) :</p>
-
+                <p>Icônes / logos de la page : ressources gratuites (licence Flaticon / Freepik) :  </p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>
                     <a
