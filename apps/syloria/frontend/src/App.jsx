@@ -713,30 +713,43 @@ function Contact() {
   const [selectedService, setSelectedService] = useState("")
   const [showPrivacy, setShowPrivacy] = useState(false) 
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-    const data = { 
-      name: e.target.name.value, 
-      email: e.target.email.value, 
-      company: e.target.company.value, 
-      service: e.target.service.value, 
-      other: e.target.other?.value || "" 
+const onSubmit = async (e) => {
+  e.preventDefault();
+  const data = {
+    name: e.target.name.value,
+    email: e.target.email.value,
+    company: e.target.company.value,
+    service: e.target.service.value,
+    other: e.target.other?.value || ""
+  };
+  try {
+    const res = await fetch(`${window.location.origin}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (!res.ok) {
+      alert('Erreur serveur.');
+      return;
     }
-    try {
-      const res = await fetch(`${window.location.origin}/api/contact`, { 
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' }, 
-        body: JSON.stringify(data) 
-      })
-      if (!res.ok) { alert('Erreur serveur.'); return }
-      setSubmitted(true)
-      e.target.reset()
-      setTimeout(() => setSubmitted(false), 6000)
-      setSelectedService("")
-    } catch { 
-      alert('Impossible de contacter le serveur.') 
+
+    // 🔔 Déclenchement conversion Google Ads (une seule fois)
+    if (!window.__syloriaConvFired && window.gtag) {
+      window.__syloriaConvFired = true;
+      window.ggtag('event','conversion',{send_to:'AW-17624979967/8lJCCMLK_6gbEP-zn9RB'});
+
     }
+
+    setSubmitted(true);
+    e.target.reset();
+    setTimeout(() => setSubmitted(false), 6000);
+    setSelectedService("");
+  } catch {
+    alert('Impossible de contacter le serveur.');
   }
+};
+
 
   return (
     <section id="contact" className="py-20" style={{backgroundColor: brand.cloud}}>
@@ -941,22 +954,70 @@ function Contact() {
                   </section>
 
                   <section>
-                    <h4 className="font-semibold text-lg mb-2">Statistiques de visite – Google Analytics (mode « cookieless »)</h4>
+                    <h4 className="font-semibold text-lg mb-2">
+                      Statistiques de visite – Google Analytics (mode « cookieless »)
+                    </h4>
                     <p>
                       Ce site utilise <strong>Google Analytics 4</strong> en mode <strong>sans cookies</strong> (<em>cookieless</em>) pour produire des statistiques agrégées d’audience.
                       Aucun cookie <code>_ga</code> ni identifiant persistant n’est déposé sur votre appareil.
                     </p>
                     <ul className="list-disc list-inside space-y-1 mt-2">
-                      <li>Des <strong>données techniques</strong> (ex. informations de navigation, adresse IP tronquée) peuvent être transmises à Google afin de générer des rapports d’audience.</li>
-                      <li><strong>Base légale</strong> : intérêt légitime pour la seule mesure d’audience, sans reciblage publicitaire.</li>
-                      <li><strong>Transferts</strong> : les données peuvent être traitées aux <strong>États-Unis</strong> (SCC/DPF en place).</li>
-                      <li>Vous pouvez <strong>vous opposer</strong> à cette mesure d’audience en nous écrivant à <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">contact@syloria.fr</a>.</li>
+                      <li>
+                        Des <strong>données techniques</strong> (ex. informations de navigation, adresse IP tronquée) peuvent être transmises à Google afin de générer des rapports d’audience.
+                      </li>
+                      <li>
+                        <strong>Base légale</strong> : intérêt légitime pour la seule mesure d’audience, sans reciblage publicitaire.
+                      </li>
+                      <li>
+                        <strong>Transferts</strong> : les données peuvent être traitées aux <strong>États-Unis</strong> (EU-US Data Privacy Framework / Clauses contractuelles types).
+                      </li>
+                      <li>
+                        Vous pouvez <strong>vous opposer</strong> à cette mesure d’audience en nous écrivant à{" "}
+                        <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">contact@syloria.fr</a>.
+                      </li>
                     </ul>
                     <p className="mt-2">
-                      Politique de confidentialité de Google :&nbsp;
-                      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                      Politique de confidentialité de Google :{" "}
+                      <a
+                        href="https://policies.google.com/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
                         https://policies.google.com/privacy
                       </a>.
+                    </p>
+                  </section>
+
+                  <section className="mt-6">
+                    <h4 className="font-semibold text-lg mb-2">
+                      Mesure d’efficacité publicitaire – Google Ads (sans cookies)
+                    </h4>
+                    <p>
+                      Nous utilisons <strong>Google Ads (conversion)</strong> pour mesurer l’efficacité de nos campagnes. La configuration est
+                      <strong> sans cookies</strong> (consentement par défaut <code>denied</code>) et n’implique pas de reciblage publicitaire.
+                      Un signal de conversion est envoyé à Google <strong>uniquement</strong> lorsque vous soumettez notre formulaire de contact.
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 mt-2">
+                      <li>
+                        <strong>Données transmises</strong> : URL et référent, informations techniques du navigateur (user-agent, résolution),
+                        adresse IP (traitée par Google) et, le cas échéant, l’identifiant de clic publicitaire (<code>gclid/gbraid/wbraid</code>) présent dans l’URL.
+                        <em> Aucune donnée nominative (nom, email, téléphone) n’est transmise à Google dans ce cadre.</em>
+                      </li>
+                      <li>
+                        <strong>Base légale</strong> : intérêt légitime (mesure et optimisation de l’efficacité publicitaire en B2B, sans cookies).
+                      </li>
+                      <li>
+                        <strong>Transferts</strong> : traitements possibles aux <strong>États-Unis</strong> (EU-US Data Privacy Framework / Clauses contractuelles types).
+                      </li>
+                      <li>
+                        <strong>Opposition</strong> : vous pouvez vous opposer à cette mesure en nous écrivant à{" "}
+                        <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">contact@syloria.fr</a>.
+                      </li>
+                    </ul>
+                    <p className="mt-2 text-sm text-gray-600">
+                      {/* Si un jour activation des “Enhanced Conversions” (envoi haché d’email/téléphone à Google pour améliorer l’attribution),
+                        mettre à jour cette section et, si nécessaire, à recueillir un consentement adapté. */}
                     </p>
                   </section>
 
