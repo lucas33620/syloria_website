@@ -5,3 +5,27 @@
 <meta property="og:description" content="Conseil & développement embarqué et web sur mesure.">
 <meta property="og:url" content="https://www.syloria.fr/">
 <meta property="og:type" content="website">
+
+<!-- Google tag (gtag.js) — GA4 + Google Ads, cookieless -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MN2W0DM5VM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+
+  /* Mode cookieless par défaut (pas de stockage) */
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  gtag('js', new Date());
+
+  /* GA4 */
+  gtag('config', 'G-MN2W0DM5VM', { 'allow_ad_personalization_signals': false });
+
+  /* Google Ads — nécessaire pour valider la balise côté Ads */
+  gtag('config', 'AW-17624979967', { 'allow_ad_personalization_signals': false });
+</script>
+
