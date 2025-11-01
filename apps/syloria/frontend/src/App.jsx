@@ -514,16 +514,37 @@ function Portfolio() {
 
   const projects = useMemo(() => ([
     {
-      id: 1,
-      title: 'Module Capteur Environnemental (BME280) — PCB 30×30 mm',
+      id: 2,
+      title: 'Smart Cold-Chain Node (SCN) — Nœud de surveillance chaîne du froid',
       cat: 'Embarqué',
-      cover: '/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png',
-      description: 'Conception d’un module capteur environnemental I²C : schéma, PCB KiCad, BOM, Gerbers, rendu 3D. Intégration dans une carte principale de surveillance pour serres/agriculture connectée',
-      objectives: ['Adressage I2C configurable', 'Alim 5V→3.3V + protections', 'DRC validé et contraintes mécaniques respectées : PCB 30 × 30 mm, 4 fixations M2.'],
-      solutions: ['Choix du capteur BME280 pour compacité et précision' , 'implémentation en I²C.', 'Alimentation : LDO 3.3 V + condensateurs de découplage', 'Sérigraphie claire'],
-      results: ['Gerbers conformes aux fabricants (JLCPCB / PCBWay) prêts à la fabrication', 'BOM générée automatiquement', 'Rendu 3D prêt'],
-      images: ['/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png', '/projet_capteur_environnemental/capteur environnemental_face_filigrame.png'],
+      cover: '/projet_scn/smart_cold_chain_node_cover.jpg',
+      description: 'Développement d’un nœud IoT industriel de surveillance de chaîne du froid (température, humidité, porte, tension) avec communication CAN, journalisation FRAM SPI et simulation FreeRTOS sous Keil. Projet orienté fiabilité et traçabilité pour vitrines réfrigérées et chambres froides.',
+      objectives: [
+        'Acquisition périodique de température, humidité, tension et contact porte (1 Hz)',
+        'Journalisation robuste sur FRAM SPI avec ring buffer RAM et CRC',
+        'Communication CAN (250 kbps) et UART CLI pour maintenance et diagnostic',
+        'Gestion d’alarmes (buzzer, LED, relais) et modes RUN/DEGRADED/SAFE',
+        'Simulation logicielle complète sous Keil µVision (drivers mock, Event Recorder)'
+      ],
+      solutions: [
+        'Architecture multitâche sous FreeRTOS (tasks, queues, timers, watchdog)',
+        'MCU STM32F429ZI + capteur T/H I²C (SHT31/HDC1080) + FRAM SPI (MB85RS256B)',
+        'Implémentation CAN propriétaire léger (frames télémétrie, alarmes, config)',
+        'CLI UART 115200 bauds : commandes de diagnostic et configuration persistante',
+        'Builds distincts SIM/HW (Keil + CubeIDE) avec CI GitHub et tests unitaires Ceedling'
+      ],
+      results: [
+        'Système complet validé en simulation (Keil SIM) et sur carte Nucleo-F429ZI',
+        'Journal FRAM persistant et vérifié après coupure / watchdog reset',
+        'Trames CAN et UART conformes, sans perte sur 24 h (jitter <10 ms)',
+        'CI GitHub : build, unit tests, static analysis et documentation Doxygen automatisés',
+        'Release v1.0 avec code source MIT, README, schémas, captures et artefacts (.elf/.hex)'
+      ],
+      images: [
+        '/projet_scn/smart_cold_chain_node_cover.jpg',
+      ],
     },
+
     {
       id: 2,
       title: 'Refonte Web multilingue — Alam Raya',
@@ -536,7 +557,7 @@ function Portfolio() {
       link: 'https://www.alamrayabali.com/',
     },
     {
-    id: 2,
+    id: 3,
     title: "Contrôleur BLDC 24 V / 6 A avec télémétrie CAN — STM32G431",
     cat: "Embarqué",
     cover: "/projet_bldc_can/bldc_can_cover.png",
@@ -567,7 +588,18 @@ function Portfolio() {
     images: [
       "/projet_bldc_can/bldc_can_cover.png"
     ]
-  }
+    },
+    {
+      id: 4,
+      title: 'Module Capteur Environnemental (BME280) — PCB 30×30 mm',
+      cat: 'Embarqué',
+      cover: '/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png',
+      description: 'Conception d’un module capteur environnemental I²C : schéma, PCB KiCad, BOM, Gerbers, rendu 3D. Intégration dans une carte principale de surveillance pour serres/agriculture connectée',
+      objectives: ['Adressage I2C configurable', 'Alim 5V→3.3V + protections', 'DRC validé et contraintes mécaniques respectées : PCB 30 × 30 mm, 4 fixations M2.'],
+      solutions: ['Choix du capteur BME280 pour compacité et précision' , 'implémentation en I²C.', 'Alimentation : LDO 3.3 V + condensateurs de découplage', 'Sérigraphie claire'],
+      results: ['Gerbers conformes aux fabricants (JLCPCB / PCBWay) prêts à la fabrication', 'BOM générée automatiquement', 'Rendu 3D prêt'],
+      images: ['/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png', '/projet_capteur_environnemental/capteur environnemental_face_filigrame.png'],
+    }
 
   ]), []);
 
