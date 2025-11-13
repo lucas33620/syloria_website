@@ -130,13 +130,14 @@ function Hero() {
           <div className="inline-flex flex-col items-center mb-12 sm:mb-14">
             <h1 className="text-4xl sm:text-5xl font-extrabold leading-snug tracking-wide">− SYLORIA® −</h1>
             <p className="mt-2 text-xs tracking-widest uppercase font-semibold text-white/80">
-              Systèmes embarqués • Web/API • Sécurité
+              Systèmes embarqués • API • Sécurité
             </p>
           </div>
 
           {/* Titre + pitch + CTA */}
-          <h2 className="text-4xl sm:text-6xl font-extrabold leading-tight">
-            Une équipe tech indépendante qui transforme vos idées en solutions fiables
+          <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight">
+            Du concept à la mise en production : <br />
+            on construit pas à pas votre solution
           </h2>
 
           <div className="mt-8">
@@ -256,7 +257,7 @@ function About() {
 
   const services = [
     { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/microprocesseur.' },
-    { t: 'Web & APIs backend', img: '/Web_logo.png',        details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' },
+    { t: 'APIs backend', img: '/Web_logo.png',        details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' },
     ];
 
   const [showProfile, setShowProfile] = useState(false);
@@ -276,7 +277,7 @@ function About() {
                 Nous sommes 2 ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
               </p>
               <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et le <strong>web/API</strong>, avec une même promesse :
+                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et <strong>API</strong>, avec une même promesse :
                 des livrables propres, documentés et transmis avec pédagogie.
                 Nous travaillons en itérations courtes, avec transparence sur les risques, les coûts et les délais.
               </p>
@@ -514,7 +515,7 @@ function Portfolio() {
 
   const projects = useMemo(() => ([
     {
-      id: 2,
+      id: 1,
       title: 'Smart Cold-Chain Node (SCN) — Nœud de surveillance chaîne du froid',
       cat: 'Embarqué',
       cover: '/projet_scn/smart_cold_chain_node_cover.jpg',
@@ -824,7 +825,7 @@ const onSubmit = async (e) => {
                 >
                   <option value="">— Choisissez une option —</option>
                   <option value="Systèmes embarqués">Systèmes embarqués</option>
-                  <option value="Web & APIs backend">Web & APIs backend</option>
+                  <option value="APIs backend">Web & APIs backend</option>
                   <option value="Informations supplémentaires">Informations supplémentaires</option>
                   <option value="Autre">Autre (à préciser)</option>
                 </select>
