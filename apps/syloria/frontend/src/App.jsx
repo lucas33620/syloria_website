@@ -73,7 +73,7 @@ function Header() {
   }, [])
 
   const links = [
-    { id: 'audience',  label: 'Nos clients ?' },
+    { id: 'audience',  label: 'Mes clients ?' },
     { id: 'about',     label: 'À propos de nous' },
     { id: 'process',   label: 'Méthode' },
     { id: 'portfolio', label: 'Réalisations' },
@@ -221,7 +221,7 @@ function Audience() {
     <section id="audience" className="py-16" style={{backgroundColor: brand.cloud}}>
       <Container>
         <Reveal className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Nos clients</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Mes clients</h2>
           <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : Nous adaptons notre accompagnement à votre contexte métier et vos contraintes opérationnelles.</p>
         </Reveal>
 
@@ -249,110 +249,175 @@ function Audience() {
 }
 
 // ——————————————————————————————————————————
-// 🧭 3) ABOUT (flip + images)
+// 🧭 3) ABOUT — Premium 3 colonnes
 // ——————————————————————————————————————————
 function About() {
   const [flipped, setFlipped] = useState({});
   const toggle = (i) => setFlipped((f) => ({ ...f, [i]: !f[i] }));
 
   const services = [
-    { t: 'Systèmes embarqués', img: '/Electronic_logo.png', details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/microprocesseur.' },
-    { t: 'APIs backend', img: '/Web_logo.png',        details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' },
-    ];
+    { 
+      t: 'Systèmes embarqués',
+      img: '/Electronic_logo.png',
+      details: 'STM32, ROS2, FreeRTOS, drivers capteurs, bus CAN/UART/SPI, conception PCB (KiCad), intégration capteurs/microprocesseur.' 
+    },
+    { 
+      t: 'APIs backend',
+      img: '/Web_logo.png',
+      details: 'APIs sécurisées (FastAPI/Django), Swagger/OpenAPI, authentification, CI/CD légère, observabilité et métriques.' 
+    }
+  ];
 
   const [showProfile, setShowProfile] = useState(false);
 
   return (
     <section id="about" className="py-20" style={{ backgroundColor: brand.main }}>
-      <Container>
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <Container className="px-6">
+        <div className="grid lg:grid-cols-[auto_1px_1fr] gap-16 items-start">
+
+          {/* ——————————————
+              COLONNE 1 = PHOTO
+          —————————————— */}
           <Reveal>
-            <div className="text-left">
-              {/* <img src="/portrait-lucas.jpg" alt="Fondateur" className="hidden" /> */}
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Une équipe tech réactive portée par 2 ingénieurs
-              </h2>
-              <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Fondée par Lucas Baquey (Ingénieur Mines Saint-Étienne), SYLORIA® est une micro-agence freelance basée en Nouvelle-Aquitaine.
-                Nous sommes 2 ingénieurs complémentaires (Embarqué/API & Cybersécurité/IT) qui livrent des résultats concrets sans lourdeur de structure.
-              </p>
-              <p className="mt-4 text-white/90" style={{ textAlign: 'justify' }}>
-                Aujourd’hui, nous concentrons nos services sur l’<strong>embarqué</strong> et <strong>API</strong>, avec une même promesse :
-                des livrables propres, documentés et transmis avec pédagogie.
-                Nous travaillons en itérations courtes, avec transparence sur les risques, les coûts et les délais.
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+              <img
+                src="/portrait-lucas.jpg"
+                alt="Lucas Baquey"
+                className="w-48 h-48 rounded-2xl object-cover shadow-xl ring-2 ring-white/20 mb-6"
+              />
+
+              <h3 className="text-xl font-semibold text-white">Lucas Baquey</h3>
+              <p className="text-white/80 mt-1">
+                Ingénieur freelance Embarqué & APIs
               </p>
               <button
                 onClick={() => setShowProfile(true)}
                 className="mt-6 inline-flex rounded-xl px-6 py-3 font-semibold text-white hover:opacity-90"
-                style={{ backgroundColor: brand.coral }}>
+                style={{ backgroundColor: brand.coral }}
+              >
                 Découvrir le profil de Lucas
               </button>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 gap-6">
-            {services.map((s, i) => (
-              <Reveal key={i}>
-                {/* Conteneur flip */}
-                <div
-                  className={`flip-card ${flipped[i] ? 'is-flipped' : ''}`}
-                  style={{ height: 260, maxWidth: 320, margin: "0 auto" }}
-                >
-                  <div className="flip-card-inner">
-                    {/* Face avant */}
-                    <div className="flip-card-front flex flex-col items-center justify-center p-4">
-                      <img
-                        src={s.img}
-                        alt=""
-                        className="w-[120px] h-[120px] object-contain"
-                      />
-                      <h3 className="font-semibold text-gray-900 text-center mt-3">
-                        {s.t}
-                      </h3>
-                      <button
-                        onClick={() => toggle(i)}
-                        className="mt-3 text-sm font-medium text-white px-3 py-2 rounded-lg"
-                        style={{ backgroundColor: brand.violet }}
-                      >
-                        Plus de détails
-                      </button>
-                    </div>
-
-                    {/* Face arrière */}
-                    <div className="flip-card-back flex flex-col items-center justify-center p-4">
-                      <p className="text-sm text-gray-800 text-center">{s.details}</p>
-                      <button
-                        onClick={() => toggle(i)}
-                        className="mt-4 text-sm font-medium text-white px-3 py-2 rounded-lg"
-                        style={{ backgroundColor: brand.violet }}
-                      >
-                        Retour
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+          {/* ——————————————
+              DIVIDER VERTICAL (colonne 2)
+          —————————————— */}
+          <div className="hidden lg:flex justify-center h-full">
+            <div className="w-px bg-white/20 h-full"></div>
           </div>
+
+          {/* ——————————————
+              COLONNE 3 = TEXTE + CARTES
+          —————————————— */}
+          <Reveal>
+            <div>
+              {/* TEXTE */}
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                Votre expert embarqué & APIs
+              </h2>
+
+              <p className="mt-4 text-white/90 text-justify">
+                SYLORIA® est une structure freelance créée par Lucas Baquey
+                (Ingénieur Mines Saint-Étienne), spécialisée dans le développement de
+                systèmes embarqués, firmware et APIs robustes. J’interviens comme
+                expert unique et agile pour offrir une collaboration directe,
+                efficace et technique.
+              </p>
+
+              <p className="mt-4 text-white/90 text-justify">
+                Mon engagement : des livrables solides, une architecture maîtrisée,
+                un code documenté et un transfert complet pour vous rendre autonome
+                dès la mise en production. Je travaille en itérations courtes, avec
+                transparence sur les risques, les coûts et les délais.
+              </p>
+
+              {/* ————————
+                  CARTES sous le texte
+              ———————— */}
+              <div className="mt-12 flex flex-wrap justify-start gap-10">
+                {services.map((s, i) => (
+                  <Reveal key={i}>
+                    <div
+                      className={`flip-card ${flipped[i] ? 'is-flipped' : ''}`}
+                      style={{ height: 260, width: 300 }}
+                    >
+                      <div className="flip-card-inner">
+                        {/* Face avant */}
+                        <div className="flip-card-front flex flex-col items-center justify-center p-4">
+                          <img
+                            src={s.img}
+                            alt=""
+                            className="w-[100px] h-[100px] object-contain"
+                          />
+                          <h3 className="font-semibold text-gray-900 text-center mt-3">
+                            {s.t}
+                          </h3>
+                          <button
+                            onClick={() => toggle(i)}
+                            className="mt-3 text-sm font-medium text-white px-3 py-2 rounded-lg"
+                            style={{ backgroundColor: brand.violet }}
+                          >
+                            Plus de détails
+                          </button>
+                        </div>
+
+                        {/* Face arrière */}
+                        <div className="flip-card-back flex flex-col items-center justify-center p-4">
+                          <p className="text-sm text-gray-800 text-center">
+                            {s.details}
+                          </p>
+                          <button
+                            onClick={() => toggle(i)}
+                            className="mt-4 text-sm font-medium text-white px-3 py-2 rounded-lg"
+                            style={{ backgroundColor: brand.violet }}
+                          >
+                            Retour
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </Container>
 
-      {/* Styles flip (robustes, basés sur ton mécanisme) */}
+
+      {/* ————————————————
+          STYLES : Flip cards
+      ———————————————— */}
       <style>{`
-        .flip-card { perspective: 1000px; position: relative; border-radius: 1rem; }
+        .flip-card { 
+          perspective: 1000px; 
+          position: relative; 
+          border-radius: 1rem; 
+        }
         .flip-card-inner {
-          position: relative; width: 100%; height: 100%;
-          transform-style: preserve-3d; transition: transform .6s;
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform-style: preserve-3d;
+          transition: transform .6s;
           border-radius: 1rem;
         }
-        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back {
-          position: absolute; inset: 0; display:flex; flex-direction:column;
-          align-items:center; justify-content:center; padding:1.25rem;
-          background:#fff; border-radius:1rem; box-shadow: 0 1px 2px rgba(0,0,0,.06);
-          backface-visibility:hidden; -webkit-backface-visibility:hidden;
+        .flip-card.is-flipped .flip-card-inner { 
+          transform: rotateY(180deg); 
         }
-        .flip-card-back { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+          position: absolute; inset: 0;
+          display:flex; flex-direction:column;
+          align-items:center; justify-content:center;
+          padding:1.25rem;
+          background:#fff; border-radius:1rem;
+          box-shadow: 0 1px 2px rgba(0,0,0,.06);
+          backface-visibility:hidden;
+        }
+        .flip-card-back { 
+          transform: rotateY(180deg); 
+        }
       `}</style>
 
       {showProfile && (
@@ -473,7 +538,7 @@ function Process() {
     >
       <Container>
         <Reveal className="mb-10">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">Notre process</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">Mon process</h2>
         </Reveal>
 
         <ol className="space-y-8">
@@ -544,6 +609,7 @@ function Portfolio() {
       images: [
         '/projet_scn/smart_cold_chain_node_cover.jpg',
       ],
+      link: 'https://github.com/lucas33620/Smart-Cold-Chain-Node',
     },
 
     {
@@ -561,7 +627,7 @@ function Portfolio() {
     id: 3,
     title: "Contrôleur BLDC 24 V / 6 A avec télémétrie CAN — STM32G431",
     cat: "Embarqué",
-    cover: "/projet_bldc_can/bldc_can_cover.png",
+    cover: "/projet_bldc_can/Schema_BLDC.png",
     description:
       "Carte de contrôle moteur BLDC triphasé (DRV8313) avec retour courant/puissance (INA228), température NTC et communication CAN (TCAN1051). Microcontrôleur STM32G431, alimentation buck 24 V → 3.3 V. Schéma, PCB KiCad 2 couches, BOM, Gerbers et rendus 3D prêts fabrication.",
     objectives: [
@@ -587,7 +653,7 @@ function Portfolio() {
       "Profil CAN documenté (IDs, périodicités, échelles) prêt à l’intégration"
     ],
     images: [
-      "/projet_bldc_can/bldc_can_cover.png"
+      "/projet_bldc_can/Schema_BLDC.png"
     ]
     },
     {
@@ -612,7 +678,7 @@ function Portfolio() {
     <section id="portfolio" className="py-16" style={{ backgroundColor: brand.cloud }}>
       <Container>
         <Reveal className="text-center mb-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Nos réalisations</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Mon portfolio</h2>
           <p className="mt-3 text-gray-700">Cliquez pour ouvrir la fiche détaillée (objectifs, solutions, résultats, images) ou visiter le site si disponible.</p>
         </Reveal>
 
@@ -630,14 +696,17 @@ function Portfolio() {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 items-stretch">
           {visible.map((p) => (
             <Reveal key={p.id}>
-              <figure className="bg-white rounded-xl overflow-hidden ring-1 ring-gray-200 shadow-sm grid grid-rows-[auto,1fr,auto] min-h-[480px]">
+              <figure className="bg-white rounded-xl overflow-hidden ring-1 ring-gray-200 shadow-sm flex flex-col min-h-[480px]">
                 {/* Media height constant */}
-                <div className="aspect-[16/9] bg-gray-100">
-                  <img src={p.cover} alt={p.title} className="w-full h-full object-cover" />
+                <div className="w-full h-[180px] bg-gray-100 overflow-hidden">
+                <img 
+                  src={p.cover} 
+                  alt={p.title} 
+                  className="w-full h-full object-cover object-center" 
+                />
                 </div>
-
                 {/* Texte clampé pour garder la même hauteur */}
-                <figcaption className="p-4">
+                <figcaption className="p-4 flex-1 h-[120px]">
                   <h3 className="font-semibold text-gray-900 title--clamp-2">{p.title}</h3>
                   <p className="mt-1 text-sm text-gray-700 text--clamp-3">{p.description}</p>
                 </figcaption>
