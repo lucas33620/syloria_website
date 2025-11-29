@@ -1,0 +1,10 @@
+/* Container spacing handled via tailwind + inline styles */
+/* Just small improvements for smoothness */
+
+.swiper-slide {
+  height: auto;  /* Important: ensures equal card height */
+}
+
+.swiper {
+  padding-bottom: 10px;
+}
