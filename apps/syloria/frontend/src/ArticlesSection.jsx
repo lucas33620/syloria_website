@@ -12,10 +12,10 @@ export default function ArticlesSection() {
 
   const articles = [
     {
-      title: "Firmware & API : Pourquoi les penser ensemble en 2026",
-      intro: "Une approche unifiée pour les produits connectés modernes.",
-      pdf: "/articles/firmware-api-2026.pdf",
-      tag: "Embedded & APIs",
+      title: "CEM industrielle : comprendre le macro vs PCB",
+      intro: "Une approche opérationnelle pour concevoir des systèmes et cartes plus robustes et éviter les itérations coûteuses.",
+      pdf: "/articles/Comprendre la Compatibilité ÉlectroMagnétique (CEM) De l’intégration système à la carte électronique.pdf",
+      tag: "Electronique & CEM",
     },
   ];
 

@@ -61,7 +61,7 @@ function Header() {
   }, [])
 
   const links = [
-    { id: 'audience',  label: 'Mes clients ?' },
+    { id: 'audience',  label: 'Profils de clients' },
     { id: 'about',     label: 'À propos' },
     { id: 'process',   label: 'Méthode' },
     { id: 'portfolio', label: 'Réalisations' },
@@ -161,10 +161,10 @@ function Audience() {
     {
       t: '🚀 Entrepreneur',
       d: (
-        <>Passez de l’idée au prototype fonctionnel avec des outils simples et adaptés à vos moyens.</>
+        <>Passez de l’idée au prototype fonctionnel grâce à un accompagnement simple, efficace et adapté à vos moyens.</>
       ),
       bullets: [
-        <strong key="1">Création rapide de MVP (API, mini-site, formulaire)</strong>,
+        <strong key="1">Création rapide de MVP (API, mini-site, formulaire connecté)</strong>,
         <strong key="2">Bonnes pratiques cybersécurité (sauvegarde, authentification)</strong>,
         <strong key="3">Conseils techniques clairs pour prendre les bonnes décisions</strong>,
       ],
@@ -172,36 +172,36 @@ function Audience() {
     {
       t: '🌱 Startup',
       d: (
-        <>Vous avez une idée et une petite équipe ? Nous posons un socle technique solide pour faire évoluer rapidement votre projet.</>
+        <>Vous avez une idée et une petite équipe ? Je pose un socle technique solide pour faire évoluer rapidement votre projet.</>
       ),
       bullets: [
-        <strong key="1">MVP clé en main (API, backend robuste)</strong>,
-        <strong key="2">Bases embarquées & edge-ready (STM32, ROS2)</strong>,
-        <strong key="3">Solutions IoT de bout en bout (objet → données → tableau de bord)</strong>,
+        <strong key="1">MVP clés en main (API, backend robuste, documentation)</strong>,
+        <strong key="2">Bases embarquées & edge-ready (STM32, ROS2, drivers)</strong>,
+        <strong key="3">Solutions IoT complètes (objet → firmware → API → tableau de bord)</strong>,
       ],
     },
     {
       t: '⚙️ TPE-PME industrielle',
       d: (
-        <>Nous concevons vos produits avec une logique d’évolutivité native : modularité, tests et documentation inclus dès le départ.</>
+        <>Je conçois vos produits avec une logique d’évolutivité native : modularité, tests et documentation intégrés dès le départ.</>
       ),
       bullets: [
-        <strong key="1">Firmware embarqué (STM32, ROS2, drivers)</strong>,
-        <strong key="2">Dashboards & bancs de test pour la production (Python, Qt)</strong>,
-        <strong key="3">Projets IoT industriels (capteurs, supervision)</strong>,
+        <strong key="1">Firmware embarqué (STM32, ROS2, drivers bas niveau)</strong>,
+        <strong key="2">Dashboards & outils de test pour la production (Python, Qt)</strong>,
+        <strong key="3">Projets IoT industriels (capteurs, supervision, données)</strong>,
         <strong key="4">Accompagnement agile avec reporting clair</strong>,
       ],
     },
     {
       t: '🎯 Responsable produit',
       d: (
-        <>Nous transformons votre vision en livrables techniques clairs et exploitables.</>
+        <>Je transforme votre vision en livrables techniques clairs, fiables et directement exploitables par vos équipes.</>
       ),
       bullets: [
         <strong key="1">Alignement besoin ↔ technique (évite les incompréhensions)</strong>,
-        <strong key="2">APIs robustes documentées (FastAPI/Django + Swagger)</strong>,
-        <strong key="3">Suivi agile (sprint, priorisation, reporting)</strong>,
-        <strong key="4">CI/CD intégré pour des déploiements fiables</strong>,
+        <strong key="2">APIs robustes et documentées (FastAPI / Django + Swagger)</strong>,
+        <strong key="3">Suivi agile (sprints, priorisation, reporting régulier)</strong>,
+        <strong key="4">CI/CD intégrée pour des déploiements fiables</strong>,
       ],
     },
   ];
@@ -209,9 +209,28 @@ function Audience() {
   return (
     <section id="audience" className="py-16" style={{backgroundColor: brand.cloud}}>
       <Container>
-        <Reveal className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Mes clients</h2>
-          <p className="mt-3 text-gray-700">Entrepreneurs, startups, TPE‑PME industrielles, responsables produit : Nous adaptons notre accompagnement à votre contexte métier et vos contraintes opérationnelles.</p>
+        <Reveal className="text-center mb-10 max-w-3xl mx-auto">
+
+          {/* Barre décorative */}
+          <div
+            className="h-1.5 w-24 mx-auto rounded-full mb-8"
+            style={{ backgroundColor: brand.deep }}
+          />
+
+          {/* Titre */}
+          <h2 className="text-3xl sm:text-4xl font-bold text-black text-center">
+            Profils de clients
+          </h2>
+
+          <p className="mt-4 text-gray-700 leading-relaxed">
+            Je travaille en direct avec des entrepreneurs, des startups et des équipes techniques industrielles, en adaptant mon accompagnement à votre contexte et à vos contraintes opérationnelles.
+          </p>
+
+          {/* Timeline */}
+          <ol className="mt-16 space-y-12 max-w-4xl mx-auto">
+            {/* tes items… */}
+          </ol>
+
         </Reveal>
 
         <div className="mt-10 grid md:grid-cols-2 gap-6">
@@ -309,24 +328,23 @@ function About() {
             </div>
 
             {/* Texte principal */}
-            <div>
+             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Votre expert embarqué & APIs
+                Votre spécialiste embarqué & APIs
               </h2>
 
               <p className="mt-5 text-white/85 text-justify leading-relaxed">
-                SYLORIA® est une structure freelance spécialisée dans le développement de systèmes
-                embarqués, firmware STM32/ROS2, et APIs backend robustes. Mon approche : technique,
-                structurée et orientée livrables, avec une communication claire et un suivi méthodique.
-              </p>
-
-              <p className="mt-4 text-white/85 text-justify leading-relaxed">
-                Je conçois des architectures fiables, documentées et maintenables. L’objectif :
-                réduire vos risques, accélérer la mise en production, et vous rendre autonomes dès la
-                livraison grâce à un transfert complet et des revues régulières.
+                J’exerce sous ma structure <strong>SYLORIA®</strong>, dédiée au développement embarqué 
+                (STM32, ROS2), au firmware bas niveau et aux APIs backend exploitant les données terrain.
+                Mon approche est simple&nbsp;: expertise maîtrisée, communication directe et livrables 
+                opérationnels. Je conçois des modules fiables et maintenables avec avec des tests, des bonnes pratiques 
+                et une transparence à chaque étape.
+                <br /><br />
+                Mon objectif&nbsp;: <strong>réduire vos risques</strong>, 
+                <strong> accélérer votre mise en production </strong> 
+                <strong>et garantir un transfert clair, soutenu par des revues régulières.</strong>
               </p>
             </div>
-
           </div>
         </Reveal>
 
@@ -343,7 +361,7 @@ function About() {
                 <img
                   src={s.icon}
                   alt=""
-                  className="w-16 h-16 object-contain mx-auto sm:mx-0"
+                  className="w-24 h-24 object-contain mx-auto sm:mx-0"
                 />
                 <h3 className="mt-4 text-lg font-semibold text-gray-900 text-center sm:text-left">
                   {s.title}
@@ -527,7 +545,7 @@ function Process() {
           />
 
           {/* Titre */}
-          <h2 className="text-4xl sm:text-5xl font-bold text-white text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white text-center">
             Mon process
           </h2>
 
