@@ -159,49 +159,94 @@ function Hero() {
 function Audience() {
   const items = [
     {
-      t: '🚀 Entrepreneur',
+      t: '⚙️ PME / ETI industrielles',
       d: (
-        <>Passez de l’idée au prototype fonctionnel grâce à un accompagnement simple, efficace et adapté à vos moyens.</>
+        <>
+          Vous développez des équipements avec électronique embarquée et cherchez 
+          un renfort pour structurer cartes et firmwares en vue de l’industrialisation.
+        </>
       ),
       bullets: [
-        <strong key="1">Création rapide de MVP (API, mini-site, formulaire connecté)</strong>,
-        <strong key="2">Bonnes pratiques cybersécurité (sauvegarde, authentification)</strong>,
-        <strong key="3">Conseils techniques clairs pour prendre les bonnes décisions</strong>,
+        <strong key="1">
+          Conception / refonte de cartes & firmwares STM32 orientés production
+          (CEM, tests, maintenance long terme)
+        </strong>,
+        <strong key="2">
+          Architectures temps réel structurées (FreeRTOS, ROS2) avec
+          documentation claire pour vos équipes internes
+        </strong>,
+        <strong key="3">
+          Chaîne complète quand pertinent : firmware embarqué → API →
+          dashboard de supervision
+        </strong>,
       ],
     },
     {
-      t: '🌱 Startup',
+      t: '🤝 ESN & agences tech',
       d: (
-        <>Vous avez une idée et une petite équipe ? Je pose un socle technique solide pour faire évoluer rapidement votre projet.</>
+        <>
+          Vous devez livrer des projets embarqués / industriels pour vos
+          clients et il vous manque une expertise STM32 / ROS2 ciblée.
+        </>
       ),
       bullets: [
-        <strong key="1">MVP clés en main (API, backend robuste, documentation)</strong>,
-        <strong key="2">Bases embarquées & edge-ready (STM32, ROS2, drivers)</strong>,
-        <strong key="3">Solutions IoT complètes (objet → firmware → API → tableau de bord)</strong>,
+        <strong key="1">
+          Prise en charge d’un sous-système embarqué (drivers bas niveau, BMS,
+          brique ROS2 et migrations, module API)
+        </strong>,
+        <strong key="2">
+          Intégration fluide dans vos équipes : Git, revues de code, CI,
+          tickets, rituels agiles
+        </strong>,
+        <strong key="3">
+          Livrables propres et transférables : code testé, documentation,
+          handover clair vers vos équipes ou votre client final
+        </strong>,
       ],
     },
     {
-      t: '⚙️ TPE-PME industrielle',
+      t: '🏭 Startups / scale-up industrielles & robotiques',
       d: (
-        <>Je conçois vos produits avec une logique d’évolutivité native : modularité, tests et documentation intégrés dès le départ.</>
+        <>
+          Votre prototype fonctionne en labo et vous devez le transformer en
+          version industrialisable, fiable et maintenable.
+        </>
       ),
       bullets: [
-        <strong key="1">Firmware embarqué (STM32, ROS2, drivers bas niveau)</strong>,
-        <strong key="2">Dashboards & outils de test pour la production (Python, Qt)</strong>,
-        <strong key="3">Projets IoT industriels (capteurs, supervision, données)</strong>,
-        <strong key="4">Accompagnement agile avec reporting clair</strong>,
+        <strong key="1">
+          Passage du POC au produit : structuration du firmware
+          (drivers&nbsp;/ logique métier&nbsp;/ configuration)
+        </strong>,
+        <strong key="2">
+          Renforcement de la robustesse terrain : watchdog, logs, modes dégradés / safety, stratégie de tests.
+        </strong>,
+        <strong key="3">
+          Support à l’industrialisation : bancs de test simples, outils de
+          validation et de diagnostic pour la production
+        </strong>,
       ],
     },
     {
-      t: '🎯 Responsable produit',
+      t: '🎓 Centres de formation & écoles d’ingénieurs',
       d: (
-        <>Je transforme votre vision en livrables techniques clairs, fiables et directement exploitables par vos équipes.</>
+        <>
+          Vous cherchez un intervenant externe pour des modules très concrets
+          en systèmes embarqués, proches des attentes de l’industrie.
+        </>
       ),
       bullets: [
-        <strong key="1">Alignement besoin ↔ technique (évite les incompréhensions)</strong>,
-        <strong key="2">APIs robustes et documentées (FastAPI / Django + Swagger)</strong>,
-        <strong key="3">Suivi agile (sprints, priorisation, reporting régulier)</strong>,
-        <strong key="4">CI/CD intégrée pour des déploiements fiables</strong>,
+        <strong key="1">
+          Formations & TD orientés industrie : STM32, FreeRTOS, ROS2, bonnes
+          pratiques CEM...
+        </strong>,
+        <strong key="2">
+          TP et projets fil rouge sur cartes d’évaluation (Nucleo, etc.)
+          autour de cas industriels réalistes
+        </strong>,
+        <strong key="3">
+          Encadrement de projets : du cahier des charges au
+          prototype fonctionnel et testé
+        </strong>,
       ],
     },
   ];
@@ -233,10 +278,10 @@ function Audience() {
 
         </Reveal>
 
-        <div className="mt-10 grid md:grid-cols-2 gap-6">
+        <div className="mt-10 grid md:grid-cols-2 gap-6 items-stretch">
           {items.map((it, i) => (
             <Reveal key={i}>
-              <article className="bg-white rounded-2xl p-6 shadow ring-1 ring-gray-200 flex flex-col">
+              <article className="bg-white rounded-2xl p-6 shadow ring-1 ring-gray-200 flex flex-col h-full">
                 <header className="flex items-center justify-between gap-3">
                   <h3 className="text-lg font-semibold text-gray-900">{it.t}</h3>
                   <a href="#contact" className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full text-white" style={{background: brand.coral}} aria-label={`Contacter pour profil ${it.t}`}>
@@ -611,6 +656,7 @@ function Portfolio() {
         id: 1,
         title: "Smart Cold-Chain Node (SCN) — Nœud de surveillance chaîne du froid",
         cat: "Embarqué",
+        client: "INTERNE",
         cover: "/projet_scn/smart_cold_chain_node_cover.jpg",
         description:
           "Nœud IoT industriel pour surveiller la chaîne du froid (température, humidité, porte, tension) avec journalisation FRAM SPI, communication CAN et simulation FreeRTOS sous Keil.",
@@ -641,8 +687,9 @@ function Portfolio() {
 
       {
         id: 2,
-        title: "Refonte Web multilingue — Alam Raya",
+        title: "Refonte Web multilingue ",
         cat: "Web",
+        client: "ALAM RAYA BALI",
         cover: "/projet_alam_raya/AlamRaya_website.png",
         description:
           "Refonte du site vitrine en plateforme multilingue, responsive et optimisée SEO, orientée conversion.",
@@ -668,6 +715,7 @@ function Portfolio() {
         title:
           "Contrôleur BLDC 24 V / 6 A avec télémétrie CAN — STM32G431",
         cat: "Embarqué",
+        client: "INTERNE",
         cover: "/projet_bldc_can/Schema_BLDC.png",
         description:
           "Carte de contrôle moteur BLDC triphasé (DRV8313) avec télémétrie CAN, mesure de courant INA228, NTC et contraintes mécaniques industrielles.",
@@ -699,6 +747,7 @@ function Portfolio() {
         id: 4,
         title: "Module Capteur Environnemental (BME280) — PCB 30×30 mm",
         cat: "Embarqué",
+        client: "INTERNE",
         cover:
           "/projet_capteur_environnemental/capteur environnemental_coté_filigrame.png",
         description:
@@ -814,10 +863,16 @@ function Portfolio() {
                 >
                   {p.cat}
                 </span>
-
+                
+                {/* Badge client */}
                 <h3 className="font-semibold text-gray-900 title--clamp-2">
                   {p.title}
                 </h3>
+
+                <p className="mt-1 text-sm font-medium text-gray-500">
+                  Client : <span className="text-gray-900 font-semibold">{p.client}</span>
+                </p>
+
 
                 <p className="mt-2 text-sm text-gray-700 text--clamp-3">
                   {p.description}
