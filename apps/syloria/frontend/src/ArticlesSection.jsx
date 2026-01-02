@@ -25,8 +25,6 @@ export default function ArticlesSection() {
       className="py-28 relative"
       style={{ backgroundColor: brand.cloud }}
     >
-      {/* Soft top separator */}
-      <div className="absolute inset-x-0 top-0 h-10 shadow-[0_-15px_35px_rgba(0,0,0,0.08)] pointer-events-none"></div>
 
       <Container>
 

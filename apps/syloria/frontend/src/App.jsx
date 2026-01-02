@@ -22,7 +22,7 @@
 */
 
 import { useEffect, useMemo, useState, useRef } from 'react'
-import ArticlesSection from "./ArticlesSection";
+import Articles from "./ArticlesSection";
 import Container from "./Container";
 import { brand } from "./brand";
 
@@ -65,7 +65,7 @@ function Header() {
     { id: 'about',     label: 'À propos' },
     { id: 'process',   label: 'Méthode' },
     { id: 'portfolio', label: 'Réalisations' },
-    { id: 'ArticlesSection', label: 'Articles' },
+    { id: 'articles', label: 'Articles' },
     { id: 'contact',   label: 'Contact' },
   ];
 
@@ -125,7 +125,7 @@ function Hero() {
 
           {/* Titre + pitch + CTA */}
           <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-            Du concept à la mise en production : <br />
+            Du concept à la production : <br />
             on construit pas à pas votre solution
           </h2>
 
@@ -151,155 +151,149 @@ function Hero() {
   );
 }
 
-
-
 // ——————————————————————————————————————————
 // 👥 2) Pour qui ? (segmentation cibles)
 // ——————————————————————————————————————————
+
 function Audience() {
-  const items = [
+  // On sépare les données pour la clarté. 
+  // Les "tags" permettent une lecture technique rapide sans alourdir les puces.
+  const clients = [
     {
-      t: '⚙️ PME / ETI industrielles',
-      d: (
-        <>
-          Vous développez des équipements avec électronique embarquée et cherchez 
-          un renfort pour structurer cartes et firmwares en vue de l’industrialisation.
-        </>
-      ),
+      title: 'PME / ETI industrielles',
+      icon: '⚙️',
+      description: "Vous cherchez un renfort pour structurer vos cartes et firmwares en vue d'une industrialisation série.",
+      tags: ['STM32', 'FreeRTOS', 'CEM'],
       bullets: [
-        <strong key="1">
-          Conception / refonte de cartes & firmwares STM32 orientés production
-          (CEM, tests, maintenance long terme)
-        </strong>,
-        <strong key="2">
-          Architectures temps réel structurées (FreeRTOS, ROS2) avec
-          documentation claire pour vos équipes internes
-        </strong>,
-        <strong key="3">
-          Chaîne complète quand pertinent : firmware embarqué → API →
-          dashboard de supervision
-        </strong>,
-      ],
+        "Conception et refonte de cartes orientées **production**.",
+        "Architectures temps réel avec documentation complète.",
+        "Liaison complète : firmware → API → dashboard."
+      ]
     },
     {
-      t: '🤝 ESN & agences tech',
-      d: (
-        <>
-          Vous devez livrer des projets embarqués / industriels pour vos
-          clients et il vous manque une expertise STM32 / ROS2 ciblée.
-        </>
-      ),
+      title: 'ESN & agences tech',
+      icon: '🤝',
+      description: "Besoin d'une expertise pointue en embarqué pour renforcer vos équipes sur un projet client spécifique.",
+      tags: ['ROS2', 'Drivers', 'Code Review'],
       bullets: [
-        <strong key="1">
-          Prise en charge d’un sous-système embarqué (drivers bas niveau, BMS,
-          brique ROS2 et migrations, module API)
-        </strong>,
-        <strong key="2">
-          Intégration fluide dans vos équipes : Git, revues de code, CI,
-          tickets, rituels agiles
-        </strong>,
-        <strong key="3">
-          Livrables propres et transférables : code testé, documentation,
-          handover clair vers vos équipes ou votre client final
-        </strong>,
-      ],
+        "Prise en charge de **sous-systèmes critiques** (BMS, drivers).",
+        "Intégration fluide : Git, CI/CD, rituels agiles.",
+        "Livrables propres et **handover clair** vers vos clients."
+      ]
     },
     {
-      t: '🏭 Startups / scale-up industrielles & robotiques',
-      d: (
-        <>
-          Votre prototype fonctionne en labo et vous devez le transformer en
-          version industrialisable, fiable et maintenable.
-        </>
-      ),
+      title: 'Startups / Scale-up',
+      icon: '🏭',
+      description: "Votre prototype fonctionne en labo. Il faut maintenant en faire un produit fiable et maintenable.",
+      tags: ['POC to Product', 'Watchdog', 'Safety'],
       bullets: [
-        <strong key="1">
-          Passage du POC au produit : structuration du firmware
-          (drivers&nbsp;/ logique métier&nbsp;/ configuration)
-        </strong>,
-        <strong key="2">
-          Renforcement de la robustesse terrain : watchdog, logs, modes dégradés / safety, stratégie de tests.
-        </strong>,
-        <strong key="3">
-          Support à l’industrialisation : bancs de test simples, outils de
-          validation et de diagnostic pour la production
-        </strong>,
-      ],
+        "Structuration du firmware (logique métier vs drivers).",
+        "Renforcement de la **robustesse terrain** et des logs.",
+        "Support à la création de **bancs de test** de production."
+      ]
     },
     {
-      t: '🎓 Centres de formation & écoles d’ingénieurs',
-      d: (
-        <>
-          Vous cherchez un intervenant externe pour des modules très concrets
-          en systèmes embarqués, proches des attentes de l’industrie.
-        </>
-      ),
+      title: 'Écoles & Formations',
+      icon: '🎓',
+      description: "Vous cherchez un intervenant pour des modules concrets, alignés sur les besoins de l'industrie.",
+      tags: ['Training', 'TP Nucleo', 'Best Practices'],
       bullets: [
-        <strong key="1">
-          Formations & TD orientés industrie : STM32, FreeRTOS, ROS2, bonnes
-          pratiques CEM...
-        </strong>,
-        <strong key="2">
-          TP et projets fil rouge sur cartes d’évaluation (Nucleo, etc.)
-          autour de cas industriels réalistes
-        </strong>,
-        <strong key="3">
-          Encadrement de projets : du cahier des charges au
-          prototype fonctionnel et testé
-        </strong>,
-      ],
-    },
+        "Cours et TD orientés **systèmes embarqués modernes**.",
+        "Projets fil rouge sur cartes d'évaluation industrielles.",
+        "Encadrement du cahier des charges au prototype testé."
+      ]
+    }
   ];
 
+  // Helper pour styliser le texte en gras dans les puces sans utiliser dangerouslySetInnerHTML
+  const formatBullet = (text) => {
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, i) => 
+      part.startsWith('**') && part.endsWith('**') 
+        ? <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>
+        : part
+    );
+  };
+
   return (
-    <section id="audience" className="py-16" style={{backgroundColor: brand.cloud}}>
-      <Container>
-        <Reveal className="text-center mb-10 max-w-3xl mx-auto">
-
-          {/* Barre décorative */}
-          <div
-            className="h-1.5 w-24 mx-auto rounded-full mb-8"
-            style={{ backgroundColor: brand.deep }}
+    <section id="audience" className="py-20" style={{ backgroundColor: brand.cloud }}>
+      <div className="container mx-auto px-4">
+        
+        {/* En-tête de section */}
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <div 
+            className="h-1.5 w-20 mx-auto rounded-full mb-8" 
+            style={{ backgroundColor: brand.deep }} 
           />
-
-          {/* Titre */}
-          <h2 className="text-3xl sm:text-4xl font-bold text-black text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
             Profils de clients
           </h2>
-
-          <p className="mt-4 text-gray-700 leading-relaxed">
-            Je travaille en direct avec des entrepreneurs, des startups et des équipes techniques industrielles, en adaptant mon accompagnement à votre contexte et à vos contraintes opérationnelles.
+          <p className="text-lg text-gray-600 leading-relaxed">
+            Je travaille en direct avec des entrepreneurs et des équipes techniques pour adapter 
+            mon accompagnement à vos contraintes opérationnelles.
           </p>
+        </div>
 
-          {/* Timeline */}
-          <ol className="mt-16 space-y-12 max-w-4xl mx-auto">
-            {/* tes items… */}
-          </ol>
+        {/* Grille de cartes */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {clients.map((client, i) => (
+            <div 
+              key={i} 
+              className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col hover:shadow-md transition-shadow duration-300"
+            >
+              {/* Header de la carte */}
+              <div className="flex justify-between items-start mb-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">{client.icon}</span>
+                  <h3 className="text-xl font-bold text-gray-900 leading-tight">
+                    {client.title}
+                  </h3>
+                </div>
+                <a 
+                  href="#contact" 
+                  className="group flex items-center justify-center w-10 h-10 rounded-full transition-transform hover:scale-110"
+                  style={{ background: brand.coral }}
+                  title="Discuter de votre projet"
+                >
+                  <span className="text-white text-xl group-hover:translate-x-0.5 transition-transform">»</span>
+                </a>
+              </div>
 
-        </Reveal>
+              {/* Description courte */}
+              <p className="text-gray-600 mb-6 text-[15px] leading-relaxed">
+                {client.description}
+              </p>
 
-        <div className="mt-10 grid md:grid-cols-2 gap-6 items-stretch">
-          {items.map((it, i) => (
-            <Reveal key={i}>
-              <article className="bg-white rounded-2xl p-6 shadow ring-1 ring-gray-200 flex flex-col h-full">
-                <header className="flex items-center justify-between gap-3">
-                  <h3 className="text-lg font-semibold text-gray-900">{it.t}</h3>
-                  <a href="#contact" className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full text-white" style={{background: brand.coral}} aria-label={`Contacter pour profil ${it.t}`}>
-                    <span className="text-xl">»»</span>
-                  </a>
-                </header>
-                <p className="mt-3 text-gray-700">{it.d}</p>
-                <ul className="mt-3 text-sm text-gray-700 list-disc list-inside space-y-1">
-                  {it.bullets.map((b, j) => <li key={j}>{b}</li>)}
-                </ul>
-              </article>
-            </Reveal>
+              {/* Badges Techniques (lecture rapide) */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {client.tags.map((tag) => (
+                  <span 
+                    key={tag} 
+                    className="px-4 py-1.5 text-white text-[11px] font-bold rounded-full uppercase tracking-wide"
+                    style={{ backgroundColor: brand.deep }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Liste à puces épurée */}
+              <ul className="space-y-4 mt-auto">
+                {client.bullets.map((bullet, j) => (
+                  <li key={j} className="flex items-start gap-3 text-sm text-gray-600 leading-snug">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: brand.coral }} />
+                    <span>{formatBullet(bullet)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
-  )
+  );
 }
+
 
 // ——————————————————————————————————————————
 // 🔥 1) ZONE TAMPON (transition Clients → About)
@@ -653,36 +647,36 @@ function Portfolio() {
   const projects = useMemo(
     () => [
       {
-        id: 1,
-        title: "Smart Cold-Chain Node (SCN) — Nœud de surveillance chaîne du froid",
+        id: 1, 
+        title: "Mini Data Logger & Station Température (MISRA-C)",
         cat: "Embarqué",
         client: "INTERNE",
-        cover: "/projet_scn/smart_cold_chain_node_cover.jpg",
+        cover: "/projet_logger/temp_station_cover.jpg",
         description:
-          "Nœud IoT industriel pour surveiller la chaîne du froid (température, humidité, porte, tension) avec journalisation FRAM SPI, communication CAN et simulation FreeRTOS sous Keil.",
+          "Station d'acquisition thermique autonome sur STM32, axée sur la sûreté de fonctionnement (norme MISRA 2012) avec stockage Flash SPI et export de données formatées en JSON.",
         objectives: [
-          "Acquisition périodique T°, HR, tension et contact porte (1 Hz)",
-          "Journalisation robuste sur FRAM SPI avec ring buffer RAM et CRC",
-          "Communication CAN (250 kbps) et UART CLI pour maintenance",
-          "Gestion d’alarmes (buzzer, LED, relais) et modes RUN/DEGRADED/SAFE",
-          "Simulation logicielle complète sous Keil µVision (drivers mock, Event Recorder)",
+          "Mesure périodique de température via capteur externe I2C (LM75) ou ADC interne",
+          "Stockage robuste sur SPI Flash W25Q128 (16 MB) en mode 1-bit",
+          "Développement d'un scheduler coopératif pour la gestion des tâches (Sensor, Logger, CLI)",
+          "Respect strict des contraintes de sécurité logicielle (MISRA C:2012)",
+          "Interface de récupération de données via UART CLI (commandes GET, LAST, CLEAR)",
         ],
         solutions: [
-          "Architecture multitâche sous FreeRTOS (tasks, queues, timers, watchdog)",
-          "MCU STM32F429ZI + capteur T/H I²C (SHT31/HDC1080) + FRAM SPI (MB85RS256B)",
-          "Implémentation CAN propriétaire léger (frames télémétrie, alarmes, config)",
-          "CLI UART 115200 bauds : commandes de diagnostic et configuration persistante",
-          "Builds distincts SIM/HW (Keil + CubeIDE) avec CI GitHub et tests unitaires Ceedling",
+          "Architecture modulaire découplée (Drivers / Middlewares / App) sur STM32F4",
+          "Implémentation de drivers bas niveau (I2C, SPI, UART) sans blocage bloquant (polling optimisé/IT)",
+          "Audit de code systématique avec Cppcheck et correction/justification des déviations MISRA",
+          "Gestionnaire de mémoire Flash avec adressage circulaire pour la journalisation des mesures",
+          "Parser CLI léger pour l'export de télémétrie structurée au format JSON via liaison série",
         ],
         results: [
-          "Système validé en simulation et sur Nucleo-F429ZI",
-          "Journal FRAM persistant et vérifié après coupure / watchdog reset",
-          "Trames CAN et UART stables sur 24 h (jitter <10 ms)",
-          "CI GitHub : build, unit tests, analyse statique et documentation Doxygen automatisés",
-          "Release v1.0 avec code source MIT, README, schémas, captures et artefacts (.elf/.hex)",
+          "Codebase certifiée conforme aux règles de sécurité industrielle (Zéro warning Cppcheck)",
+          "Système de log fonctionnel sur 16 MB permettant des milliers d'entrées d'historique",
+          "Interface CLI stable à 115200 bauds permettant une extraction rapide vers un PC",
+          "Documentation technique incluant le rapport d'audit et les justifications de design",
+          "Projet portable et évolutif grâce à l'abstraction des couches matérielles (HAL/Modularité)",
         ],
-        images: ["/projet_scn/smart_cold_chain_node_cover.jpg"],
-        link: "https://github.com/lucas33620/Smart-Cold-Chain-Node",
+        images: ["/projet_logger/temp_station_cover.jpg"],
+        link: "https://github.com/lucas33620/stm32-temperature-logger.git",
       },
 
       {
@@ -855,14 +849,14 @@ function Portfolio() {
               <div className="p-5 flex flex-col flex-grow">
 
                 <span
-                  className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold mb-2"
+                  className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold mb-2 text-white"
                   style={{
-                    backgroundColor: `${brand.main}15`,
-                    color: brand.main,
+                    backgroundColor: brand.main,
                   }}
                 >
                   {p.cat}
                 </span>
+
                 
                 {/* Badge client */}
                 <h3 className="font-semibold text-gray-900 title--clamp-2">
@@ -1264,14 +1258,220 @@ function Contact() {
           </form>
         </Reveal>
 
-        {/** ——————- RGPD MODAL UNCHANGED ———————*/}
-        {showPrivacy && (<>{/* ... ta modale actuelle, inchangée ... */}</>)}
+        {/** ——————- RGPD MODAL ———————*/}
+        {showPrivacy && (
+          <div role="dialog" aria-modal="true" className="fixed inset-0 z-[200]">
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setShowPrivacy(false)}
+            />
+            <div className="relative z-[210] mx-auto my-8 w-[min(900px,92vw)]">
+              <div className="bg-white rounded-2xl shadow-2xl ring-1 ring-black/10 flex flex-col max-h-[85vh] overflow-hidden">
+
+                {/* Header */}
+                <div className="px-6 py-4 border-b flex items-center justify-between">
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    Politique de confidentialité – Formulaire de contact
+                  </h3>
+                  <button
+                    onClick={() => setShowPrivacy(false)}
+                    className="rounded-lg p-2 hover:bg-gray-100"
+                    aria-label="Fermer"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* Contenu scrollable */}
+                <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-b from-white to-gray-50 space-y-8 text-gray-800">
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Responsable du traitement</h4>
+                    <p className="space-y-1">
+                      <span className="block"><strong>SYLORIA®</strong> – Société par actions simplifiée</span>
+                      <span className="block">SIREN : 989 239 884 — SIRET (siège) : 989 239 884 00012 — TVA : FR08989239884</span>
+                      <span className="block">NAF / APE : 6202A — Conseil en systèmes et logiciels informatiques</span>
+                      <span className="block">Date de création : 15 juillet 2025</span>
+                      <span className="block">Adresse : 585 route de Marsas, 33620 Laruscade, France</span>
+                      <span className="block">Email de contact (RGPD & général) : <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline">contact@syloria.eu</a></span>
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Données collectées</h4>
+                    <p>Lorsque vous remplissez ce formulaire, nous recueillons :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>votre nom,</li>
+                      <li>votre adresse email,</li>
+                      <li>le nom de votre société (facultatif),</li>
+                      <li>le sujet de votre intérêt (ex. « Systèmes embarqués »),</li>
+                      <li><strong>le contenu de votre message</strong>,</li>
+                      <li><strong>des données techniques</strong> (date/heure, journaux serveur et adresse IP, aux seules fins de sécurité et d’acheminement).</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Finalités et bases légales</h4>
+                    <p>Vos données sont traitées afin de :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>répondre à votre demande d’information ou de devis,</li>
+                      <li>vous recontacter pour un suivi commercial directement lié à votre demande.</li>
+                    </ul>
+                    <p>
+                      Base légale : <strong>intérêt légitime</strong> (article 6(1)(f) du RGPD). Aucune décision automatisée ni profilage.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Durées de conservation</h4>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>Demandes et échanges commerciaux : <strong>2 ans après le dernier contact</strong>.</li>
+                      <li>Journaux techniques (logs/IP) : <strong>6 à 12 mois</strong> maximum.</li>
+                      <li>Des obligations légales spécifiques peuvent imposer d’autres durées.</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Destinataires & sous-traitants</h4>
+                    <p className="mb-2">
+                      Les informations sont destinées aux équipes internes de <strong>SYLORIA®</strong>. Lorsque cela est nécessaire, nous faisons appel à des prestataires agissant en notre nom.
+                    </p>  
+                    <p className="mt-2">
+                      Des <strong>accords de sous-traitance (DPA)</strong> sont mis en place avec nos prestataires, conformément à l’article 28 du RGPD.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Transferts hors Union européenne</h4>
+                    <p>
+                      Certains outils (ex. <strong>Notion</strong>) sont fournis par des sociétés établies aux <strong>États-Unis</strong>. Le cas échéant, les transferts sont encadrés par des
+                      <strong> Clauses Contractuelles Types (SCC)</strong> et/ou le <strong>Data Privacy Framework</strong>. Vous pouvez obtenir des informations sur ces garanties en nous écrivant.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Vos droits</h4>
+                    <p>Conformément au RGPD, vous disposez des droits :</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>d’accès,</li>
+                      <li>de rectification,</li>
+                      <li>d’effacement,</li>
+                      <li>de limitation,</li>
+                      <li>d’opposition (notamment à la prospection),</li>
+                      <li>de portabilité.</li>
+                    </ul>
+                    <p className="mt-2">
+                      Pour exercer vos droits : <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline"><strong>contact@syloria.eu</strong></a>.
+                      Nous répondons sous <strong>1 mois</strong> (délai prolongeable en cas de complexité).
+                    </p>
+                    <p>
+                      Vous pouvez également adresser une réclamation à la&nbsp;
+                      <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">CNIL</a>.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Sécurité</h4>
+                    <p>
+                      Mesures techniques et organisationnelles : chiffrement TLS, contrôle d’accès, sauvegardes, authentification multifacteur, journalisation et durcissement des services.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">
+                      Statistiques de visite – Google Analytics (mode « cookieless »)
+                    </h4>
+                    <p>
+                      Ce site utilise <strong>Google Analytics 4</strong> en mode <strong>sans cookies</strong> (<em>cookieless</em>) pour produire des statistiques agrégées d’audience.
+                      Aucun cookie <code>_ga</code> ni identifiant persistant n’est déposé sur votre appareil.
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 mt-2">
+                      <li>
+                        Des <strong>données techniques</strong> (ex. informations de navigation, adresse IP tronquée) peuvent être transmises à Google afin de générer des rapports d’audience.
+                      </li>
+                      <li>
+                        <strong>Base légale</strong> : intérêt légitime pour la seule mesure d’audience, sans reciblage publicitaire.
+                      </li>
+                      <li>
+                        <strong>Transferts</strong> : les données peuvent être traitées aux <strong>États-Unis</strong> (EU-US Data Privacy Framework / Clauses contractuelles types).
+                      </li>
+                      <li>
+                        Vous pouvez <strong>vous opposer</strong> à cette mesure d’audience en nous écrivant à{" "}
+                        <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline">contact@syloria.eu</a>.
+                      </li>
+                    </ul>
+                    <p className="mt-2">
+                      Politique de confidentialité de Google :{" "}
+                      <a
+                        href="https://policies.google.com/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        https://policies.google.com/privacy
+                      </a>.
+                    </p>
+                  </section>
+
+                  <section className="mt-6">
+                    <h4 className="font-semibold text-lg mb-2">
+                      Mesure d’efficacité publicitaire – Google Ads (sans cookies)
+                    </h4>
+                    <p>
+                      Nous utilisons <strong>Google Ads (conversion)</strong> pour mesurer l’efficacité de nos campagnes. La configuration est
+                      <strong> sans cookies</strong> (consentement par défaut <code>denied</code>) et n’implique pas de reciblage publicitaire.
+                      Un signal de conversion est envoyé à Google <strong>uniquement</strong> lorsque vous soumettez notre formulaire de contact.
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 mt-2">
+                      <li>
+                        <strong>Données transmises</strong> : URL et référent, informations techniques du navigateur (user-agent, résolution),
+                        adresse IP (traitée par Google) et, le cas échéant, l’identifiant de clic publicitaire (<code>gclid/gbraid/wbraid</code>) présent dans l’URL.
+                        <em> Aucune donnée nominative (nom, email, téléphone) n’est transmise à Google dans ce cadre.</em>
+                      </li>
+                      <li>
+                        <strong>Base légale</strong> : intérêt légitime (mesure et optimisation de l’efficacité publicitaire en B2B, sans cookies).
+                      </li>
+                      <li>
+                        <strong>Transferts</strong> : traitements possibles aux <strong>États-Unis</strong> (EU-US Data Privacy Framework / Clauses contractuelles types).
+                      </li>
+                      <li>
+                        <strong>Opposition</strong> : vous pouvez vous opposer à cette mesure en nous écrivant à{" "}
+                        <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline">contact@syloria.eu</a>.
+                      </li>
+                    </ul>
+                    <p className="mt-2 text-sm text-gray-600">
+                      {/* Si un jour activation des “Enhanced Conversions” (envoi haché d’email/téléphone à Google pour améliorer l’attribution),
+                        mettre à jour cette section et, si nécessaire, à recueillir un consentement adapté. */}
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-lg mb-2">Sources & mises à jour</h4>
+                    <p className="space-y-1">
+                      <span className="block">Sources : RCS • INSEE • RNES • HAL (extraits d’identification d’entreprise).</span>
+                      <span className="block">Dernière mise à jour : <strong>03/10/2025</strong>.</span>
+                    </p>
+                  </section>
+
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 border-t flex justify-end">
+                  <button
+                    onClick={() => setShowPrivacy(false)}
+                    className="px-4 py-2 rounded-lg font-medium bg-gray-100 hover:bg-gray-200"
+                  >
+                    Fermer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </Container>
     </section>
-  );
+  )
 }
-
-
 
 
 // ——————————————————————————————————————————
@@ -1340,10 +1540,10 @@ export function Footer({
             <div className="flex flex-col md:items-end gap-2 text-sm">
 
               <a 
-                href="mailto:contact@syloria.fr" 
+                href="mailto:contact@syloria.eu" 
                 className="hover:text-white transition text-white/80"
               >
-                contact@syloria.fr
+                contact@syloria.eu
               </a>
 
               <a
@@ -1365,11 +1565,12 @@ export function Footer({
 
               <button
                 type="button"
-                onClick={() => setShowCGV(true)}
+                onClick={() => window.open("/legal/CGV_Syloria.pdf", "_blank")}
                 className="underline underline-offset-2 hover:text-white transition text-white/80"
               >
                 CGV
               </button>
+
 
             </div>
           </div>
@@ -1404,8 +1605,8 @@ export function Footer({
                 <span className="block">Date de création : 15 juillet 2025</span>
                 <span className="block">
                   Email :{" "}
-                  <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">
-                    contact@syloria.fr
+                  <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline">
+                    contact@syloria.eu
                   </a>
                 </span>
               </p>
@@ -1550,8 +1751,8 @@ export function Footer({
               <h4 className="font-semibold text-lg mb-2">Signalement de contenu illicite</h4>
               <p>
                 Pour signaler un contenu manifestement illicite, écrivez à{" "}
-                <a href="mailto:contact@syloria.fr" className="text-blue-600 hover:underline">
-                  contact@syloria.fr
+                <a href="mailto:contact@syloria.eu" className="text-blue-600 hover:underline">
+                  contact@syloria.eu
                 </a>{" "}
                 en précisant l’URL et la nature du contenu.
               </p>
@@ -1583,7 +1784,7 @@ export default function App() {
         <Process />
         <Portfolio />
         <Tagline />
-        <ArticlesSection />
+        <Articles />
         <Contact />
       </main>
       <Footer brand={brand} />
