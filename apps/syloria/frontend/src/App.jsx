@@ -125,8 +125,7 @@ function Hero() {
 
           {/* Titre + pitch + CTA */}
           <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-            Du concept à la production : <br />
-            on construit pas à pas votre solution
+            L'ingénierie embarquée au service de vos décisions terrain
           </h2>
 
           <div className="mt-8">
@@ -159,51 +158,51 @@ function Audience() {
   // On sépare les données pour la clarté. 
   // Les "tags" permettent une lecture technique rapide sans alourdir les puces.
   const clients = [
-    {
-      title: 'PME / ETI industrielles',
-      icon: '⚙️',
-      description: "Vous cherchez un renfort pour structurer vos cartes et firmwares en vue d'une industrialisation série.",
-      tags: ['STM32', 'FreeRTOS', 'CEM'],
-      bullets: [
-        "Conception et refonte de cartes orientées **production**.",
-        "Architectures temps réel avec documentation complète.",
-        "Liaison complète : firmware → API → dashboard."
-      ]
-    },
-    {
-      title: 'ESN & agences tech',
-      icon: '🤝',
-      description: "Besoin d'une expertise pointue en embarqué pour renforcer vos équipes sur un projet client spécifique.",
-      tags: ['ROS2', 'Drivers', 'Code Review'],
-      bullets: [
-        "Prise en charge de **sous-systèmes critiques** (BMS, drivers).",
-        "Intégration fluide : Git, CI/CD, rituels agiles.",
-        "Livrables propres et **handover clair** vers vos clients."
-      ]
-    },
-    {
-      title: 'Startups / Scale-up',
-      icon: '🏭',
-      description: "Votre prototype fonctionne en labo. Il faut maintenant en faire un produit fiable et maintenable.",
-      tags: ['POC to Product', 'Watchdog', 'Safety'],
-      bullets: [
-        "Structuration du firmware (logique métier vs drivers).",
-        "Renforcement de la **robustesse terrain** et des logs.",
-        "Support à la création de **bancs de test** de production."
-      ]
-    },
-    {
-      title: 'Écoles & Formations',
-      icon: '🎓',
-      description: "Vous cherchez un intervenant pour des modules concrets, alignés sur les besoins de l'industrie.",
-      tags: ['Training', 'TP Nucleo', 'Best Practices'],
-      bullets: [
-        "Cours et TD orientés **systèmes embarqués modernes**.",
-        "Projets fil rouge sur cartes d'évaluation industrielles.",
-        "Encadrement du cahier des charges au prototype testé."
-      ]
-    }
-  ];
+  {
+    title: 'PME & ETI Industrielles',
+    icon: '⚙️',
+    description: "Modernisez vos solutions et sécurisez votre industrialisation. Vous possédez un savoir-faire métier fort et souhaitez franchir un cap technologique (IoT, Industrie 4.0).",
+    tags: ['ARM Cortex', 'MISRA', 'Standardisation'],
+    bullets: [
+      "Modernisation d'architecture : Transition sécurisée vers des environnements modernes comme **Zephyr RTOS**.",
+      "Conformité & Sûreté : Mise en application des règles **MISRA-C 2012** pour vos systèmes critiques.",
+      "Visibilité terrain : Liaison complète **Firmware → API → Dashboard** pour un monitoring en temps réel."
+    ]
+  },
+  {
+    title: 'ESN & Agences Tech',
+    icon: '🤝',
+    description: "Renforcez vos projets critiques avec une expertise pointue. Besoin d'un bras droit spécialisé pour débloquer des sous-systèmes complexes ou rassurer vos clients finaux.",
+    tags: ['ROS2', 'Linux Embarqué', 'Code Review', 'Fiabilisation'],
+    bullets: [
+      "Expertise Critique : Prise en charge de briques complexes (**BMS, drivers bas niveau, gestion d'énergie**).",
+      "Qualité de code : Revue de code approfondie et intégration de workflows **CI/CD embarqué**.",
+      "Transparence totale : Livrables documentés et **handover fluide** selon les rituels agiles de vos équipes."
+    ]
+  },
+  {
+    title: 'Startups & Scale-ups',
+    icon: '🏭',
+    description: "Passez du prototype au produit industriel sans compromis. Votre preuve de concept (POC) fonctionne, il est temps de construire une solution capable de tenir des années sur le terrain.",
+    tags: ['POC to Product', 'Robustesse terrain', 'Safety-first'],
+    bullets: [
+      "Durcissement (Hardening) : Structuration du firmware pour la robustesse (**Watchdogs, gestion des erreurs, logs**).",
+      "Optimisation Produit : Séparation stricte **logique métier / drivers** pour faciliter les évolutions futures.",
+      "Support Industrialisation : Accompagnement sur la création de **bancs de test** et la production série."
+    ]
+  },
+  {
+    title: 'Écoles & Formations',
+    icon: '🎓',
+    description: "Préparez la prochaine génération aux réalités de l'industrie. Des interventions concrètes basées sur les retours d'expérience du terrain.",
+    tags: ['Best Practices', 'Mentorat technique', 'Réalisme Industriel'],
+    bullets: [
+      "Systèmes Embarqués 2026 : Cours sur les **architectures firmware modernes** et les bonnes pratiques de codage sécurisé.",
+      "Projets Fil Rouge : Encadrement de **prototypes complets**, de la spécification fonctionnelle à l'intégration sur cible réelle.",
+      "Partage d'expérience : Études de cas réels pour illustrer les **contraintes du industrielles**."
+    ]
+  }
+];
 
   // Helper pour styliser le texte en gras dans les puces sans utiliser dangerouslySetInnerHTML
   const formatBullet = (text) => {
@@ -239,7 +238,8 @@ function Audience() {
           {clients.map((client, i) => (
             <div 
               key={i} 
-              className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col hover:shadow-md transition-shadow duration-300"
+              className="bg-white rounded-3xl p-8 flex flex-col transition-all duration-300 shadow-sm hover:shadow-lg"
+              style={{ border: `1.5px solid ${brand.deep}50` }} // "50" à la fin = environ 30% d'opacité
             >
               {/* Header de la carte */}
               <div className="flex justify-between items-start mb-6">
@@ -323,12 +323,12 @@ function About() {
     { 
       title: "Systèmes embarqués",
       icon: "/Electronic_logo.png",
-      desc: "STM32, ROS2, FreeRTOS, drivers capteurs, protocoles CAN/UART/SPI, conception PCB KiCad, validations, tests et intégration industrielle."
+      desc: "Développement robuste sur architectures ARM Cortex (STM32) sous Zephyr RTOS ou FreeRTOS. Application rigoureuse des standards MISRA-C 2012 pour garantir un code sécurisé et maintenable. Expertise complète : drivers bas niveau, protocoles industriels (CAN, SPI, UART) et conception PCB sous KiCad."
     },
     { 
-      title: "APIs backend",
+      title: "Bridge de Données & APIs",
       icon: "/Web_logo.png",
-      desc: "APIs sécurisées (FastAPI/Django), authentification, base de données, CI/CD, observabilité, monitoring, déploiement Linux optimisé."
+      desc: "Conception d'APIs haute performance (FastAPI, Django) pour l'exploitation et la valorisation des données terrain. Mise en place de Dashboards temps réel, d'outils d'observabilité et de monitoring. Infrastructure moderne avec déploiement Linux optimisé, authentification sécurisée et pipelines CI/CD."
     }
   ];
 
@@ -373,11 +373,11 @@ function About() {
               </h2>
 
               <p className="mt-5 text-white/85 text-justify leading-relaxed">
-                J’exerce sous ma structure <strong>SYLORIA®</strong>, dédiée au développement embarqué 
-                (STM32, ROS2), au firmware bas niveau et aux APIs backend exploitant les données terrain.
-                Mon approche est simple&nbsp;: expertise maîtrisée, communication directe et livrables 
-                opérationnels. Je conçois des modules fiables et maintenables avec avec des tests, des bonnes pratiques 
-                et une transparence à chaque étape.
+                Votre passerelle entre le terrain et la décision. J’interviens via 
+                ma structure SYLORIA® pour sécuriser les projets industriels où la fiabilité 
+                n'est pas une option. Mon expertise combine la rigueur du firmware critique 
+                (MISRA-C, Zephyr RTOS) et la puissance des APIs backend pour transformer vos 
+                données capteurs en leviers de pilotage.
                 <br /><br />
                 Mon objectif&nbsp;: <strong>réduire vos risques</strong>, 
                 <strong> accélérer votre mise en production </strong> 
@@ -394,8 +394,9 @@ function About() {
 
             {services.map((s, i) => (
               <div 
-                key={i}
-                className="bg-white rounded-2xl p-6 shadow-sm ring-1 ring-white/10 hover:shadow-md transition"
+                key={i} 
+                className="bg-white rounded-3xl p-8 flex flex-col transition-all duration-300 shadow-sm hover:shadow-lg"
+                style={{ border: `1.5px solid ${brand.deep}50` }} // "25" à la fin = environ 15% d'opacité
               >
                 <img
                   src={s.icon}
@@ -648,7 +649,7 @@ function Portfolio() {
     () => [
       {
         id: 1, 
-        title: "Mini Data Logger & Station Température (MISRA-C)",
+        title: "Station d'acquisition critique (MISRA-C) & Flux JSON",
         cat: "Embarqué",
         client: "INTERNE",
         cover: "/projet_logger/temp_station_cover.jpg",
@@ -834,8 +835,10 @@ function Portfolio() {
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8 items-stretch">
           {visible.map((p) => (
             <Reveal key={p.id}>
-              <figure className="bg-white rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition flex flex-col min-h-[520px]">
-
+              <figure 
+                className="bg-white rounded-2xl overflow-hidden flex flex-col min-h-[520px] transition-all duration-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:-translate-y-2"
+                style={{ border: `1.5px solid ${brand.deep}50` }} // "50" correspond à ~30% d'opacité
+              >
               {/* IMAGE FIXE */}
               <div className="w-full h-[220px] bg-gray-100 overflow-hidden">
                 <img
@@ -1152,7 +1155,8 @@ function Contact() {
           {/* Premium form container */}
           <form
             onSubmit={onSubmit}
-            className="mx-auto max-w-2xl bg-white rounded-2xl p-8 shadow-xl ring-1 ring-gray-200"
+            className="mx-auto max-w-2xl bg-white rounded-2xl p-8 transition-all duration-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-2xl"
+            style={{ border: `1.5px solid ${brand.deep}50` }}
           >
             <div className="grid sm:grid-cols-2 gap-6">
               <div>

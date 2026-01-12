@@ -67,8 +67,11 @@ export default function ArticlesSection() {
           {articles.map((a, i) => (
             <SwiperSlide key={i}>
               <article
-                className="rounded-2xl bg-white p-7 shadow-md ring-1 ring-gray-200 flex flex-col justify-between h-full transition hover:shadow-lg hover:-translate-y-1"
-                style={{ minHeight: "300px" }}
+                className="rounded-2xl bg-white p-7 flex flex-col justify-between h-full transition-all duration-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:-translate-y-2"
+                style={{ 
+                  minHeight: "300px",
+                  border: `1.5px solid ${brand.deep}45` // Bordure de 1.5px avec ~15% d'opacité
+                }}
               >
                 <span
                   className="px-3 py-1 text-xs font-semibold text-white rounded-full mb-4 shrink-0"
