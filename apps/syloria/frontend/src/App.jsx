@@ -199,7 +199,7 @@ function Audience() {
     bullets: [
       "Systèmes Embarqués 2026 : Cours sur les **architectures firmware modernes** et les bonnes pratiques de codage sécurisé.",
       "Projets Fil Rouge : Encadrement de **prototypes complets**, de la spécification fonctionnelle à l'intégration sur cible réelle.",
-      "Partage d'expérience : Études de cas réels pour illustrer les **contraintes du industrielles**."
+      "Partage d'expérience : Études de cas réels pour illustrer les **contraintes industrielles**."
     ]
   }
 ];
@@ -683,7 +683,7 @@ function Portfolio() {
       {
         id: 2,
         title: "Refonte Web multilingue ",
-        cat: "Web",
+        cat: "Backend",
         client: "ALAM RAYA BALI",
         cover: "/projet_alam_raya/AlamRaya_website.png",
         description:
@@ -795,7 +795,7 @@ function Portfolio() {
             Mon portfolio technique
           </h2>
           <p className="mt-4 text-gray-700 leading-relaxed">
-            Une sélection de projets embarqués, électroniques et web.  
+            Une sélection de projets embarqués, électroniques et API.  
             Cliquez sur un projet pour explorer les objectifs, l’architecture
             et les résultats obtenus.
           </p>
@@ -1212,7 +1212,7 @@ function Contact() {
                 >
                   <option value="">— Choisissez une option —</option>
                   <option value="Systèmes embarqués">Systèmes embarqués</option>
-                  <option value="APIs backend">Web & APIs backend</option>
+                  <option value="APIs backend">APIs backend</option>
                   <option value="Informations supplémentaires">Informations supplémentaires</option>
                   <option value="Autre">Autre (à préciser)</option>
                 </select>
